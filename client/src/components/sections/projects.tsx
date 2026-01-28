@@ -1,63 +1,56 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Github, ArrowRight } from "lucide-react";
+import { ExternalLink, Github, ArrowRight, Layers } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const projects = [
   {
     id: 1,
-    title: "Neon Dashboard",
-    description: "A futuristic analytics dashboard focusing on data visualization and real-time updates.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
-    tags: ["React", "D3.js", "Tailwind"],
-    links: { demo: "#", github: "#" }
+    title: "ERP System Enhancement",
+    description: "Lead backend developer for enterprise Warehouse Management and Logistics modules.",
+    tech: [".NET Core", "SQL Server", "REST API"],
+    icon: <Layers className="text-primary" size={40} />
   },
   {
     id: 2,
-    title: "3D Product Configurator",
-    description: "Interactive e-commerce tool allowing users to customize products in real-time 3D.",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop",
-    tags: ["Three.js", "React Fiber", "Zustand"],
-    links: { demo: "#", github: "#" }
+    title: "Home Automation System",
+    description: "IoT system integrating hardware sensors with a Python-powered backend logic.",
+    tech: ["Python", "C++", "IoT"],
+    icon: <Layers className="text-primary" size={40} />
   },
   {
     id: 3,
-    title: "Crypto Portfolio",
-    description: "Secure and minimal cryptocurrency tracker with live market data integration.",
-    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000&auto=format&fit=crop",
-    tags: ["Next.js", "Web3", "CoinGecko API"],
-    links: { demo: "#", github: "#" }
+    title: "Selenium Automation Bot",
+    description: "Custom bot for streamlined browser tasks with robust exception handling.",
+    tech: ["Python", "Selenium", "Automation"],
+    icon: <Layers className="text-primary" size={40} />
   },
   {
     id: 4,
-    title: "AI Chat Interface",
-    description: "Clean and responsive chat UI for large language models with streaming responses.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1000&auto=format&fit=crop",
-    tags: ["TypeScript", "OpenAI API", "Vercel SDK"],
-    links: { demo: "#", github: "#" }
+    title: "Private Cloud OpenStack",
+    description: "Deployment of scalable private cloud infrastructure on Ubuntu servers.",
+    tech: ["OpenStack", "Linux", "Cloud"],
+    icon: <Layers className="text-primary" size={40} />
   }
 ];
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24">
+    <section id="projects" className="py-32 bg-background">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16 flex justify-between items-end"
+          className="mb-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-6"
         >
           <div>
-            <h2 className="text-3xl md:text-5xl font-bold font-display mb-4">Featured Projects</h2>
-            <div className="h-1 w-20 bg-primary rounded-full" />
+            <h2 className="text-5xl md:text-7xl font-black font-display mb-4 uppercase">Selected Works</h2>
+            <div className="h-2 w-40 bg-primary" />
           </div>
-          <a href="#" className="hidden md:flex items-center gap-2 text-primary hover:text-white transition-colors">
-            View all projects <ArrowRight size={16} />
-          </a>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-10">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -65,48 +58,31 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
             >
-              <Card className="group overflow-hidden bg-card border-white/5 hover:border-primary/50 transition-all duration-500 h-full">
-                <div className="relative h-64 overflow-hidden">
-                  <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 mix-blend-overlay" />
-                  <img 
-                    src={project.image} 
-                    alt={project.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  
-                  {/* Overlay Actions */}
-                  <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 bg-black/40 backdrop-blur-sm">
-                    <a href={project.links.demo} className="p-3 bg-primary rounded-full text-black hover:scale-110 transition-transform">
-                      <ExternalLink size={20} />
-                    </a>
-                    <a href={project.links.github} className="p-3 bg-white rounded-full text-black hover:scale-110 transition-transform">
-                      <Github size={20} />
-                    </a>
-                  </div>
+              <Card className="group bg-card border-2 border-white/5 hover:border-primary transition-all duration-500 rounded-none p-10">
+                <div className="mb-8 p-4 bg-white/5 inline-block group-hover:bg-primary/20 transition-colors">
+                  {project.icon}
                 </div>
                 
-                <CardContent className="p-6">
-                  <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
-                  <p className="text-muted-foreground mb-4 line-clamp-2">{project.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map(tag => (
-                      <Badge key={tag} variant="secondary" className="bg-white/5 text-white/80 hover:text-primary hover:bg-white/10">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
+                <h3 className="text-4xl font-black mb-4 group-hover:text-primary transition-colors uppercase italic tracking-tighter">{project.title}</h3>
+                <p className="text-muted-foreground text-lg mb-8 leading-relaxed font-medium">{project.description}</p>
+                
+                <div className="flex flex-wrap gap-2 mb-10">
+                  {project.tech.map(tag => (
+                    <span key={tag} className="text-[10px] font-black tracking-[0.2em] uppercase px-3 py-1 bg-white/5 text-white/50 border border-white/10 group-hover:border-primary/30">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex gap-6">
+                  <a href="#" className="flex items-center gap-2 text-primary font-black uppercase tracking-widest text-sm hover:translate-x-2 transition-transform">
+                    Details <ArrowRight size={16} />
+                  </a>
+                </div>
               </Card>
             </motion.div>
           ))}
-        </div>
-        
-        <div className="mt-12 text-center md:hidden">
-          <a href="#" className="flex items-center justify-center gap-2 text-primary font-medium">
-            View all projects <ArrowRight size={16} />
-          </a>
         </div>
       </div>
     </section>

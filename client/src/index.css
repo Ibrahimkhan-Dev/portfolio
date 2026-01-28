@@ -43,43 +43,41 @@
   --color-ring: hsl(var(--ring));
 }
 
-/* DARK THEME DEFAULT */
+/* BOLD BLACK & ORANGE THEME */
 :root {
-  /* Deep Black #0B0B0F */
-  --background: 240 15% 5%;
-  /* Soft White #F5F5F5 */
-  --foreground: 0 0% 96%;
+  /* Deep Black #050505 */
+  --background: 0 0% 2%;
+  /* Pure White for readability */
+  --foreground: 0 0% 98%;
 
-  /* Secondary Background #111118 */
-  --card: 240 17% 8%;
-  --card-foreground: 0 0% 96%;
+  /* Slightly lighter black for cards */
+  --card: 0 0% 5%;
+  --card-foreground: 0 0% 98%;
 
-  --popover: 240 17% 8%;
-  --popover-foreground: 0 0% 96%;
+  --popover: 0 0% 5%;
+  --popover-foreground: 0 0% 98%;
 
-  /* Neon Yellow #FFD400 */
-  --primary: 48 100% 50%;
-  --primary-foreground: 240 15% 5%;
+  /* Vivid Orange #FF5722 */
+  --primary: 14 100% 57%;
+  --primary-foreground: 0 0% 0%;
 
-  --secondary: 240 10% 12%;
-  --secondary-foreground: 0 0% 96%;
+  --secondary: 0 0% 10%;
+  --secondary-foreground: 0 0% 98%;
 
-  /* Muted Gray #A0A0A0 */
-  --muted: 240 10% 12%;
-  --muted-foreground: 0 0% 63%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 65%;
 
-  --accent: 240 10% 12%;
-  --accent-foreground: 48 100% 50%;
+  --accent: 0 0% 12%;
+  --accent-foreground: 14 100% 57%;
 
-  --destructive: 0 62% 30%;
-  --destructive-foreground: 0 0% 96%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
 
-  /* Border rgba(255,255,255,0.08) approx */
-  --border: 240 10% 12%;
-  --input: 240 10% 12%;
-  --ring: 48 100% 50%;
+  --border: 0 0% 12%;
+  --input: 0 0% 12%;
+  --ring: 14 100% 57%;
 
-  --radius: 1rem; /* 16px for modern rounded look */
+  --radius: 0.5rem; /* Sharper corners for a bolder look */
 }
 
 @layer base {
@@ -90,23 +88,27 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display tracking-tight;
+    @apply font-display tracking-tight uppercase font-black;
   }
 }
 
 @layer utilities {
   .text-glow {
-    text-shadow: 0 0 20px hsla(var(--primary), 0.5);
+    text-shadow: 0 0 20px hsla(var(--primary), 0.6);
   }
   
   .border-glow {
-    box-shadow: 0 0 10px hsla(var(--primary), 0.3);
+    box-shadow: 0 0 15px hsla(var(--primary), 0.4);
   }
   
   .glass {
-    background: rgba(17, 17, 24, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(5, 5, 5, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+  }
+
+  .orange-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary)), #FF8A65);
   }
 }

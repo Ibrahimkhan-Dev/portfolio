@@ -1,69 +1,62 @@
 import { motion } from "framer-motion";
+import { Terminal, Cpu, Cloud, Settings, ShieldCheck } from "lucide-react";
 
-const skills = {
-  "Frontend": [
-    { name: "React / Next.js", level: 95 },
-    { name: "TypeScript", level: 90 },
-    { name: "Tailwind CSS", level: 98 },
-    { name: "Three.js / WebGL", level: 85 },
-    { name: "Framer Motion", level: 92 },
-  ],
-  "Backend": [
-    { name: "Node.js", level: 88 },
-    { name: "PostgreSQL", level: 80 },
-    { name: "GraphQL", level: 75 },
-    { name: "Python", level: 70 },
-  ],
-  "Design": [
-    { name: "Figma", level: 90 },
-    { name: "UI/UX Principles", level: 85 },
-    { name: "3D Modeling (Blender)", level: 60 },
-  ]
-};
+const skillCategories = [
+  {
+    name: "Languages",
+    skills: ["Python", ".NET Core", "C#", "C++", "JavaScript", "SQL", "PHP"],
+    icon: <Terminal size={24} />
+  },
+  {
+    name: "Frameworks",
+    skills: ["Django", "Flask", ".NET MVC", "React", "Bootstrap", "Entity Framework"],
+    icon: <Settings size={24} />
+  },
+  {
+    name: "Cloud & Dev",
+    skills: ["AWS", "Azure", "Docker", "OpenStack", "CI/CD", "Git", "Linux"],
+    icon: <Cloud size={24} />
+  },
+  {
+    name: "Automation",
+    skills: ["Selenium", "Unit Testing", "Jira", "Postman", "Agile", "Scrum"],
+    icon: <ShieldCheck size={24} />
+  }
+];
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-24 bg-secondary/30">
+    <section id="skills" className="py-32 bg-[#050505] overflow-hidden">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16 text-center"
+          className="mb-24 text-center"
         >
-          <h2 className="text-3xl md:text-5xl font-bold font-display mb-4">Technical Skills</h2>
-          <div className="h-1 w-20 bg-primary rounded-full mx-auto" />
+          <h2 className="text-5xl md:text-7xl font-black font-display mb-4 uppercase italic">Tech Stack</h2>
+          <div className="h-2 w-40 bg-primary mx-auto" />
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-12">
-          {Object.entries(skills).map(([category, items], catIndex) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {skillCategories.map((cat, catIndex) => (
             <motion.div
-              key={category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              key={cat.name}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: catIndex * 0.2 }}
+              transition={{ delay: catIndex * 0.1 }}
+              className="bg-card border-t-4 border-primary p-8 hover:bg-[#111] transition-all"
             >
-              <h3 className="text-xl font-bold mb-6 text-primary border-b border-white/10 pb-2 inline-block">
-                {category}
-              </h3>
+              <div className="text-primary mb-6 flex items-center justify-between">
+                <span className="font-black uppercase tracking-widest text-xs">{cat.name}</span>
+                {cat.icon}
+              </div>
               
-              <div className="space-y-6">
-                {items.map((skill, index) => (
-                  <div key={skill.name}>
-                    <div className="flex justify-between mb-2">
-                      <span className="font-medium text-foreground">{skill.name}</span>
-                      <span className="text-muted-foreground text-sm">{skill.level}%</span>
-                    </div>
-                    <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: 0.5 + (index * 0.1) }}
-                        className="h-full bg-primary shadow-[0_0_10px_rgba(255,212,0,0.5)]"
-                      />
-                    </div>
+              <div className="flex flex-wrap gap-2">
+                {cat.skills.map((skill) => (
+                  <div key={skill} className="px-3 py-1 bg-white/5 text-white/80 text-xs font-bold uppercase tracking-tight">
+                    {skill}
                   </div>
                 ))}
               </div>
