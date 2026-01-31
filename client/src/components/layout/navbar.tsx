@@ -3,13 +3,14 @@ import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+
 const navLinks = [
   { name: "About", href: "#about" },
   { name: "Experience", href: "#experience" },
   { name: "Projects", href: "#projects" },
-  { name: "Skills", href: "#skills" },
   { name: "Education", href: "#education" },
-  { name: "Credentials", href: "#certifications" },
+  { name: "Certifications", href: "#certifications" },
+  { name: "Skills", href: "#skills" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -51,9 +52,20 @@ export default function Navbar() {
       )}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <a href="/" className="text-3xl font-black font-display tracking-tighter text-white uppercase italic group">
-          IBRAHIM<span className="text-primary group-hover:animate-pulse transition-all">.</span>
-        </a>
+        <a
+  href="/"
+  className="flex items-center gap-3 text-3xl font-black font-display tracking-tighter text-white uppercase italic group"
+>
+  <img
+    src="/logo.png"
+    alt="MIK logo"
+    className="h-20 w-20 object-contain"
+  />
+  <span>
+    IBRAHIM<span className="text-primary group-hover:animate-pulse transition-all">.</span>
+  </span>
+</a>
+
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-10">
