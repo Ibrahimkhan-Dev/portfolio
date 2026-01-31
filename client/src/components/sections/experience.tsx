@@ -1,5 +1,12 @@
 import { motion } from "framer-motion";
-import { Briefcase, Calendar, CheckCircle2, MapPin, ExternalLink } from "lucide-react";
+import {
+  Briefcase,
+  Calendar,
+  CheckCircle2,
+  MapPin,
+  ExternalLink,
+  FileText,
+} from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -122,6 +129,19 @@ export default function Experience() {
                     "{exp.description}"
                   </p>
 
+                  {/* Internship/Experience letter button (opens image in new tab) */}
+                  {exp.letterUrl && (
+                    <a
+                      href={exp.letterUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black font-black uppercase tracking-widest hover:opacity-90 transition"
+                    >
+                      <FileText size={18} />
+                      View Internship Letter
+                    </a>
+                  )}
+
                   {/* Contributions */}
                   {(exp.contributions ?? []).length > 0 && (
                     <div className="space-y-4">
@@ -189,7 +209,6 @@ export default function Experience() {
           ))}
         </div>
       </div>
-      
     </section>
   );
 }

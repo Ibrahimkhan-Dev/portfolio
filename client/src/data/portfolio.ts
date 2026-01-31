@@ -39,6 +39,7 @@ export type Experience = {
   contributions?: string[];
   tech?: string[];
   links?: { label: string; url: string }[];
+  letterUrl?: string; 
 };
 
 /* =========================================================
@@ -84,6 +85,10 @@ export type Certification = {
    DATA
    ========================================================= */
 
+
+   /* =========================================================
+   Projects
+   ========================================================= */
 export const projects: Project[] = [
   {
     id: "erp-system",
@@ -141,6 +146,10 @@ export const projects: Project[] = [
   },
 ];
 
+   /* =========================================================
+   Experiences
+   ========================================================= */
+
 export const experiences: Experience[] = [
   {
     id: "epazz-fullstack",
@@ -191,19 +200,20 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    id: "spacedome-intern",
-    title: "Intern",
-    company: "Spacedome (NASTP)",
-    location: "Islamabad",
-    duration: "February 2023 - April 2023",
-    description:
-      "Worked on IoT-based automation and backend development tasks, contributing to scalable web apps and real-time monitoring systems.",
-    tech: ["Python", "Django", "Flask", "PostgreSQL", "IoT"],
-    contributions: [
-      "Designed and developed an IoT-based home automation system with a focus on real-time data acquisition and monitoring, demonstrating expertise in sensor integration and data streams.",
-      "Engineered scalable web applications using Django/Flask and PostgreSQL, establishing robust, structured data workflows capable of supporting future feature expansion and increased user load.",
-    ],
-  },
+  id: "spacedome-intern",
+  title: "Intern",
+  company: "Spacedome (NASTP)",
+  location: "Islamabad",
+  duration: "February 2023 - April 2023",
+  description:
+    "Worked on IoT-based automation and backend development tasks, contributing to scalable web apps and real-time monitoring systems.",
+  tech: ["Python", "Django", "Flask", "PostgreSQL", "IoT"],
+  contributions: [
+    "Designed and developed an IoT-based home automation system with a focus on real-time data acquisition and monitoring, demonstrating expertise in sensor integration and data streams.",
+    "Engineered scalable web applications using Django/Flask and PostgreSQL, establishing robust, structured data workflows capable of supporting future feature expansion and increased user load.",
+  ],
+  letterUrl: "/media/images/internship-letter.jpg", // ✅ add this
+},
   {
   id: "wp-developer-2021",
   title: "WordPress Developer",
@@ -226,6 +236,9 @@ export const experiences: Experience[] = [
 },
 ];
 
+   /* =========================================================
+  SkillCategory
+   ========================================================= */
 
 export const skillCategories: SkillCategory[] = [
   {
@@ -245,6 +258,10 @@ export const skillCategories: SkillCategory[] = [
     skills: ["Selenium", "Unit Testing", "Jira", "Postman", "Agile", "Scrum"],
   },
 ];
+
+   /* =========================================================
+  Education
+   ========================================================= */
 
 export const education: Education[] = [
   {
@@ -275,6 +292,9 @@ export const education: Education[] = [
   },
 ];
 
+   /* =========================================================
+ Certification
+   ========================================================= */
 export const certifications: Certification[] = [
   {
     id: "python-aptech",
