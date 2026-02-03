@@ -15,23 +15,37 @@ export default defineConfig(async () => {
       : [];
 
   return {
-    plugins: [react(), runtimeErrorOverlay(), tailwindcss(), metaImagesPlugin(), ...replitPlugins],
+    // ✅ Required for GitHub Pages (repo name = Portfolio)
+    base: "/Portfolio/",
+
+    plugins: [
+      react(),
+      runtimeErrorOverlay(),
+      tailwindcss(),
+      metaImagesPlugin(),
+      ...replitPlugins,
+    ],
+
     resolve: {
       alias: {
         "@": path.resolve(import.meta.dirname, "client", "src"),
         "@assets": path.resolve(import.meta.dirname, "attached_assets"),
       },
     },
+
     css: {
       postcss: {
         plugins: [],
       },
     },
+
     root: path.resolve(import.meta.dirname, "client"),
+
     build: {
       outDir: path.resolve(import.meta.dirname, "dist"),
       emptyOutDir: true,
     },
+
     server: {
       host: true,
       port: 5000,
