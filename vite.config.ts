@@ -15,7 +15,7 @@ export default defineConfig(async () => {
       : [];
 
   return {
-    // ✅ Required for GitHub Pages (repo name = Portfolio)
+    // ✅ GitHub Pages base (repo name = Portfolio)
     base: "/Portfolio/",
 
     plugins: [
@@ -30,12 +30,6 @@ export default defineConfig(async () => {
       alias: {
         "@": path.resolve(import.meta.dirname, "client", "src"),
         "@assets": path.resolve(import.meta.dirname, "attached_assets"),
-      },
-    },
-
-    css: {
-      postcss: {
-        plugins: [],
       },
     },
 
