@@ -196,44 +196,44 @@ export const experiences: Experience[] = [
     contributions: [
       "Developed and maintained Python backend services and robust RESTful APIs (Django/Flask) to power high-performance, data-driven applications.",
       "Implemented advanced data validation and testing protocols using Selenium, which significantly increased reliability and reduced manual effort across core application workflows.",
-      "Troubleshooted and resolved critical data inconsistencies, contributing directly to the design and deployment of highly scalable backend microservices capable of handling increased load.",
+      "Troubleshot and resolved critical data inconsistencies, contributing directly to the design and deployment of highly scalable backend microservices capable of handling increased load.",
     ],
   },
   {
-  id: "spacedome-intern",
-  title: "Intern",
-  company: "Spacedome (NASTP)",
-  location: "Islamabad",
-  duration: "February 2023 - April 2023",
-  description:
-    "Worked on IoT-based automation and backend development tasks, contributing to scalable web apps and real-time monitoring systems.",
-  tech: ["Python", "Django", "Flask", "PostgreSQL", "IoT"],
-  contributions: [
-    "Designed and developed an IoT-based home automation system with a focus on real-time data acquisition and monitoring, demonstrating expertise in sensor integration and data streams.",
-    "Engineered scalable web applications using Django/Flask and PostgreSQL, establishing robust, structured data workflows capable of supporting future feature expansion and increased user load.",
-  ],
-  letterUrl: "/media/images/internship-letter.jpg", // ✅ add this
-},
+    id: "spacedome-intern",
+    title: "Intern",
+    company: "Spacedome (NASTP)",
+    location: "Islamabad",
+    duration: "February 2023 - April 2023",
+    description:
+      "Worked on IoT-based automation and backend development tasks, contributing to scalable web apps and real-time monitoring systems.",
+    tech: ["Python", "Django", "Flask", "PostgreSQL", "IoT"],
+    contributions: [
+      "Designed and developed an IoT-based home automation system with a focus on real-time data acquisition and monitoring, demonstrating expertise in sensor integration and data streams.",
+      "Engineered scalable web applications using Django/Flask and PostgreSQL, establishing robust, structured data workflows capable of supporting future feature expansion and increased user load.",
+    ],
+    letterUrl: "/media/images/internship-letter.jpg",
+  },
   {
-  id: "wp-developer-2021",
-  title: "WordPress Developer",
-  company: "Freelance",
-  location: "Remote",
-  duration: "September 2021 - December 2021",
-  description:
-    "Delivered responsive, SEO-optimised websites for clients in the health, insurance, and digital marketing industries. Specialised in front-end customisation, theme integration, plugin configuration, and performance tuning.",
-  tech: ["WordPress", "Elementor", "HTML", "CSS", "SEO", "Performance"],
-  contributions: [
-    "Built and delivered responsive, SEO-optimised WordPress websites across health, insurance, and digital marketing niches.",
-    "Handled front-end customisation, theme integration, plugin configuration, and performance tuning to improve user experience and load times.",
-    "Implemented lead-generation flows, conversion tracking, and scalable content sections for marketing and blog growth.",
-  ],
-  links: [
-    { label: "GrooveHubMarketing.com", url: "https://groovehubmarketing.com/" },
-    { label: "TopInsuranceDeals.com", url: "https://topinsurancedeals.com/index.html" },
-    { label: "LinkLifeHealth.com", url: "https://linklifehealth.com/" },
-  ],
-},
+    id: "wp-developer-2021",
+    title: "WordPress Developer",
+    company: "Freelance",
+    location: "Remote",
+    duration: "September 2021 - December 2021",
+    description:
+      "Delivered responsive, SEO-optimised websites for clients in the health, insurance, and digital marketing industries. Specialised in front-end customisation, theme integration, plugin configuration, and performance tuning.",
+    tech: ["WordPress", "Elementor", "HTML", "CSS", "SEO", "Performance"],
+    contributions: [
+      "Built and delivered responsive, SEO-optimised WordPress websites across health, insurance, and digital marketing niches.",
+      "Handled front-end customisation, theme integration, plugin configuration, and performance tuning to improve user experience and load times.",
+      "Implemented lead-generation flows, conversion tracking, and scalable content sections for marketing and blog growth.",
+    ],
+    links: [
+      { label: "GrooveHubMarketing.com", url: "https://groovehubmarketing.com/" },
+      { label: "TopInsuranceDeals.com", url: "https://topinsurancedeals.com/index.html" },
+      { label: "LinkLifeHealth.com", url: "https://linklifehealth.com/" },
+    ],
+  },
 ];
 
    /* =========================================================

@@ -1,21 +1,31 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
+function isTouchDevice() {
+  return typeof window !== "undefined" && (
+    "ontouchstart" in window || navigator.maxTouchPoints > 0
+  );
+}
+
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
+    if (isTouchDevice()) {
+      setIsTouch(true);
+      return;
+    }
+
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
     const handleMouseOver = (e: MouseEvent) => {
-      if ((e.target as HTMLElement).tagName === "BUTTON" || (e.target as HTMLElement).tagName === "A") {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
-      }
+      const target = e.target as HTMLElement;
+      const interactive = target.closest("button, a, [role='link'], [role='button']");
+      setIsHovering(!!interactive);
     };
 
     window.addEventListener("mousemove", updateMousePosition);
@@ -26,6 +36,8 @@ export default function CustomCursor() {
       window.removeEventListener("mouseover", handleMouseOver);
     };
   }, []);
+
+  if (isTouch) return null;
 
   return (
     <>

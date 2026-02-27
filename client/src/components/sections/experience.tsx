@@ -4,12 +4,12 @@ import {
   Calendar,
   CheckCircle2,
   MapPin,
-  ExternalLink,
   FileText,
 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -20,22 +20,22 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="py-32 bg-[#080808] relative border-y border-white/5"
+      className="py-16 sm:py-24 md:py-32 bg-[#080808] relative border-y border-white/5"
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="mb-20"
+          className="mb-12 sm:mb-20"
         >
-          <h2 className="text-5xl md:text-7xl font-black font-display mb-4 text-white uppercase italic">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-black font-display mb-4 text-white uppercase italic">
             Career Path
           </h2>
-          <div className="h-2 w-40 bg-primary" />
+          <div className="h-2 w-32 sm:w-40 bg-primary" />
         </motion.div>
 
-        <div className="grid gap-8">
+        <div className="grid gap-6 sm:gap-8">
           {experiences.map((exp, index) => (
             <Dialog key={exp.id}>
               <DialogTrigger asChild>
@@ -44,47 +44,40 @@ export default function Experience() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="group bg-card border-l-8 border-primary p-8 md:p-12 hover:bg-[#111] transition-all cursor-pointer"
+                  className="group bg-card border-l-4 sm:border-l-8 border-primary p-5 sm:p-8 md:p-12 hover:bg-[#111] transition-all cursor-pointer"
                 >
-                  {/* Top Row */}
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
-                      {/* Title */}
-                      <h3 className="text-3xl font-black text-white group-hover:text-primary transition-colors uppercase">
+                      <h3 className="text-2xl sm:text-3xl font-black text-white group-hover:text-primary transition-colors uppercase">
                         {exp.title}
                       </h3>
 
-                      {/* Company + Location */}
-                      <div className="flex flex-wrap items-center gap-x-8 gap-y-2 mt-2 uppercase tracking-tight">
-                        {/* Company */}
-                        <div className="flex items-center gap-2 text-primary font-bold text-xl">
-                          <Briefcase size={20} />
+                      <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-8 gap-y-2 mt-2 uppercase tracking-tight">
+                        <div className="flex items-center gap-2 text-primary font-bold text-base sm:text-xl">
+                          <Briefcase size={18} className="shrink-0" />
                           <span>{exp.company}</span>
                         </div>
 
-                        {/* Location */}
                         {exp.location && (
-                          <div className="flex items-center gap-2 text-white/70 font-black text-base">
-                            <MapPin size={18} className="text-primary" />
+                          <div className="flex items-center gap-2 text-white/70 font-black text-sm sm:text-base">
+                            <MapPin size={16} className="text-primary shrink-0" />
                             <span>{exp.location}</span>
                           </div>
                         )}
                       </div>
                     </div>
 
-                    {/* Duration */}
-                    <div className="flex items-center gap-2 text-sm font-black text-black bg-primary px-4 py-2 uppercase">
-                      <Calendar size={18} />
+                    <div className="flex items-center gap-2 text-xs sm:text-sm font-black text-black bg-primary px-3 sm:px-4 py-2 uppercase self-start md:self-auto whitespace-nowrap">
+                      <Calendar size={16} className="shrink-0" />
                       {exp.duration}
                     </div>
                   </div>
 
-                  {/* Skills / Tech badges */}
-                  <div className="flex flex-wrap gap-3 mt-8">
+                  <div className="flex flex-wrap gap-2 sm:gap-3 mt-6 sm:mt-8">
                     {(exp.tech ?? []).map((t) => (
                       <span
                         key={t}
-                        className="text-xs font-black px-4 py-2 bg-white/5 text-white/70 border border-white/10 uppercase tracking-widest group-hover:border-primary/50 transition-colors"
+                        className="text-[10px] sm:text-xs font-black px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 text-white/70 border border-white/10 uppercase tracking-widest group-hover:border-primary/50 transition-colors"
                       >
                         {t}
                       </span>
@@ -93,23 +86,20 @@ export default function Experience() {
                 </motion.div>
               </DialogTrigger>
 
-              {/* Dialog (Details on click) */}
-              <DialogContent className="bg-[#0b0b0b] border-2 border-primary/50 text-white max-w-3xl rounded-none">
+              <DialogContent className="bg-[#0b0b0b] border-2 border-primary/50 text-white max-w-3xl rounded-none max-h-[85vh] overflow-y-auto">
                 <DialogHeader>
-                  <DialogTitle className="text-4xl font-black uppercase italic text-primary">
+                  <DialogTitle className="text-2xl sm:text-4xl font-black uppercase italic text-primary">
                     {exp.title}
                   </DialogTitle>
-
-                  {/* Company + Location + Duration */}
-                  <p className="text-xl font-bold uppercase tracking-tight text-white/60 flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <DialogDescription className="text-sm sm:text-xl font-bold uppercase tracking-tight text-white/60 flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-2">
                     <span className="flex items-center gap-2">
-                      <Briefcase size={18} className="text-primary" />
+                      <Briefcase size={16} className="text-primary shrink-0" />
                       <span>{exp.company}</span>
                     </span>
 
                     {exp.location && (
                       <span className="flex items-center gap-2 text-white/50">
-                        <MapPin size={18} className="text-primary" />
+                        <MapPin size={16} className="text-primary shrink-0" />
                         <span>{exp.location}</span>
                       </span>
                     )}
@@ -117,35 +107,32 @@ export default function Experience() {
                     <span className="text-white/30">|</span>
 
                     <span className="flex items-center gap-2">
-                      <Calendar size={18} className="text-primary" />
+                      <Calendar size={16} className="text-primary shrink-0" />
                       <span>{exp.duration}</span>
                     </span>
-                  </p>
+                  </DialogDescription>
                 </DialogHeader>
 
-                <div className="mt-8 space-y-6">
-                  {/* Description only in dialog */}
-                  <p className="text-xl text-muted-foreground font-medium leading-relaxed italic border-l-4 border-primary pl-4">
+                <div className="mt-6 sm:mt-8 space-y-5 sm:space-y-6">
+                  <p className="text-base sm:text-xl text-muted-foreground font-medium leading-relaxed italic border-l-4 border-primary pl-4">
                     "{exp.description}"
                   </p>
 
-                  {/* Internship/Experience letter button (opens image in new tab) */}
                   {exp.letterUrl && (
                     <a
                       href={exp.letterUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black font-black uppercase tracking-widest hover:opacity-90 transition"
+                      className="inline-flex items-center gap-2 px-4 sm:px-6 py-3 bg-primary text-black font-black uppercase tracking-widest text-sm sm:text-base hover:opacity-90 transition"
                     >
                       <FileText size={18} />
                       View Internship Letter
                     </a>
                   )}
 
-                  {/* Contributions */}
                   {(exp.contributions ?? []).length > 0 && (
-                    <div className="space-y-4">
-                      <h4 className="text-2xl font-black uppercase italic border-b border-white/10 pb-2">
+                    <div className="space-y-3 sm:space-y-4">
+                      <h4 className="text-xl sm:text-2xl font-black uppercase italic border-b border-white/10 pb-2">
                         Key Contributions
                       </h4>
 
@@ -153,11 +140,11 @@ export default function Experience() {
                         {(exp.contributions ?? []).map((detail, i) => (
                           <li
                             key={i}
-                            className="flex items-start gap-3 text-lg font-medium text-white/80"
+                            className="flex items-start gap-3 text-sm sm:text-lg font-medium text-white/80"
                           >
                             <CheckCircle2
                               className="text-primary mt-1 flex-shrink-0"
-                              size={20}
+                              size={18}
                             />
                             {detail}
                           </li>
@@ -166,10 +153,9 @@ export default function Experience() {
                     </div>
                   )}
 
-                  {/* Live Projects Links (Only if exist) */}
                   {(exp.links ?? []).length > 0 && (
-                    <div className="space-y-4">
-                      <h4 className="text-2xl font-black uppercase italic border-b border-white/10 pb-2">
+                    <div className="space-y-3 sm:space-y-4">
+                      <h4 className="text-xl sm:text-2xl font-black uppercase italic border-b border-white/10 pb-2">
                         Live Projects
                       </h4>
 
@@ -180,9 +166,8 @@ export default function Experience() {
                             href={l.url}
                             target="_blank"
                             rel="noreferrer"
-                            className="flex items-center gap-2 text-primary font-bold underline underline-offset-4 hover:text-white transition-colors text-lg"
+                            className="flex items-center gap-2 text-primary font-bold underline underline-offset-4 hover:text-white transition-colors text-base sm:text-lg break-all"
                           >
-                            <ExternalLink size={18} />
                             {l.label}
                           </a>
                         ))}
@@ -190,13 +175,12 @@ export default function Experience() {
                     </div>
                   )}
 
-                  {/* Tech badges inside dialog */}
                   {(exp.tech ?? []).length > 0 && (
-                    <div className="flex flex-wrap gap-3 pt-4">
+                    <div className="flex flex-wrap gap-2 sm:gap-3 pt-4">
                       {(exp.tech ?? []).map((t) => (
                         <span
                           key={t}
-                          className="px-4 py-2 bg-primary/10 text-primary border border-primary/20 text-xs font-black uppercase tracking-widest"
+                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/10 text-primary border border-primary/20 text-[10px] sm:text-xs font-black uppercase tracking-widest"
                         >
                           {t}
                         </span>
