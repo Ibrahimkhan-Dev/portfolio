@@ -5,12 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "wouter";
 
 const navLinks = [
-  { name: "About", href: "#about" },
-  { name: "Experience", href: "#experience" },
+  { name: "Work", href: "#experience" },
   { name: "Projects", href: "#projects" },
-  { name: "Education", href: "#education" },
-  { name: "Certifications", href: "#certifications" },
-  { name: "Skills", href: "#skills" },
+  { name: "Credentials", href: "#credentials" },
   { name: "Contact", href: "#contact" },
 ];
 
