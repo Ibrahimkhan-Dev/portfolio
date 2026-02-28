@@ -297,31 +297,120 @@ export const education: Education[] = [
    ========================================================= */
 export const certifications: Certification[] = [
   {
-    id: "python-aptech",
-    title: "Python Programming",
-    issuer: "Aptech",
-    year: "2019",
+    id: "ews-workshop-sdpi-2025",
+    title: "Early Warning System Workshop",
+    issuer: "Sustainable Development Policy Institute (SDPI)",
+    year: "2025",
     description:
-      "Advanced proficiency in Python, covering scripting, data analysis, and backend development.",
-    skills: ["Python", "Automation", "REST APIs", "Data Scraping", "Backend Logic"],
-    // credentialUrl: "https://..."
+      "Issued Nov 2025. Workshop covering community-based monitoring and Early Warning Systems (EWS), aligned with real-time data acquisition and IoT-based systems design.",
+    skills: ["System Monitoring", "Data Acquisition", "Internet of Things (IoT)"],
+    credentialUrl: "/media/Certificates/early-warning-system.pdf",
+
   },
   {
-    id: "cloud-pseb",
-    title: "Cloud Infrastructure",
+    id: "risk-thinking-sdpi-2025",
+    title: "Safeguarding the Future: Integrating Risk Thinking into Development Planning",
+    issuer: "Sustainable Development Policy Institute (SDPI)",
+    year: "2025",
+    description:
+      "Issued Nov 2025. Capacity building workshop focused on integrating risk assessment and strategic foresight into development planning and system architecture.",
+    skills: ["Risk Management", "Strategic Planning", "System Architecture"],
+    credentialUrl: "/media/Certificates/safeguard-the-future.pdf",
+  },
+  {
+    id: "ai-policy-sdpi-2025",
+    title:
+      "Thinking Beyond Knowledge Dissemination in the Age of AI: A Policy Perspective for Future Public Learning",
+    issuer: "Sustainable Development Policy Institute (SDPI)",
+    year: "2025",
+    description:
+      "Issued Nov 2025. Workshop exploring policy implications of Artificial Intelligence in public learning and knowledge dissemination.",
+    skills: ["Policy Analysis", "Artificial Intelligence (AI)", "Public Learning"],
+    credentialUrl: "/media/Certificates/thinking-beyond-knowledge.pdf",
+  },
+  {
+    id: "python-for-everybody-2025",
+    title: "Programming for Everybody (Getting Started with Python)",
+    issuer: "University of Michigan",
+    year: "2025",
+    description:
+      "Issued Sep 2025. Credential ID: VZ7ZQ6K8MNZ9.",
+    skills: ["Python (Programming Language)"],
+    credentialUrl: "https://www.coursera.org/account/accomplishments/records/VZ7ZQ6K8MNZ9",
+  },
+  {
+    id: "linear-algebra-ml-2025",
+    title: "Mathematics for Machine Learning: Linear Algebra",
+    issuer: "Imperial College London",
+    year: "2025",
+    description:
+      "Issued Aug 2025. Credential ID: 93ZFAK7AQTB8.",
+    skills: ["Linear Algebra", "Mathematics", "Machine Learning"],
+    credentialUrl: "https://www.coursera.org/account/accomplishments/records/93ZFAK7AQTB8",
+  },
+  {
+    id: "python-data-structures-2025",
+    title: "Python Data Structures",
+    issuer: "University of Michigan",
+    year: "2025",
+    description:
+      "Issued Aug 2025. Credential ID: 0QCN9ZOU2H3K.",
+    skills: [
+      "Python Programming",
+      "Data Structures & Algorithms",
+      "Problem Solving",
+      "Computational Thinking",
+      "Programming Fundamentals",
+    ],
+    credentialUrl: "https://coursera.org/verify/0QCN9ZOU2H3K",
+  },
+  {
+    id: "probability-2025",
+    title: "An Intuitive Introduction to Probability",
+    issuer: "University of Zurich",
+    year: "2025",
+    description:
+      "Issued Aug 2025. Credential ID: 7WCBNZ50OQAF.",
+    skills: [
+      "Probability & Statistics",
+      "Data Analysis",
+      "Statistical Modeling",
+      "Quantitative Risk Analysis",
+      "Problem Solving",
+      "Predictive Analytics",
+    ],
+    credentialUrl: "https://coursera.org/verify/7WCBNZ50OQAF",
+  },
+  {
+    id: "data-science-bootcamp-2025",
+    title: "The Data Science Course: Complete Data Science Bootcamp 2025",
+    issuer: "Udemy",
+    year: "2025",
+    description:
+      "Issued Aug 2025. Credential ID: UC-ea5fde42-65ae-4b26-87f0-4877ebc0cdfe.",
+    skills: ["Python (Programming Language)", "Data Science", "Machine Learning"],
+    credentialUrl: "https://www.udemy.com/certificate/UC-ed5e4e92-c5aa-42c5-870b-4879ebc0a5fe/",
+  },
+  {
+    id: "cloud-computing-2022",
+    title: "Cloud Computing",
     issuer: "Pakistan Software Export Board (PSEB)",
     year: "2022",
     description:
-      "Hands-on experience with AWS EC2, Linux administration, and Docker containerization.",
-    skills: ["AWS", "Linux", "Docker", "CI/CD", "Cloud Security"],
+      "Issued Jun 2022. Expired Aug 2022.",
+    skills: ["Cloud Computing"],
   },
   {
-    id: "data-science-udemy",
-    title: "The Data Science Course",
-    issuer: "Udemy",
-    year: "2025 (In Progress)",
+    id: "certified-python-programmer-2019",
+    title: "Certified Python Programmer",
+    issuer: "Aptech",
+    year: "2019",
     description:
-      "Comprehensive bootcamp covering statistics, machine learning, and deep learning with real-world datasets.",
-    skills: ["Machine Learning", "Statistics", "Data Viz", "NumPy/Pandas", "Scikit-learn"],
+      "Issued Aug 2019. Certification covering Python programming with OOP principles and Flask.",
+    skills: [
+      "Python (Programming Language)",
+      "Object-Oriented Programming (OOP)",
+      "Flask",
+    ],
   },
 ];
