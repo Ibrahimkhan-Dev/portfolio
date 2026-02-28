@@ -12,7 +12,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-16 sm:py-24 md:py-32 bg-[#050505] overflow-hidden">
+    <section id="skills" className="py-12 sm:py-16 md:py-20 bg-[#050505] overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

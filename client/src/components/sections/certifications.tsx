@@ -22,7 +22,6 @@ export default function Certifications() {
   const sortedCerts = [...certifications].sort(
     (a, b) => Number(b.year) - Number(a.year)
   );
-  const latestYear = sortedCerts.find((c) => c.year)?.year;
 
   const sliderRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -31,7 +30,7 @@ export default function Certifications() {
     if (!el) return;
 
     // Scroll roughly one "page" like Netflix (almost full container width)
-    const amount = Math.max(280, Math.floor(el.clientWidth * 0.9));
+    const amount = Math.max(340, Math.floor(el.clientWidth * 0.9));
     el.scrollBy({
       left: direction === "left" ? -amount : amount,
       behavior: "smooth",
@@ -41,7 +40,7 @@ export default function Certifications() {
   return (
     <section
       id="certifications"
-      className="py-16 sm:py-24 md:py-32 bg-[#080808] border-y border-white/5"
+      className="py-12 sm:py-16 md:py-20 bg-[#080808] border-y border-white/5"
     >
       <div className="container mx-auto px-4 sm:px-6">
         <motion.div
@@ -94,9 +93,7 @@ export default function Certifications() {
           <div
             ref={sliderRef}
             className="flex gap-6 sm:gap-8 overflow-x-scroll scroll-smooth pb-2 pr-2
-                       snap-x snap-mandatory
-                       [scrollbar-width:none] [-ms-overflow-style:none]
-                       [&::-webkit-scrollbar]:hidden"
+                       snap-x snap-mandatory"
           >
             {sortedCerts.map((cert, index) => (
               <Dialog key={cert.id ?? String(index)}>
@@ -107,48 +104,44 @@ export default function Certifications() {
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.05 }}
                     whileHover={{ y: -10 }}
-                    className="bg-card border-2 border-white/5 hover:border-primary p-6 sm:p-8 flex flex-col relative group cursor-pointer snap-start
-                               min-w-[280px] w-[280px] sm:min-w-[340px] sm:w-[340px] lg:min-w-[380px] lg:w-[380px]"
+                    className="bg-card border-2 border-white/5 hover:border-primary p-5 sm:p-6 flex flex-col relative group cursor-pointer snap-start
+                               min-w-[340px] w-[340px] sm:min-w-[420px] sm:w-[420px] lg:min-w-[480px] lg:w-[480px]"
                   >
-                    <div className="absolute top-0 right-0 p-4 sm:p-6 opacity-5 group-hover:opacity-20 transition-opacity">
-                      <Award size={60} className="sm:w-20 sm:h-20 text-primary" />
+                    <div className="absolute top-0 right-0 p-3 opacity-5 group-hover:opacity-20 transition-opacity">
+                      <Award size={48} className="text-primary" />
                     </div>
 
-                    <div className="mb-4 sm:mb-6 flex items-center gap-3">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 flex items-center justify-center text-primary">
-                        <Award size={20} className="sm:w-6 sm:h-6" />
+                    <div className="mb-3 flex items-center gap-3">
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                        <Award size={18} />
                       </div>
-                      <span className="text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary/60">
+                      <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary/60 truncate">
                         {cert.issuer ?? "Certificate"}
                       </span>
                     </div>
 
-                    <h3 className="text-2xl sm:text-3xl font-black uppercase italic mb-2 leading-none group-hover:text-primary transition-colors">
+                    <h3 className="text-xl sm:text-2xl font-black uppercase italic mb-1.5 leading-tight group-hover:text-primary transition-colors line-clamp-2">
                       {cert.title}
                     </h3>
 
-                    <p className="text-primary font-bold uppercase text-xs mb-4 sm:mb-6 tracking-widest">
-                      {cert.issuer ?? ""}
-                    </p>
-
-                    <p className="text-muted-foreground mb-6 sm:mb-8 flex-grow leading-relaxed text-sm sm:text-base line-clamp-3">
+                    <p className="text-muted-foreground mb-3 sm:mb-4 flex-grow leading-snug text-xs sm:text-sm line-clamp-2">
                       {cert.description ?? ""}
                     </p>
 
-                  <div className="flex items-center justify-between pt-4 sm:pt-6 border-t border-white/5">
-  <div className="flex items-center gap-2 text-white/40 text-xs font-black uppercase">
-    <Calendar size={14} />
-    {cert.year ?? ""}
-  </div>
+                    <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                      <div className="flex items-center gap-2 text-white/40 text-xs font-black uppercase">
+                        <Calendar size={14} />
+                        {cert.year ?? ""}
+                      </div>
 
-  <div className="p-2 bg-white/5 group-hover:bg-primary group-hover:text-black transition-all">
-    {cert.credentialUrl ? (
-      <ExternalLink size={16} className="sm:w-[18px] sm:h-[18px]" />
-    ) : (
-      <Award size={16} className="sm:w-[18px] sm:h-[18px]" />
-    )}
-  </div>
-</div>
+                      <div className="p-1.5 bg-white/5 group-hover:bg-primary group-hover:text-black transition-all">
+                        {cert.credentialUrl ? (
+                          <ExternalLink size={16} />
+                        ) : (
+                          <Award size={16} />
+                        )}
+                      </div>
+                    </div>
                   </motion.div>
                 </DialogTrigger>
 
@@ -197,7 +190,7 @@ export default function Certifications() {
                           href={cert.credentialUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block w-full h-14 sm:h-16 bg-primary text-black font-black uppercase tracking-widest text-base sm:text-lg hover:scale-[1.02] transition-transform rounded-none flex items-center justify-center"
+                          className="w-full h-14 sm:h-16 bg-primary text-black font-black uppercase tracking-widest text-base sm:text-lg hover:scale-[1.02] transition-transform rounded-none flex items-center justify-center"
                         >
                           View Credential
                         </a>

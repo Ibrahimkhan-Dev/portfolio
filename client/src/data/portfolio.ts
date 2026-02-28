@@ -1,5 +1,4 @@
 // client/src/data/portfolio.ts
-import type React from "react";
 
 /* =========================================================
    PROJECTS
@@ -20,7 +19,7 @@ export type Project = {
   liveUrl?: string;
   sourceUrl?: string;
 
-  icon?: React.ReactNode; // optional (we’ll keep undefined for now)
+  icon?: string; // optional (we’ll keep undefined for now)
   image?: string; // e.g. "/media/images/erp.png"
 };
 
@@ -389,7 +388,7 @@ export const certifications: Certification[] = [
     description:
       "Issued Aug 2025. Credential ID: UC-ea5fde42-65ae-4b26-87f0-4877ebc0cdfe.",
     skills: ["Python (Programming Language)", "Data Science", "Machine Learning"],
-    credentialUrl: "https://www.udemy.com/certificate/UC-ed5e4e92-c5aa-42c5-870b-4879ebc0a5fe/",
+    credentialUrl: "https://www.udemy.com/certificate/UC-ea5fde42-65ae-4b26-87f0-4877ebc0cdfe/",
   },
   {
     id: "cloud-computing-2022",

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
-  "homepage": "https://ibrahimkhan57.github.io/Portfolio",
   "scripts": {
     "dev": "vite --port 5000",
     "build": "vite build",

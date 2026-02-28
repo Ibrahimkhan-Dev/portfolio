@@ -20,7 +20,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="py-16 sm:py-24 md:py-32 bg-[#080808] relative border-y border-white/5"
+      className="py-12 sm:py-16 md:py-20 bg-[#080808] relative border-y border-white/5"
     >
       <div className="container mx-auto px-4 sm:px-6">
         <motion.div
@@ -122,7 +122,7 @@ export default function Experience() {
                     <a
                       href={exp.letterUrl}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-4 sm:px-6 py-3 bg-primary text-black font-black uppercase tracking-widest text-sm sm:text-base hover:opacity-90 transition"
                     >
                       <FileText size={18} />
@@ -160,12 +160,12 @@ export default function Experience() {
                       </h4>
 
                       <div className="flex flex-col gap-3">
-                        {exp.links!.map((l) => (
+                        {(exp.links ?? []).map((l) => (
                           <a
                             key={l.url}
                             href={l.url}
                             target="_blank"
-                            rel="noreferrer"
+                            rel="noopener noreferrer"
                             className="flex items-center gap-2 text-primary font-bold underline underline-offset-4 hover:text-white transition-colors text-base sm:text-lg break-all"
                           >
                             {l.label}

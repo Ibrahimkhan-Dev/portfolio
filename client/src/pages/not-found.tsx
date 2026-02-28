@@ -1,6 +1,9 @@
 import { ArrowLeft } from "lucide-react";
+import { useLocation } from "wouter";
 
 export default function NotFound() {
+  const [, setLocation] = useLocation();
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-background text-foreground">
       <div className="text-center space-y-6 px-4">
@@ -11,13 +14,14 @@ export default function NotFound() {
         <p className="text-muted-foreground text-lg max-w-md mx-auto">
           The page you're looking for doesn't exist or has been moved.
         </p>
-        <a
-          href="/"
+        <button
+          type="button"
+          onClick={() => setLocation("/")}
           className="inline-flex items-center gap-3 bg-primary text-black px-8 py-4 font-black uppercase tracking-widest hover:scale-105 transition-transform"
         >
           <ArrowLeft size={20} />
           Back Home
-        </a>
+        </button>
       </div>
     </div>
   );

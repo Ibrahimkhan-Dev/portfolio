@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "wouter";
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -14,6 +15,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const [location, setLocation] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -26,12 +28,13 @@ export default function Navbar() {
   }, []);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (window.location.pathname !== "/" && !window.location.pathname.endsWith("/Portfolio/")) {
+    e.preventDefault();
+
+    if (location !== "/") {
       window.location.href = "/" + href;
       return;
     }
 
-    e.preventDefault();
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -51,6 +54,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between">
         <a
           href="/"
+          onClick={(e) => { e.preventDefault(); setLocation("/"); }}
           className="flex items-center gap-3 text-2xl sm:text-3xl font-black font-display tracking-tighter text-white uppercase italic group"
         >
           <span>

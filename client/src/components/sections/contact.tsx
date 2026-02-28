@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, Send, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -5,8 +6,22 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 export default function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const { name, email, message } = form;
+    if (!name.trim() || !email.trim() || !message.trim()) return;
+
+    const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+    );
+    window.location.href = `mailto:ibrahimkhanwork7@gmail.com?subject=${subject}&body=${body}`;
+  };
+
   return (
-    <footer id="contact" className="bg-[#050505] pt-20 sm:pt-32 md:pt-40 pb-12 sm:pb-20 relative border-t-8 border-primary">
+    <footer id="contact" className="bg-[#050505] pt-14 sm:pt-20 md:pt-24 pb-10 sm:pb-14 relative border-t-8 border-primary">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
           <motion.div
@@ -60,22 +75,22 @@ export default function Contact() {
             viewport={{ once: true }}
             className="bg-card p-6 sm:p-10 md:p-16 border-2 border-white/5"
           >
-            <form className="space-y-6 sm:space-y-8" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6 sm:space-y-8" onSubmit={handleSubmit}>
               <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
                 <div className="space-y-2">
                   <label htmlFor="contact-name" className="text-xs font-black uppercase tracking-widest text-primary">Name</label>
-                  <Input id="contact-name" name="name" placeholder="Enter Name" className="bg-transparent border-b-2 border-x-0 border-t-0 border-white/10 rounded-none h-12 focus:border-primary text-lg sm:text-xl font-bold p-0" />
+                  <Input id="contact-name" name="name" required placeholder="Enter Name" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} className="bg-transparent border-b-2 border-x-0 border-t-0 border-white/10 rounded-none h-12 focus:border-primary text-lg sm:text-xl font-bold p-0" />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="contact-email" className="text-xs font-black uppercase tracking-widest text-primary">Email</label>
-                  <Input id="contact-email" name="email" type="email" placeholder="Enter Email" className="bg-transparent border-b-2 border-x-0 border-t-0 border-white/10 rounded-none h-12 focus:border-primary text-lg sm:text-xl font-bold p-0" />
+                  <Input id="contact-email" name="email" type="email" required placeholder="Enter Email" value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} className="bg-transparent border-b-2 border-x-0 border-t-0 border-white/10 rounded-none h-12 focus:border-primary text-lg sm:text-xl font-bold p-0" />
                 </div>
               </div>
               <div className="space-y-2">
                 <label htmlFor="contact-message" className="text-xs font-black uppercase tracking-widest text-primary">Message</label>
-                <Textarea id="contact-message" name="message" placeholder="What's on your mind?" className="bg-transparent border-b-2 border-x-0 border-t-0 border-white/10 rounded-none min-h-[120px] sm:min-h-[150px] focus:border-primary text-lg sm:text-xl font-bold p-0 resize-none" />
+                <Textarea id="contact-message" name="message" required placeholder="What's on your mind?" value={form.message} onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))} className="bg-transparent border-b-2 border-x-0 border-t-0 border-white/10 rounded-none min-h-[120px] sm:min-h-[150px] focus:border-primary text-lg sm:text-xl font-bold p-0 resize-none" />
               </div>
-              <Button className="w-full h-16 sm:h-20 bg-primary text-black font-black text-lg sm:text-2xl uppercase tracking-tighter hover:scale-[1.02] transition-transform rounded-none flex gap-3 sm:gap-4">
+              <Button type="submit" className="w-full h-16 sm:h-20 bg-primary text-black font-black text-lg sm:text-2xl uppercase tracking-tighter hover:scale-[1.02] transition-transform rounded-none flex gap-3 sm:gap-4">
                 Send Transmission <Send className="w-5 h-5 sm:w-6 sm:h-6" />
               </Button>
             </form>
@@ -85,8 +100,8 @@ export default function Contact() {
         <div className="mt-20 sm:mt-40 pt-8 sm:pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
           <p className="text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/30">&copy; {new Date().getFullYear()} MUHAMMAD IBRAHIM KHAN</p>
           <div className="flex gap-6 sm:gap-10">
-            <span className="text-xs font-black uppercase tracking-[0.2em] text-white/30">Privacy</span>
-            <span className="text-xs font-black uppercase tracking-[0.2em] text-white/30">Terms</span>
+            <a href="#" className="text-xs font-black uppercase tracking-[0.2em] text-white/30 hover:text-primary transition-colors">Privacy</a>
+            <a href="#" className="text-xs font-black uppercase tracking-[0.2em] text-white/30 hover:text-primary transition-colors">Terms</a>
           </div>
         </div>
       </div>

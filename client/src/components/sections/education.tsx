@@ -14,7 +14,7 @@ export default function Education() {
   return (
     <section
       id="education"
-      className="py-16 sm:py-24 md:py-32 bg-background border-t border-white/5"
+      className="py-12 sm:py-16 md:py-20 bg-background border-t border-white/5"
     >
       <div className="container mx-auto px-4 sm:px-6">
         <motion.div

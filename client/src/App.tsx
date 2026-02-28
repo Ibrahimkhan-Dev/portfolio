@@ -6,7 +6,7 @@ import ProjectDetail from "@/pages/project-detail";
 
 export default function App() {
   return (
-    <Router base="/Portfolio">
+    <Router>
       <TooltipProvider>
         <Switch>
           <Route path="/" component={Home} />
