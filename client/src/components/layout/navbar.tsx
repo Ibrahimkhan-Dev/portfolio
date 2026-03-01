@@ -43,6 +43,7 @@ export default function Navbar() {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
+      transition={{ type: "tween", duration: 0.5, ease: "easeOut" }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled ? "py-3 sm:py-4 bg-[#050505]/95 backdrop-blur-md border-b-2 border-primary shadow-[0_0_30px_rgba(255,87,34,0.15)]" : "py-4 sm:py-8 bg-transparent"
@@ -95,6 +96,7 @@ export default function Navbar() {
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
+            transition={{ type: "tween", duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
             className="lg:hidden fixed inset-0 bg-[#050505] z-[60] flex flex-col items-center justify-center space-y-6 sm:space-y-10 p-6 overflow-y-auto"
           >
             <button
