@@ -168,25 +168,26 @@ export function TerminalBoot() {
   useEffect(() => {
     if (_introPlayed) return;
 
-    let startTimer: number | undefined;
-    let interval: number | undefined;
+    const totalChars = BOOT_TEXT.length;
+    const typingMs = BOOT_DURATION * 600;
+    const t0 = performance.now();
+    let rafId: number;
 
-    startTimer = window.setTimeout(() => {
-      interval = window.setInterval(() => {
-        setCount((c) => {
-          if (c >= BOOT_TEXT.length - 1) {
-            if (interval) clearInterval(interval);
-            return BOOT_TEXT.length;
-          }
-          return c + 1;
-        });
-      }, 8);
-    }, 50);
-
-    return () => {
-      if (startTimer) clearTimeout(startTimer);
-      if (interval) clearInterval(interval);
+    const tick = () => {
+      const elapsed = performance.now() - t0 - 50;
+      if (elapsed < 0) { rafId = requestAnimationFrame(tick); return; }
+      const progress = Math.min(1, elapsed / typingMs);
+      setCount(Math.round(progress * totalChars));
+      if (progress < 1) rafId = requestAnimationFrame(tick);
     };
+    rafId = requestAnimationFrame(tick);
+
+    const safetyId = window.setTimeout(() => {
+      setFading(true);
+      window.setTimeout(() => { setGone(true); _introPlayed = true; }, 400);
+    }, (BOOT_DURATION + 1) * 1000);
+
+    return () => { cancelAnimationFrame(rafId); clearTimeout(safetyId); };
   }, []);
 
   useEffect(() => {
@@ -337,7 +338,7 @@ export function TypingLine({
   text,
   className,
   startDelay = HERO_T.typingStart,
-  duration = HERO_T.typingEnd - HERO_T.typingStart, // 0.60s
+  duration = HERO_T.typingEnd - HERO_T.typingStart,
   monospaceWhileTyping = true,
   cursor = true,
 }: {
@@ -349,83 +350,79 @@ export function TypingLine({
   cursor?: boolean;
 }) {
   const skip = _introPlayed;
-  const steps = useMemo(() => Math.max(30, Math.min(160, text.length)), [text.length]);
-  const stepMs = useMemo(() => Math.max(6, Math.floor((duration * 1000) / steps)), [duration, steps]);
-
   const [typedCount, setTypedCount] = useState(skip ? text.length : 0);
-  const [typingActive, setTypingActive] = useState(false);
-
-  const [blinkPhase, setBlinkPhase] = useState<"typing" | "post" | "done">(skip ? "done" : "typing");
+  const [phase, setPhase] = useState<"waiting" | "typing" | "blinking" | "done">(
+    skip ? "done" : "waiting",
+  );
   const [cursorVisible, setCursorVisible] = useState(true);
 
   useEffect(() => {
     if (skip) return;
 
-    let startTimer: number | undefined;
-    let interval: number | undefined;
-    let postTimer: number | undefined;
+    const totalChars = text.length;
+    const startMs = startDelay * 1000;
+    const durationMs = duration * 1000;
+    const t0 = performance.now();
+    let rafId: number;
     let blinkTimer: number | undefined;
 
-    startTimer = window.setTimeout(() => {
-      setTypingActive(true);
+    const tick = () => {
+      const elapsed = performance.now() - t0;
+      if (elapsed < startMs) {
+        rafId = requestAnimationFrame(tick);
+        return;
+      }
+      const progress = Math.min(1, (elapsed - startMs) / durationMs);
+      setTypedCount(Math.round(progress * totalChars));
 
-      const totalChars = text.length;
-      const totalSteps = Math.ceil((duration * 1000) / stepMs);
-      const charsPerTick = Math.max(1, Math.floor(totalChars / totalSteps));
-
-      interval = window.setInterval(() => {
-        setTypedCount((prev) => {
-          const next = Math.min(totalChars, prev + charsPerTick);
-          if (next >= totalChars) {
-            if (interval) window.clearInterval(interval);
-            setTypingActive(false);
-            setBlinkPhase("post");
+      if (progress < 1) {
+        setPhase("typing");
+        rafId = requestAnimationFrame(tick);
+      } else {
+        setPhase("blinking");
+        let blinks = 0;
+        blinkTimer = window.setInterval(() => {
+          setCursorVisible((v) => !v);
+          blinks++;
+          if (blinks >= 4) {
+            if (blinkTimer !== undefined) window.clearInterval(blinkTimer);
+            blinkTimer = undefined;
+            setPhase("done");
+            setCursorVisible(false);
           }
-          return next;
-        });
-      }, stepMs);
-    }, Math.round(startDelay * 1000));
-
-    postTimer = window.setTimeout(() => {
-      let toggles = 0;
-      const toggleEvery = 75;
-      blinkTimer = window.setInterval(() => {
-        setCursorVisible((v) => !v);
-        toggles += 1;
-        if (toggles >= 4) {
-          if (blinkTimer) window.clearInterval(blinkTimer);
-          setBlinkPhase("done");
-          setCursorVisible(false);
-        }
-      }, toggleEvery);
-    }, Math.round((startDelay + duration) * 1000));
+        }, 100);
+      }
+    };
+    rafId = requestAnimationFrame(tick);
 
     return () => {
-      if (startTimer) window.clearTimeout(startTimer);
-      if (interval) window.clearInterval(interval);
-      if (postTimer) window.clearTimeout(postTimer);
-      if (blinkTimer) window.clearInterval(blinkTimer);
+      cancelAnimationFrame(rafId);
+      if (blinkTimer !== undefined) window.clearInterval(blinkTimer);
     };
-  }, [skip, text, duration, startDelay, stepMs]);
+    // skip intentionally excluded: it reads module-level _introPlayed which
+    // must NOT re-trigger the effect mid-animation.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text, duration, startDelay]);
 
   const typed = text.slice(0, typedCount);
+  const isTyping = phase === "typing";
 
   return (
     <motion.p
       className={className}
       initial={{ opacity: skip ? 1 : 0 }}
       animate={{ opacity: 1 }}
-      transition={skip ? { duration: 0 } : { delay: startDelay, duration: 0.12, ease: "easeOut" }}
+      transition={skip ? { duration: 0 } : { delay: startDelay, duration: 0.15, ease: "easeOut" }}
       style={{
         fontFamily:
-          monospaceWhileTyping && typingActive
+          monospaceWhileTyping && isTyping
             ? "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
             : undefined,
-        fontStyle: typingActive ? "normal" : undefined,
+        fontStyle: isTyping ? "normal" : undefined,
       }}
     >
       {typed}
-      {cursor && (blinkPhase === "typing" || blinkPhase === "post") && (
+      {cursor && (phase === "typing" || phase === "blinking") && (
         <span style={{ display: "inline-block", width: "0.6ch", opacity: cursorVisible ? 1 : 0 }}>
           |
         </span>
@@ -467,9 +464,16 @@ export function BadgePowerOn({
         skip
           ? { duration: 0 }
           : {
-              duration: HERO_T.badgeEnd - HERO_T.badgeStart,
-              times: [0, 0.45, 0.6, 0.75, 0.88, 1],
-              ease: "easeOut",
+              opacity: {
+                duration: HERO_T.badgeEnd - HERO_T.badgeStart,
+                times: [0, 0.45, 0.6, 0.75, 0.88, 1],
+                ease: "easeOut",
+              },
+              filter: {
+                duration: HERO_T.badgeEnd - HERO_T.badgeStart,
+                times: [0, 0.5, 1],
+                ease: "easeOut",
+              },
             }
       }
     >
@@ -721,26 +725,25 @@ export function CodeEditorFloat({
   useEffect(() => {
     if (skip) return;
 
-    let timeout: number | undefined;
-    let interval: number | undefined;
+    const totalChars = chars.length;
+    const startMs = startAt * 1000;
+    const durationMs = totalChars * 25;
+    const t0 = performance.now();
+    let rafId: number;
 
-    timeout = window.setTimeout(() => {
-      interval = window.setInterval(() => {
-        setCount((c) => {
-          if (c >= chars.length - 1) {
-            if (interval) clearInterval(interval);
-            return chars.length;
-          }
-          return c + 1;
-        });
-      }, 25);
-    }, startAt * 1000);
-
-    return () => {
-      if (timeout) clearTimeout(timeout);
-      if (interval) clearInterval(interval);
+    const tick = () => {
+      const elapsed = performance.now() - t0;
+      if (elapsed < startMs) { rafId = requestAnimationFrame(tick); return; }
+      const progress = Math.min(1, (elapsed - startMs) / durationMs);
+      setCount(Math.round(progress * totalChars));
+      if (progress < 1) rafId = requestAnimationFrame(tick);
     };
-  }, [skip, chars.length, startAt]);
+    rafId = requestAnimationFrame(tick);
+
+    return () => cancelAnimationFrame(rafId);
+    // skip intentionally excluded: same reasoning as TypingLine.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chars.length, startAt]);
 
   useEffect(() => {
     if (!done) return;

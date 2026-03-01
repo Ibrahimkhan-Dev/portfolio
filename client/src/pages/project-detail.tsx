@@ -53,6 +53,7 @@ export default function ProjectDetail() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="grid lg:grid-cols-2 gap-12 lg:gap-20"
           >
             <div className="space-y-8 sm:space-y-12">
@@ -61,7 +62,7 @@ export default function ProjectDetail() {
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
+                    transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
                     className="bg-primary text-black px-3 sm:px-4 py-1 text-[10px] sm:text-xs font-black uppercase tracking-widest inline-block mb-4 sm:mb-6"
                   >
                     {project.role}
@@ -135,7 +136,7 @@ export default function ProjectDetail() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.4, duration: 0.5, ease: "easeOut" }}
                 className="aspect-video bg-card border-4 sm:border-8 border-white/5 relative overflow-hidden group"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
