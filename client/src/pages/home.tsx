@@ -7,18 +7,17 @@ import Projects from "@/components/sections/projects";
 import Skills from "@/components/sections/skills";
 import Credentials from "@/components/sections/credentials";
 import Contact from "@/components/sections/contact";
-import { BackgroundFX, TerminalBoot, isIntroPlayed } from "@/components/ui/site-animations";
+import { BackgroundFX, TerminalBoot } from "@/components/ui/site-animations";
 
 const SCROLL_KEY = "portfolio_scroll_y";
 
 export default function Home() {
   useEffect(() => {
-    if (isIntroPlayed()) {
-      const saved = sessionStorage.getItem(SCROLL_KEY);
-      if (saved) {
-        window.scrollTo(0, parseInt(saved, 10));
-        sessionStorage.removeItem(SCROLL_KEY);
-      }
+    const saved = sessionStorage.getItem(SCROLL_KEY);
+
+    if (saved) {
+      window.scrollTo(0, parseInt(saved, 10));
+      sessionStorage.removeItem(SCROLL_KEY);
     }
 
     return () => {
@@ -29,10 +28,11 @@ export default function Home() {
   return (
     <div className="bg-background min-h-screen text-foreground selection:bg-primary selection:text-black overflow-x-hidden">
       <TerminalBoot />
+
       <CustomCursor />
       <BackgroundFX />
       <Navbar />
-      
+
       <main>
         <Hero />
         <Experience />

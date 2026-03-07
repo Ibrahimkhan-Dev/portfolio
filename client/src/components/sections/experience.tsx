@@ -77,7 +77,7 @@ export default function Experience() {
                   </div>
                 </DialogTrigger>
 
-                <DialogContent className="bg-[#0b0b0b] border-2 border-primary/50 text-white max-w-3xl rounded-none max-h-[85vh] overflow-y-auto">
+                  <DialogContent className="bg-[#0b0b0b] border-2 border-primary/50 text-white w-[92vw] max-w-5xl rounded-none max-h-[85vh] overflow-y-auto">                  
                   <DialogHeader>
                     <DialogTitle className="text-2xl sm:text-4xl font-black uppercase italic text-primary">
                       {exp.title}
@@ -105,7 +105,7 @@ export default function Experience() {
                   </DialogHeader>
 
                   <div className="mt-6 sm:mt-8 space-y-5 sm:space-y-6">
-                    <p className="text-base sm:text-xl text-muted-foreground font-medium leading-relaxed italic border-l-4 border-primary pl-4">
+                    <p className="text-base sm:text-xl text-muted-foreground font-medium leading-relaxed italic border-l-4 border-primary pl-4 max-w-3xl">
                       "{exp.description}"
                     </p>
 

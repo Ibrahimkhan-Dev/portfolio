@@ -1,317 +1,41 @@
-Design a modern interactive personal portfolio website with a premium dark theme. The UI should use a deep black background, soft white text, and neon yellow accents for interactions. The overall style must feel futuristic, clean, minimal, and high-end, with smooth animations and optional 3D motion effects.
+This is a React + TypeScript + Vite portfolio app with:
 
-🎨 Color Palette (Strict)
+React 19
 
-Primary Background: #0B0B0F (deep black)
+Vite 7
 
-Secondary Background: #111118 (for sections/cards)
+TypeScript strict mode
 
-Primary Text: #F5F5F5 (soft white)
+Tailwind CSS v4
 
-Secondary Text: #A0A0A0 (muted gray)
+Framer Motion for animation
 
-Accent / Interactive Yellow: #FFD400
+Wouter for routing
 
-Border / Line Color: rgba(255,255,255,0.08)
+Radix UI primitives for some UI elements
 
-Glow Effect: yellow glow with low opacity on hover
+Architecturally, it is a single-page portfolio with one detail route:
 
-✍ Typography (Modern + Clean)
+/ → main portfolio landing page
 
-Headings: Poppins / Space Grotesk / Sora (bold)
+/project/:id → project detail page
 
-Body Text: Inter / Manrope (regular)
+The layout is clean and modular:
 
-Use clear hierarchy:
+components/sections/* → page sections like Hero, Projects, Experience, Contact
 
-H1 = large bold hero headline
+components/ui/* → reusable UI and animation primitives
 
-H2 = section titles
+pages/* → route-level pages
 
-Body = readable spacing with soft contrast
+data/portfolio.ts → portfolio content/data source
 
-🌟 Core Design Style
+So the project is not just “styled components”; it is organized with a clear separation between:
 
-Minimal layout but visually powerful
+content/data
 
-Use plenty of spacing (clean UI)
+page sections
 
-Smooth rounded corners (12px–18px)
+shared UI primitives
 
-Subtle glass effect on cards (optional)
-
-Thin lines, soft shadows, modern grid alignment
-
-Yellow used only for highlights, hover states, and key CTA buttons
-
-⚡ Motion + Interaction Requirements
-
-The website must feel interactive and premium:
-
-Cursor & Hover
-
-Yellow glow cursor trail OR subtle cursor-follow spotlight
-
-Buttons with animated underline or border fill
-
-Cards with 3D tilt on hover
-
-Icons glow yellow on hover
-
-Page Transitions
-
-Smooth transitions between pages:
-
-fade + slide
-
-scale-in effect
-
-section reveal animation
-
-Navigation should feel smooth and animated
-
-Scroll Animations
-
-Sections reveal on scroll (fade-up + blur-to-clear)
-
-Timeline animations for experience/education
-
-Project cards appear with staggered animation
-
-Optional 3D Elements (if possible)
-
-3D hero background (floating shapes, sphere, cube, or particles)
-
-Smooth rotation on scroll or mouse move
-
-3D object should be subtle, not distracting
-
-🧭 Website Structure & Pages
-🏠 1) Landing / About Page (Main Page)
-
-Goal: Introduce me with strong first impression.
-
-Layout
-
-Top fixed navbar (logo + menu)
-
-Hero section split layout:
-
-Left: Intro text + CTA buttons
-
-Right: My photo in modern frame with glow outline
-
-Hero Content
-
-Title: “Hi, I’m [Your Name]”
-
-Subtitle: “Creative Developer | UI Designer | 3D Web Experiences”
-
-Short description (2–3 lines)
-
-CTA buttons:
-
-View Projects (yellow primary)
-
-Download Resume (outlined)
-
-Extra Effects
-
-Animated headline typing effect OR text reveal
-
-Small stats row (optional): Projects / Experience / Skills
-
-Smooth scroll indicator
-
-💼 2) Experience Page
-
-Goal: Show professional timeline clearly.
-
-Layout
-
-Vertical timeline OR card-based timeline
-
-Each experience includes:
-
-Role
-
-Company
-
-Duration
-
-Description
-
-Tech stack tags (chips)
-
-Interactions
-
-Cards expand slightly on hover
-
-Yellow line highlights active timeline item
-
-Scroll reveal animations
-
-🚀 3) Projects Page
-
-Goal: Showcase projects in a stylish interactive grid.
-
-Layout
-
-Grid layout (2–3 columns depending on screen)
-
-Each project card includes:
-
-Thumbnail / preview image
-
-Project title
-
-Short description
-
-Tech tags
-
-Buttons: Live Demo / GitHub
-
-Interactions
-
-Project cards with 3D tilt hover
-
-Yellow glow border on hover
-
-Click opens project details with smooth transition (modal or separate page)
-
-Extra Feature (optional)
-
-Filter buttons:
-
-All / Web / UI / 3D / Apps
-
-🎓 4) Education Page
-
-Goal: Clean and readable academic info.
-
-Layout Options
-
-Timeline layout (like experience)
-OR
-
-Minimal card layout
-
-Content
-
-Institute name
-
-Degree / course
-
-Year
-
-Key achievements
-
-Interaction
-
-Hover highlight in yellow
-
-📜 5) Certifications Page
-
-Goal: Display certificates like a gallery.
-
-Layout
-
-Grid cards
-
-Each certificate includes:
-
-Certificate title
-
-Platform (Coursera, Udemy, etc.)
-
-Date
-
-“View Certificate” button
-
-Interaction
-
-Hover zoom effect
-
-Yellow glow border
-
-🛠 6) Skills Page
-
-Goal: Present skills visually.
-
-Layout
-
-Categories:
-
-Frontend
-
-Backend
-
-Tools
-
-Design
-
-Use skill chips OR progress bars OR circular indicators
-
-Interaction
-
-Skill chips glow yellow on hover
-
-Smooth animated progress fill
-
-🌱 7) Future Goals & Ideas Page
-
-Goal: Show vision and creativity.
-
-Layout
-
-“Vision board” style or futuristic dashboard style
-
-Sections:
-
-What I’m learning next
-
-Tools/tech I want to master
-
-Project ideas I want to build
-
-Interaction
-
-Cards reveal on hover
-
-Subtle glowing highlight when active
-
-🧩 Navigation & Layout Rules
-
-Navbar includes: About, Experience, Projects, Education, Certifications, Skills, Goals, Contact
-
-Sticky navbar with blur background effect
-
-Smooth scroll to sections or separate page navigation
-
-Add a footer with social links (LinkedIn, GitHub, Email)
-
-📱 Responsive Design
-
-Must be fully responsive:
-
-Mobile: stacked layout
-
-Tablet: 2-column grid
-
-Desktop: full layout with animations
-
-On mobile: reduce heavy 3D effects for performance
-
-🔥 Extra UI Details (Make it Premium)
-
-Buttons:
-
-Primary: yellow background, black text
-
-Secondary: transparent with yellow outline
-
-Section headings with thin yellow line accent
-
-Use subtle noise texture in background (optional)
-
-Use micro-animations everywhere but keep it smooth
+animation system

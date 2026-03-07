@@ -17,19 +17,23 @@ export function isIntroPlayed() {
    Timeline constants (seconds)
    Boot overlay plays first, then hero intro begins.
 ========================================================= */
-export const BOOT_DURATION = 1.2;
+export const BOOT_DURATION = 0.9;
 
 export const HERO_T = {
   badgeStart: BOOT_DURATION + 0.0,
-  badgeEnd: BOOT_DURATION + 0.2,
-  typingStart: BOOT_DURATION + 0.15,
-  typingEnd: BOOT_DURATION + 0.75,
-  compileStart: BOOT_DURATION + 0.85,
-  compileEnd: BOOT_DURATION + 1.2,
-  ctaStart: BOOT_DURATION + 1.15,
-  ctaEnd: BOOT_DURATION + 1.5,
-  polishStart: BOOT_DURATION + 1.5,
-  polishEnd: BOOT_DURATION + 1.8,
+  badgeEnd: BOOT_DURATION + 0.15,
+
+  typingStart: BOOT_DURATION + 0.1,
+  typingEnd: BOOT_DURATION + 0.55,
+
+  compileStart: BOOT_DURATION + 0.6,
+  compileEnd: BOOT_DURATION + 0.9,
+
+  ctaStart: BOOT_DURATION + 0.9,
+  ctaEnd: BOOT_DURATION + 1.15,
+
+  polishStart: BOOT_DURATION + 1.15,
+  polishEnd: BOOT_DURATION + 1.35,
 };
 
 /* =========================================================
