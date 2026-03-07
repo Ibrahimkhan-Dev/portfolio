@@ -3,12 +3,10 @@ import { ArrowDown, Linkedin, Mail } from "lucide-react";
 import {
   BadgePowerOn,
   BadgeIdlePulse,
-  TypingLine,
   RawToCompiledName,
   StaggerIn,
   CTAButton,
   GlowBreath,
-  CodeEditorFloat,
   HERO_T,
   isIntroPlayed,
 } from "@/components/ui/site-animations";
@@ -38,12 +36,19 @@ export default function Hero() {
           />
         </div>
 
-        <TypingLine
-          text="From real-world problems to scalable systems, I build software where automation and reliability matter."
-          className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed font-medium italic"
-        />
-
-        <CodeEditorFloat className="my-6 sm:my-8" />
+        <motion.p
+  initial={{ opacity: isIntroPlayed() ? 1 : 0, y: isIntroPlayed() ? 0 : 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{
+    delay: HERO_T.compileEnd,
+    duration: 0.6,
+    ease: "easeOut",
+  }}
+  className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed font-medium italic"
+>
+  From real-world problems to scalable systems, I build software where
+  automation and reliability matter.
+</motion.p>
 
         <StaggerIn className="flex flex-wrap justify-center gap-4 sm:gap-6">
           <CTAButton
@@ -101,7 +106,11 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: isIntroPlayed() ? 1 : 0 }}
         animate={{ opacity: 1 }}
-        transition={isIntroPlayed() ? { duration: 0 } : { delay: HERO_T.polishEnd, duration: 0.5 }}
+        transition={
+          isIntroPlayed()
+            ? { duration: 0 }
+            : { delay: HERO_T.polishEnd, duration: 0.5 }
+        }
         className="absolute bottom-10 left-1/2 -translate-x-1/2 text-primary"
       >
         <motion.div
