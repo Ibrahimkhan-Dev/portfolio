@@ -38,7 +38,7 @@ export type Experience = {
   contributions?: string[];
   tech?: string[];
   links?: { label: string; url: string }[];
-  letterUrl?: string; 
+  letterUrl?: string;
 };
 
 /* =========================================================
@@ -84,8 +84,7 @@ export type Certification = {
    DATA
    ========================================================= */
 
-
-   /* =========================================================
+/* =========================================================
    Projects
    ========================================================= */
 export const projects: Project[] = [
@@ -145,7 +144,7 @@ export const projects: Project[] = [
   },
 ];
 
-   /* =========================================================
+/* =========================================================
    Experiences
    ========================================================= */
 
@@ -165,7 +164,17 @@ export const experiences: Experience[] = [
       "Collaborating within a team of 6 developers in an Agile environment to deliver secure, production-ready healthcare solutions.",
       "Gaining experience in large-scale enterprise development, structured workflows, and coordination with international management and cross-functional teams.",
     ],
-    tech: ["EHR System", "ONC Certification", "Hipaa Compliance", ".NET Core 8", "REST APIs", "Angular 20", "SQL", "Agile", "Git",],
+    tech: [
+      "EHR System",
+      "ONC Certification",
+      "Hipaa Compliance",
+      ".NET Core 8",
+      "REST APIs",
+      "Angular 20",
+      "SQL",
+      "Agile",
+      "Git",
+    ],
   },
   {
     id: "sanwa-dotnet",
@@ -184,7 +193,17 @@ export const experiences: Experience[] = [
       "Learned and implemented MVC architecture principles and enterprise-level backend workflows.",
       "Collaborated closely with the CEO (product owner) to align software features with real-world business operations in UAE and USA markets.",
     ],
-    tech: ["ERP System",".NET Core", "ASP .NET MVC", "Entity Framework", "C#", "SQL Server", "SSMS", "Azure","Git"],
+    tech: [
+      "ERP System",
+      ".NET Core",
+      "ASP .NET MVC",
+      "Entity Framework",
+      "C#",
+      "SQL Server",
+      "SSMS",
+      "Azure",
+      "Git",
+    ],
   },
   {
     id: "spacedome-backend-python",
@@ -199,7 +218,7 @@ export const experiences: Experience[] = [
       "Built and maintained Selenium automation bots for data extraction, web scraping, and workflow automation.",
       "Developed scripts to gather structured data for AI-related research and system integrations.",
       "Gained hands-on experience in backend architecture fundamentals and automation workflows.",
-      "Collaborated in a small startup environment, contributing to fast-paced development cycles."
+      "Collaborated in a small startup environment, contributing to fast-paced development cycles.",
     ],
     tech: ["Python", "Django", "Flask", "REST APIs", "Selenium", "Postman"],
   },
@@ -238,16 +257,22 @@ export const experiences: Experience[] = [
       "mplemented contact forms and basic lead-generation workflows.",
       "Communicated directly with clients to gather requirements and deliver revisions.",
     ],
-     tech: ["WordPress", "Elementor", "HTML", "CSS", "SEO", "Performance"],
+    tech: ["WordPress", "Elementor", "HTML", "CSS", "SEO", "Performance"],
     links: [
-      { label: "GrooveHubMarketing.com", url: "https://groovehubmarketing.com/" },
-      { label: "TopInsuranceDeals.com", url: "https://topinsurancedeals.com/index.html" },
+      {
+        label: "GrooveHubMarketing.com",
+        url: "https://groovehubmarketing.com/",
+      },
+      {
+        label: "TopInsuranceDeals.com",
+        url: "https://topinsurancedeals.com/index.html",
+      },
       { label: "LinkLifeHealth.com", url: "https://linklifehealth.com/" },
     ],
   },
 ];
 
-   /* =========================================================
+/* =========================================================
   SkillCategory
    ========================================================= */
 
@@ -258,7 +283,14 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: "Frameworks",
-    skills: ["Django", "Flask", ".NET MVC", "React", "Bootstrap", "Entity Framework"],
+    skills: [
+      "Django",
+      "Flask",
+      ".NET MVC",
+      "React",
+      "Bootstrap",
+      "Entity Framework",
+    ],
   },
   {
     title: "Cloud & Dev",
@@ -270,7 +302,7 @@ export const skillCategories: SkillCategory[] = [
   },
 ];
 
-   /* =========================================================
+/* =========================================================
   Education
    ========================================================= */
 
@@ -278,31 +310,31 @@ export const education: Education[] = [
   {
     id: "abasyn-uni",
     institution: "Abasyn University",
-    degree: "Software Engineering & Cloud Tech",
-    period: "2019 - 2023",
-    desc: "Focus on backend systems, cloud infrastructure, and IoT automation.",
+    degree: "Bachelor's in Computer Science",
+    period: "2020 - 2024",
+    desc: "Studied core computer science concepts including programming, software development, and computer systems.",
     details: [
-      "Specialized in Cloud Computing and Backend System Architecture.",
-      "Completed hands-on projects in Distributed Systems and OpenStack deployment.",
-      "Lead developer for university tech events and competitions.",
+      "Learned programming fundamentals, data structures, and algorithms.",
+      "Worked on academic and personal software development projects.",
+      "Gained experience with backend development and modern web technologies.",
+      "Member of the programming event organizing team at the university.",
+      "Served as a short-term TA (Teacher Assistant) helping students with programming labs.",
     ],
   },
   {
     id: "kallar-college",
     institution: "Kallar Kahar Science College",
-    degree: "Pre-Engineering",
+    degree: "FSc (Pre-Engineering)",
     period: "2017 - 2019",
     desc: "Intensive study of Mathematics and Physics.",
     details: [
-      "Focused on Physics, Chemistry, and Advanced Mathematics.",
-      "Top 5% of graduating class.",
-      "Member of the Science Club and Mathematics Society.",
-      "Developed strong analytical and problem-solving foundations.",
+      "Studied Physics, Chemistry, and Mathematics as core subjects.",
+      "Completed intermediate-level coursework in science and mathematics.",
     ],
   },
 ];
 
-   /* =========================================================
+/* =========================================================
  Certification
    ========================================================= */
 export const certifications: Certification[] = [
@@ -312,18 +344,22 @@ export const certifications: Certification[] = [
     issuer: "Sustainable Development Policy Institute (SDPI)",
     year: "2025",
     description:
-      "Issued Nov 2025. Workshop covering community-based monitoring and Early Warning Systems (EWS), aligned with real-time data acquisition and IoT-based systems design.",
-    skills: ["System Monitoring", "Data Acquisition", "Internet of Things (IoT)"],
+      "Completed a specialized workshop on community-based Early Warning Systems (EWS), focusing on real-time environmental monitoring, IoT-enabled data acquisition, and system design for disaster preparedness and risk mitigation.",
+    skills: [
+      "System Monitoring",
+      "Data Acquisition",
+      "Internet of Things (IoT)",
+    ],
     credentialUrl: "/media/Certificates/early-warning-system.pdf",
-
   },
   {
     id: "risk-thinking-sdpi-2025",
-    title: "Safeguarding the Future: Integrating Risk Thinking into Development Planning",
+    title:
+      "Safeguarding the Future: Integrating Risk Thinking into Development Planning",
     issuer: "Sustainable Development Policy Institute (SDPI)",
     year: "2025",
     description:
-      "Issued Nov 2025. Capacity building workshop focused on integrating risk assessment and strategic foresight into development planning and system architecture.",
+      "Completed an SDPI capacity-building workshop on integrating risk assessment and strategic foresight into development planning, emphasizing risk-aware decision making, resilient system architecture, and long-term planning methodologies.",
     skills: ["Risk Management", "Strategic Planning", "System Architecture"],
     credentialUrl: "/media/Certificates/safeguard-the-future.pdf",
   },
@@ -334,8 +370,12 @@ export const certifications: Certification[] = [
     issuer: "Sustainable Development Policy Institute (SDPI)",
     year: "2025",
     description:
-      "Issued Nov 2025. Workshop exploring policy implications of Artificial Intelligence in public learning and knowledge dissemination.",
-    skills: ["Policy Analysis", "Artificial Intelligence (AI)", "Public Learning"],
+      "Completed an SDPI workshop examining the policy implications of Artificial Intelligence in public learning systems, focusing on responsible AI adoption, knowledge dissemination frameworks, and the evolving role of AI in education and governance.",
+    skills: [
+      "Artificial Intelligence (AI)",
+      "Policy Analysis",
+      "Public Learning",
+    ],
     credentialUrl: "/media/Certificates/thinking-beyond-knowledge.pdf",
   },
   {
@@ -344,9 +384,10 @@ export const certifications: Certification[] = [
     issuer: "University of Michigan",
     year: "2025",
     description:
-      "Issued Sep 2025. Credential ID: VZ7ZQ6K8MNZ9.",
-    skills: ["Python (Programming Language)"],
-    credentialUrl: "https://www.coursera.org/account/accomplishments/records/VZ7ZQ6K8MNZ9",
+      "Completed the University of Michigan’s Python programming course, covering fundamental programming concepts including variables, control structures, functions, and data handling for problem solving and software development.",
+    skills: ["Python", "Programming Fundamentals"],
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/records/VZ7ZQ6K8MNZ9",
   },
   {
     id: "linear-algebra-ml-2025",
@@ -354,9 +395,14 @@ export const certifications: Certification[] = [
     issuer: "Imperial College London",
     year: "2025",
     description:
-      "Issued Aug 2025. Credential ID: 93ZFAK7AQTB8.",
-    skills: ["Linear Algebra", "Mathematics", "Machine Learning"],
-    credentialUrl: "https://www.coursera.org/account/accomplishments/records/93ZFAK7AQTB8",
+      "Completed a machine learning mathematics course focused on linear algebra concepts including vectors, matrices, eigenvalues, and matrix transformations used in modern machine learning algorithms.",
+    skills: [
+      "Linear Algebra",
+      "Mathematics for ML",
+      "Machine Learning Foundations",
+    ],
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/records/93ZFAK7AQTB8",
   },
   {
     id: "python-data-structures-2025",
@@ -364,13 +410,13 @@ export const certifications: Certification[] = [
     issuer: "University of Michigan",
     year: "2025",
     description:
-      "Issued Aug 2025. Credential ID: 0QCN9ZOU2H3K.",
+      "Completed a course on Python data structures focusing on lists, dictionaries, tuples, and efficient data organization techniques used in algorithm design and problem solving.",
     skills: [
-      "Python Programming",
-      "Data Structures & Algorithms",
+      "Python",
+      "Data Structures",
+      "Algorithms",
       "Problem Solving",
       "Computational Thinking",
-      "Programming Fundamentals",
     ],
     credentialUrl: "https://coursera.org/verify/0QCN9ZOU2H3K",
   },
@@ -380,13 +426,12 @@ export const certifications: Certification[] = [
     issuer: "University of Zurich",
     year: "2025",
     description:
-      "Issued Aug 2025. Credential ID: 7WCBNZ50OQAF.",
+      "Completed a probability course covering foundational concepts including probability distributions, statistical reasoning, and quantitative analysis used in data science and predictive modeling.",
     skills: [
-      "Probability & Statistics",
+      "Probability",
+      "Statistics",
       "Data Analysis",
       "Statistical Modeling",
-      "Quantitative Risk Analysis",
-      "Problem Solving",
       "Predictive Analytics",
     ],
     credentialUrl: "https://coursera.org/verify/7WCBNZ50OQAF",
@@ -397,9 +442,10 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     year: "2025",
     description:
-      "Issued Aug 2025. Credential ID: UC-ea5fde42-65ae-4b26-87f0-4877ebc0cdfe.",
-    skills: ["Python (Programming Language)", "Data Science", "Machine Learning"],
-    credentialUrl: "https://www.udemy.com/certificate/UC-ea5fde42-65ae-4b26-87f0-4877ebc0cdfe/",
+      "Completed a comprehensive data science bootcamp covering Python programming, data analysis, machine learning fundamentals, and practical workflows for building data-driven solutions.",
+    skills: ["Python", "Data Science", "Machine Learning"],
+    credentialUrl:
+      "https://www.udemy.com/certificate/UC-ea5fde42-65ae-4b26-87f0-4877ebc0cdfe/",
   },
   {
     id: "cloud-computing-2022",
@@ -407,8 +453,8 @@ export const certifications: Certification[] = [
     issuer: "Pakistan Software Export Board (PSEB)",
     year: "2022",
     description:
-      "Issued Jun 2022. Expired Aug 2022.",
-    skills: ["Cloud Computing"],
+      "Completed a training program on cloud computing fundamentals, covering cloud service models, deployment architectures, and the role of cloud infrastructure in modern application development.",
+    skills: ["Cloud Computing", "Cloud Infrastructure", "Distributed Systems"],
   },
   {
     id: "certified-python-programmer-2019",
@@ -416,11 +462,12 @@ export const certifications: Certification[] = [
     issuer: "Aptech",
     year: "2019",
     description:
-      "Issued Aug 2019. Certification covering Python programming with OOP principles and Flask.",
+      "Earned certification in Python programming with focus on object-oriented programming principles, application development, and building web applications using Flask.",
     skills: [
-      "Python (Programming Language)",
-      "Object-Oriented Programming (OOP)",
+      "Python",
+      "Object-Oriented Programming",
       "Flask",
+      "Backend Development",
     ],
   },
 ];
