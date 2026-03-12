@@ -326,9 +326,8 @@ export const education: Education[] = [
     institution: "Kallar Kahar Science College",
     degree: "FSc (Pre-Engineering)",
     period: "2017 - 2019",
-    desc: "Intensive study of Mathematics and Physics.",
+    desc: "Intensive study of Mathematics, Physics and Chemistry as core subjects.",
     details: [
-      "Studied Physics, Chemistry, and Mathematics as core subjects.",
       "Completed intermediate-level coursework in science and mathematics.",
     ],
   },
