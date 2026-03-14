@@ -14,7 +14,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { experiences } from "@/data/portfolio";
-import { Reveal, SectionComment } from "@/components/ui/site-animations";
+import { Reveal } from "@/components/ui/site-animations";
 
 export default function Experience() {
   return (
@@ -22,7 +22,6 @@ export default function Experience() {
       id="experience"
       className="py-12 sm:py-16 md:py-20 bg-[#080808] relative border-y border-white/5"
     >
-      <SectionComment comment="// experience.render()" />
       <div className="container mx-auto px-4 sm:px-6">
         <Reveal y={0} className="mb-12 sm:mb-20">
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-black font-display mb-4 text-white uppercase italic">

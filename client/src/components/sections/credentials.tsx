@@ -18,7 +18,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { education, certifications } from "@/data/portfolio";
-import { Reveal, SectionComment } from "@/components/ui/site-animations";
+import { Reveal } from "@/components/ui/site-animations";
 
 export default function Credentials() {
   const sortedCerts = [...certifications].sort(
@@ -42,7 +42,6 @@ export default function Credentials() {
       id="credentials"
       className="py-12 sm:py-16 md:py-20 bg-[#080808] border-y border-white/5 relative"
     >
-      <SectionComment comment="// credentials.verify()" />
       <div className="container mx-auto px-4 sm:px-6">
         <Reveal className="mb-12 sm:mb-20">
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-black font-display mb-4 text-white uppercase italic">

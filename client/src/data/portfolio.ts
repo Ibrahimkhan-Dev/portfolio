@@ -16,11 +16,20 @@ export type Project = {
   company?: string;
   duration?: string;
 
+  category?: string;
+  team?: string;
+  supervisor?: string;
+  purpose?: string;
+  highlights?: string[];
+  proofNote?: string;
+
+  image?: string;
+  gallery?: string[];
+
   liveUrl?: string;
   sourceUrl?: string;
 
-  icon?: string; // optional (we’ll keep undefined for now)
-  image?: string; // e.g. "/media/images/erp.png"
+  icon?: string; // optional; can be React.ReactNode in UI
 };
 
 /* =========================================================
@@ -131,16 +140,35 @@ export const projects: Project[] = [
   },
   {
     id: "private-cloud",
-    title: "Private Cloud OpenStack",
+    title: "University Private Cloud Lab with OpenStack",
     shortDesc:
-      "Deployment of scalable private cloud infrastructure on Ubuntu servers.",
+      "Built a learning-focused private cloud lab with a 4-member university team by connecting five PCs and configuring an OpenStack-based local cloud environment.",
     description:
-      "Designed and deployed a secure and scalable private cloud infrastructure using OpenStack on Ubuntu Linux servers. The project involved configuring compute, storage, and networking components to enable efficient resource allocation and virtualization. I also implemented access controls and network segmentation to ensure data security and system reliability.",
-    tech: ["OpenStack", "Ubuntu Linux", "Shell Scripting", "Networking"],
-    role: "Cloud Engineer Intern",
+      "This academic team project was completed under the supervision of Prof. Asad Hanif at Abasyn University. Our team used five university lab PCs, including one parent/controller system, to build a local private-cloud setup for learning cloud infrastructure, networking, and virtualization concepts through hands-on practice.",
+    tech: ["OpenStack", "Ubuntu Linux", "Networking", "Virtualization", "Linux"],
+    role: "Team Member",
     company: "Abasyn University",
     duration: "2022",
-    // image: "/media/images/private-cloud.png",
+
+    category: "Academic Infrastructure Project",
+    team: "4 members",
+    supervisor: "Prof. Asad Hanif",
+    purpose:
+      "Learning-focused deployment of a local private cloud using available university hardware.",
+    highlights: [
+      "Connected five university PCs over a local wired network.",
+      "Used one machine as the parent/controller node.",
+      "Configured dedicated IP-based communication between systems.",
+      "Explored private cloud concepts through OpenStack-based deployment.",
+      "Worked collaboratively in a supervised academic environment.",
+    ],
+    proofNote:
+      "The original setup was built as a university lab activity and public screenshots from the original environment are not available. Supporting diagrams shown here are reconstructed for portfolio presentation.",
+    image: "/media/images/projects/private-cloud/topology-diagram.png",
+    gallery: [
+      "/media/images/projects/private-cloud/topology-diagram.png",
+      "/media/images/projects/private-cloud/architecture-diagram.png",
+    ],
   },
 ];
 

@@ -8,6 +8,7 @@ const navLinks = [
   { name: "Work", href: "#experience" },
   { name: "Projects", href: "#projects" },
   { name: "Credentials", href: "#credentials" },
+  { name: "Tech Stack", href: "#skills" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -24,15 +25,15 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const scrollToSection = (e: React.MouseEvent<HTMLElement>, sectionId: string) => {
     e.preventDefault();
 
     if (location !== "/") {
-      window.location.href = "/" + href;
+      window.location.href = "/#" + sectionId.replace("#", "");
       return;
     }
 
-    const element = document.querySelector(href);
+    const element = document.querySelector(sectionId.startsWith("#") ? sectionId : "#" + sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
       setIsMobileMenuOpen(false);
@@ -49,36 +50,36 @@ export default function Navbar() {
         isScrolled ? "py-3 sm:py-4 bg-[#050505]/95 backdrop-blur-md border-b-2 border-primary shadow-[0_0_30px_rgba(255,87,34,0.15)]" : "py-4 sm:py-8 bg-transparent"
       )}
     >
-      <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between">
+      <div className="w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         <a
           href="/"
           onClick={(e) => { e.preventDefault(); setLocation("/"); }}
-          className="flex items-center gap-3 text-2xl sm:text-3xl font-black font-display tracking-tighter text-white uppercase italic group"
+          className="flex items-center gap-3 text-2xl sm:text-3xl font-black font-display tracking-tighter text-white uppercase italic group shrink-0"
         >
           <span>
             IBRAHIM<span className="text-primary group-hover:animate-pulse transition-all">.</span>
           </span>
         </a>
 
-        <div className="hidden lg:flex items-center space-x-6 xl:space-x-10">
+        <div className="hidden lg:flex items-center justify-end space-x-4 xl:space-x-6 2xl:space-x-8">
           {navLinks.map((link) => (
-            <a
+            <button
               key={link.name}
-              href={link.href}
+              type="button"
               onClick={(e) => scrollToSection(e, link.href)}
-              className="text-xs font-black uppercase tracking-[0.15em] xl:tracking-[0.2em] text-white/70 hover:text-primary transition-colors relative group py-2"
+              className="text-xs font-black uppercase tracking-[0.15em] xl:tracking-[0.2em] text-white/70 hover:text-primary transition-colors relative group py-2 bg-transparent border-0 cursor-pointer"
             >
               {link.name}
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
-            </a>
+            </button>
           ))}
-          <a
-            href="#contact"
+          <button
+            type="button"
             onClick={(e) => scrollToSection(e, "#contact")}
-            className="px-6 xl:px-8 py-3 bg-primary text-black text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_0_15px_rgba(255,87,34,0.3)]"
+            className="px-6 xl:px-8 py-3 bg-primary text-black text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_0_15px_rgba(255,87,34,0.3)] border-0 cursor-pointer"
           >
             Start Project
-          </a>
+          </button>
         </div>
 
         <button
@@ -107,22 +108,22 @@ export default function Navbar() {
               <X size={36} />
             </button>
             {navLinks.map((link) => (
-              <a
+              <button
                 key={link.name}
-                href={link.href}
+                type="button"
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="text-3xl sm:text-5xl font-black uppercase tracking-tighter text-white hover:text-primary transition-colors text-center"
+                className="text-3xl sm:text-5xl font-black uppercase tracking-tighter text-white hover:text-primary transition-colors text-center bg-transparent border-0 cursor-pointer"
               >
                 {link.name}
-              </a>
+              </button>
             ))}
-            <a
-              href="#contact"
+            <button
+              type="button"
               onClick={(e) => scrollToSection(e, "#contact")}
-              className="w-full max-w-md py-5 sm:py-6 bg-primary text-black text-lg sm:text-xl font-black uppercase tracking-widest text-center"
+              className="w-full max-w-md py-5 sm:py-6 bg-primary text-black text-lg sm:text-xl font-black uppercase tracking-widest text-center border-0 cursor-pointer"
             >
               Start Project
-            </a>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

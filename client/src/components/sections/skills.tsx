@@ -1,7 +1,7 @@
 import { Terminal, Cloud, Settings, ShieldCheck } from "lucide-react";
 import { skillCategories } from "@/data/portfolio";
 import type React from "react";
-import { Reveal, Stagger, SectionComment } from "@/components/ui/site-animations";
+import { Reveal, Stagger } from "@/components/ui/site-animations";
 
 const categoryIcons: Record<string, React.ReactNode> = {
   Languages: <Terminal size={24} />,
@@ -13,7 +13,6 @@ const categoryIcons: Record<string, React.ReactNode> = {
 export default function Skills() {
   return (
     <section id="skills" className="py-12 sm:py-16 md:py-20 bg-[#050505] overflow-hidden relative">
-      <SectionComment comment="// skills.compile()" />
       <div className="container mx-auto px-4 sm:px-6">
         <Reveal className="mb-12 sm:mb-24 text-center">
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-black font-display mb-4 uppercase italic">

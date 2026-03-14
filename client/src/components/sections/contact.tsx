@@ -3,7 +3,7 @@ import { Mail, Phone, Send, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Reveal, SectionComment } from "@/components/ui/site-animations";
+import { Reveal } from "@/components/ui/site-animations";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -22,7 +22,6 @@ export default function Contact() {
 
   return (
     <footer id="contact" className="bg-[#050505] pt-14 sm:pt-20 md:pt-24 pb-10 sm:pb-14 relative border-t-8 border-primary">
-      <SectionComment comment="// contact.send()" />
       <div className="container mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
           <Reveal>

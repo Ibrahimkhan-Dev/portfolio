@@ -10,14 +10,25 @@ import Contact from "@/components/sections/contact";
 import { BackgroundFX, TerminalBoot } from "@/components/ui/site-animations";
 
 const SCROLL_KEY = "portfolio_scroll_y";
+const SCROLL_TO_PROJECTS_KEY = "portfolio_scroll_to_projects";
 
 export default function Home() {
   useEffect(() => {
-    const saved = sessionStorage.getItem(SCROLL_KEY);
-
-    if (saved) {
-      window.scrollTo(0, parseInt(saved, 10));
-      sessionStorage.removeItem(SCROLL_KEY);
+    const scrollToProjects = sessionStorage.getItem(SCROLL_TO_PROJECTS_KEY);
+    if (scrollToProjects) {
+      sessionStorage.removeItem(SCROLL_TO_PROJECTS_KEY);
+      const el = document.getElementById("projects");
+      if (el) {
+        requestAnimationFrame(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    } else {
+      const saved = sessionStorage.getItem(SCROLL_KEY);
+      if (saved) {
+        window.scrollTo(0, parseInt(saved, 10));
+        sessionStorage.removeItem(SCROLL_KEY);
+      }
     }
 
     return () => {
