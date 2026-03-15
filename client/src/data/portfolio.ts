@@ -127,16 +127,39 @@ export const projects: Project[] = [
   },
   {
     id: "selenium-bot",
-    title: "Selenium Automation Bot",
+    title: "Selenium-Based Web Automation Bot",
     shortDesc:
-      "Custom bot for streamlined browser tasks with robust exception handling.",
+      "Built a confidential Selenium automation bot with one teammate to handle web scraping, form workflows, and location-based IP switching across browser tasks.",
     description:
-      "Developed a custom Selenium-based automation bot to streamline repetitive browser tasks such as form filling, data extraction, and submission across dynamic web platforms. The bot was designed with robust exception handling, dynamic wait conditions, and cross-browser compatibility to ensure smooth execution and error resilience. I also implemented unit tests to validate automation workflows.",
-    tech: ["Python", "Selenium", "Automation", "Unit Testing"],
+      "A confidential automation project completed at Spacedome by a 2-member team. We developed a Selenium-based bot to automate repetitive browser workflows such as web scraping, form filling, and submission tasks across dynamic websites. The solution also supported IP changes based on postal-code requirements, with exception handling and wait logic to improve execution reliability across different workflow conditions.",
+    tech: [
+      "Python",
+      "Selenium",
+      "Automation",
+      "Web Scraping",
+      "Browser Automation",
+    ],
     role: "Python Developer",
     company: "Spacedome",
     duration: "2023",
-    // image: "/media/images/selenium-bot.png",
+    category: "Confidential Enterprise Case Study",
+    team: "2 members",
+    purpose:
+      "To automate repetitive browser-based workflows and support location-sensitive task execution more efficiently.",
+    highlights: [
+      "Automated form filling, submission, and repetitive browser workflows.",
+      "Supported web scraping across dynamic web pages.",
+      "Handled location-based IP changes according to postal-code requirements.",
+      "Improved workflow reliability with exception handling and wait conditions.",
+      "Built as a confidential company-associated solution by a 2-member team.",
+    ],
+    proofNote:
+      "This project was completed as confidential company-associated work. Source code, workflow access, and screenshots are not publicly available.",
+      image: "/media/images/projects/selenium-bot/selenium-bot.png",
+    gallery: [
+      "/media/images/projects/selenium-bot/selenium-bot.png",
+      "/media/images/projects/selenium-bot/Bot.png",
+    ],
   },
   {
     id: "private-cloud",
@@ -145,7 +168,13 @@ export const projects: Project[] = [
       "Built a learning-focused private cloud lab with a 4-member university team by connecting five PCs and configuring an OpenStack-based local cloud environment.",
     description:
       "This academic team project was completed under the supervision of Prof. Asad Hanif at Abasyn University. Our team used five university lab PCs, including one parent/controller system, to build a local private-cloud setup for learning cloud infrastructure, networking, and virtualization concepts through hands-on practice.",
-    tech: ["OpenStack", "Ubuntu Linux", "Networking", "Virtualization", "Linux"],
+    tech: [
+      "OpenStack",
+      "Ubuntu Linux",
+      "Networking",
+      "Virtualization",
+      "Linux",
+    ],
     role: "Team Member",
     company: "Abasyn University",
     duration: "2022",
