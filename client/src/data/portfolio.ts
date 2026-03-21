@@ -164,6 +164,15 @@ export const projects: Project[] = [
   
     evidence: [
       {
+        label: "System Diagrams",
+        gallery: [
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774078922/System_Architecture_Diagram_czwwia.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774078922/Sequence_Diagram_nt7r6i.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774078921/ER_Diagram_c07eow.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774078922/circuit_Diagram_zsz7dz.png",
+        ],
+      },
+      {
         label: "App screenshots",
         gallery: [
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Logo_efqyjk.jpg",
@@ -206,12 +215,13 @@ export const projects: Project[] = [
   
     ctaLabel: "Documentation & Media",
   
-    image: "/media/images/projects/home-automation/home-automation-cover.png",
+    image: "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774078922/System_Architecture_Diagram_czwwia.png",
     gallery: [
-      "/media/images/projects/home-automation/home-automation-cover.png",
-      "/media/images/projects/home-automation/app-screen-1.png",
-      "/media/images/projects/home-automation/hardware-setup-1.jpg",
-      "/media/images/projects/home-automation/thesis-cover.png"
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Logo_efqyjk.jpg",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Home_screen_vxhuaw.jpg",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774078922/System_Architecture_Diagram_czwwia.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774050504/4_a781kz.jpg",
+      
     ]
   },
   {
