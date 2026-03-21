@@ -4,33 +4,40 @@
    PROJECTS
    ========================================================= */
 
-export type Project = {
-  id: string;
-
-  title: string;
-  shortDesc: string;
-  tech: string[];
-
-  description: string;
-  role?: string;
-  company?: string;
-  duration?: string;
-
-  category?: string;
-  team?: string;
-  supervisor?: string;
-  purpose?: string;
+   export type Project = {
+    id: string;
+  
+    title: string;
+    shortDesc: string;
+    tech: string[];
+  
+    description: string;
+    role?: string;
+    company?: string;
+    duration?: string;
+  
+    category?: string;
+    team?: string;
+    supervisor?: string;
+  
+    context?: string;
+    purpose?: string;
+    whatChanged?: string;
+  
   highlights?: string[];
-  proofNote?: string;
-
-  image?: string;
-  gallery?: string[];
-
-  liveUrl?: string;
-  sourceUrl?: string;
-
-  icon?: string; // optional; can be React.ReactNode in UI
-};
+  evidence?: { label: string; url?: string; gallery?: string[] }[];
+  
+    proofNote?: string;
+    ctaLabel?: string;
+  
+    image?: string;
+    gallery?: string[];
+  
+    liveUrl?: string;
+    sourceUrl?: string;
+  
+    icon?: string;
+  };
 
 /* =========================================================
    EXPERIENCE
@@ -114,16 +121,98 @@ export const projects: Project[] = [
   },
   {
     id: "home-automation",
-    title: "Home Automation System",
+    title: "Home Automation System Using IoT",
     shortDesc:
-      "IoT system integrating hardware sensors with a Python-powered backend logic.",
+      "Supervised final-year thesis project where I built the Flutter app, Django APIs, and Arduino-based hardware logic for an IoT home automation system.",
+  
     description:
-      "Developed a smart home automation system that integrated IoT devices to provide real-time control and monitoring of appliances such as lights, thermostats, security cameras, and motion sensors. I designed and implemented the backend logic to manage device communication, automation triggers, and user interactions. The system ensured secure and seamless connectivity between hardware components and the user interface.",
-    tech: ["IoT", "C/C++", "Python", "Arduino", "ESP8266"],
-    role: "Team Lead",
+      "A supervised final-year bachelor’s thesis completed under Mr. Abdul Hannan, Assistant Professor. I built the Flutter mobile application, developed Django/Python APIs to handle communication between the app and IoT devices, and programmed the hardware logic in Arduino IDE for device control and sensor-based interaction. The system was designed to improve convenience, efficiency, and home-device management by combining mobile control, backend communication, and hardware automation in one integrated solution.",
+  
+    tech: [
+      "Flutter",
+      "Django",
+      "Python",
+      "Arduino IDE",
+      "C/C++",
+      "IoT",
+      "ESP8266"
+    ],
+  
+    role: "Mobile, API & IoT Developer",
     company: "Abasyn University",
-    duration: "2023",
-    // image: "/media/images/home-automation.png",
+    duration: "2023-2024",
+    category: "Academic / Infrastructure Case Study",
+    supervisor: "Mr. Abdul Hannan, Assistant Professor",
+  
+    context:
+      "Bachelor’s final-year thesis project developed in an academic environment to explore practical home automation through mobile software, backend APIs, and IoT hardware integration.",
+  
+    purpose:
+      "To build a home automation system that allows users to monitor and control household appliances through a mobile app connected to IoT hardware via backend APIs.",
+  
+    whatChanged:
+      "Built the Flutter app as the user-facing control layer, developed Django/Python APIs for communication between the application and IoT devices, and programmed the Arduino-based hardware logic for appliance control and sensor-driven behavior.",
+  
+    highlights: [
+      "Built the Flutter mobile application for controlling and monitoring home devices.",
+      "Developed Django/Python APIs to connect the mobile app with IoT hardware.",
+      "Programmed Arduino-based device logic and hardware behavior.",
+      "Integrated software, backend communication, and physical hardware into one working system.",
+      "Supported home automation use cases such as appliance control, monitoring, and sensor-based interaction.",
+      "Backed the project with thesis documentation, hardware photos, and demo videos."
+    ],
+  
+    evidence: [
+      {
+        label: "App screenshots",
+        gallery: [
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Logo_efqyjk.jpg",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018658/Signup_screen_odkj6y.jpg",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Login_screen_vtyxv0.jpg",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Home_screen_vxhuaw.jpg",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Bedroom_light_voxa2c.jpg",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018658/Scheduling_Screen_msuzic.jpg",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Bathroom_Fan_b4tagd.jpg",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Kitchen_Screen_r7ynom.jpg",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Automation_Screen_eke30n.jpg",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Profile_Screen_wkgf32.jpg",
+        ],
+      },
+      {
+        label: "Hardware setup photos",
+        gallery: [
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774050503/1_wdieil.jpg",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774050503/2_odttch.jpg",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774050504/3_udpsuu.jpg",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774050504/4_a781kz.jpg",
+        ],
+      },
+      {
+        label: "Demo videos",
+        gallery: [
+          "https://res.cloudinary.com/dxeoxpsm5/video/upload/v1774050469/2_cy6cb2.mp4",
+          "https://res.cloudinary.com/dxeoxpsm5/video/upload/v1774050469/3_wm4fl1.mp4",
+          "https://res.cloudinary.com/dxeoxpsm5/video/upload/v1774050469/4_bjimkt.mp4",
+        ],
+      },
+      {
+        label: "Thesis abstract",
+        url: "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774050551/Home_Automation_System_Ibrahim_final_dmxbyn.pdf",
+      },
+    ],
+  
+    proofNote:
+      "This project was completed as a supervised final-year academic thesis. Portfolio evidence includes original app screenshots, hardware photos, demo videos, and thesis-based documentation.",
+  
+    ctaLabel: "Documentation & Media",
+  
+    image: "/media/images/projects/home-automation/home-automation-cover.png",
+    gallery: [
+      "/media/images/projects/home-automation/home-automation-cover.png",
+      "/media/images/projects/home-automation/app-screen-1.png",
+      "/media/images/projects/home-automation/hardware-setup-1.jpg",
+      "/media/images/projects/home-automation/thesis-cover.png"
+    ]
   },
   {
     id: "selenium-bot",
