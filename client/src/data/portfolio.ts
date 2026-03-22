@@ -20,9 +20,12 @@
     team?: string;
     supervisor?: string;
   
-    context?: string;
-    purpose?: string;
-    whatChanged?: string;
+  context?: string;
+  purpose?: string;
+  constraints?: string;
+  beforeState?: string;
+  whatChanged?: string;
+  outcome?: string;
   
   highlights?: string[];
   evidence?: { label: string; url?: string; gallery?: string[] }[];
@@ -106,19 +109,96 @@ export type Certification = {
 export const projects: Project[] = [
   {
     id: "erp-system",
-    title: "ERP System Enhancement",
+    title: "Enterprise Resource Planning System Modernization",
     shortDesc:
-      "Lead backend developer for enterprise Warehouse Management and Logistics modules.",
+      "Primarily designed and developed core logistics, order, and warehouse management workflows while supporting the modernization of a legacy ERP into a .NET 8 and Angular-based platform.",
+  
     description:
-      "As the lead backend developer, I was responsible for designing, developing, and enhancing core modules of an enterprise-level ERP system, including Warehouse Management, Inventory Control, Logistics, and Sales Processing. I implemented RESTful APIs using .NET Core to ensure seamless integration across B2B and B2C platforms, and optimized complex SQL Server queries and stored procedures to enhance performance and reduce system latency.",
-    tech: [".NET Core", "SQL Server", "REST API", "Selenium", "Git", "Jira"],
+      "A confidential enterprise ERP case study completed at Sanwa Systems. I worked across both the legacy .NET MVC ERP and its newer modernization effort built with .NET 8 APIs and an Angular frontend. My strongest ownership was in the logistics, order, and warehouse management areas, where I primarily designed and developed core workflows and backend functionality. I also maintained existing ERP features, built and improved APIs, optimized SQL-backed operations, and resolved complex issues to support reliability, scalability, and smoother business operations.",
+  
+    tech: [
+      "C#",
+      ".NET MVC",
+      ".NET 8",
+      "ASP.NET Core Web API",
+      "Angular",
+      "JavaScript",
+      "SQL Server",
+      "REST API",
+      "Git",
+      "Jira"
+    ],
+  
     role: "Backend .NET Developer",
     company: "Sanwa Systems",
-    duration: "2023–Present",
-    // image: "/media/images/erp-system.png",
-    // liveUrl: "https://...",
-    // sourceUrl: "https://github.com/..."
-  },
+    duration: "December/2023 – December/2025",
+    category: "ERP System Modernization",
+  
+    context:
+      "Enterprise ERP environment supporting business-critical workflows across logistics, order processing, warehouse operations, inventory handling, and related operational modules.",
+  
+    purpose:
+      "To maintain business continuity in the legacy ERP while helping modernize core workflows through a newer API-driven architecture using .NET 8 and Angular.",
+  
+    constraints:
+      "Worked within a confidential enterprise environment involving legacy dependencies, production reliability needs, business-rule complexity, and coordination across teams during an active modernization phase.",
+  
+    beforeState:
+      "The older ERP platform was built in .NET MVC and required ongoing maintenance and enhancement while newer architecture and workflows were being introduced.",
+  
+    whatChanged:
+      "Primarily designed and developed core logistics, order, and warehouse management workflows, maintained parts of the legacy MVC-based ERP, and contributed to the newer revamp through backend API development in .NET 8. Improved backend performance, resolved complex issues, and helped move critical workflows toward a more scalable API-based architecture integrated with Angular.",
+  
+    outcome:
+      "Helped sustain critical ERP operations, improved reliability and backend performance, and advanced the modernization of key operational workflows in logistics, order handling, and warehouse management.",
+  
+    highlights: [
+      "Primarily designed and developed core logistics, order, and warehouse management workflows.",
+      "Maintained and enhanced legacy ERP functionality built with .NET MVC.",
+      "Contributed to ERP modernization using .NET 8 APIs and Angular.",
+      "Built and improved backend logic, APIs, and SQL-driven operations.",
+      "Optimized performance and resolved complex production-oriented issues.",
+      "Collaborated with cross-functional agile teams through code reviews, sprint planning, and delivery coordination."
+    ],
+
+  evidence: [
+    {
+      label: "Legacy ERP",
+      gallery: [
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169233/Capture12_bxq4hk.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169232/Capture_1_lidnoq.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169232/ADD_PRODUCT_1_1_ddhgjh.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169232/Capture88_tlxnd3.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169231/Capture2_hi6jqw.png",
+      ],
+    },
+    {
+      label: "AfterModernization",
+      gallery: [
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774170381/login_system_z3f6ko.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169979/Deshboard_fxmwyi.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169939/dark_mode_nk6xdb.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169983/order_managment_m6q0bs.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169982/Order_Pickup_ynxwjk.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169983/Warehouse_rhzczd.png",
+      ],
+    },
+  ],
+
+  proofNote:
+    "This project was completed as confidential enterprise work. Public source code, production screenshots, and internal workflows are not shared publicly. Portfolio presentation focuses on system context, my role, modernization scope, and sanitized supporting material where permitted.",
+
+  ctaLabel: "View Case Study",
+  
+    image: "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169939/dark_mode_nk6xdb.png",
+    gallery: [
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774170381/login_system_z3f6ko.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169979/Deshboard_fxmwyi.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169939/dark_mode_nk6xdb.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169233/Capture12_bxq4hk.png",
+      
+    ]
+},
   {
     id: "home-automation",
     title: "Home Automation System Using IoT",
@@ -141,7 +221,7 @@ export const projects: Project[] = [
     role: "Mobile, API & IoT Developer",
     company: "Abasyn University",
     duration: "2023-2024",
-    category: "Academic / Infrastructure Case Study",
+    category: "Bachelor's Final Year Project",
     supervisor: "Mr. Abdul Hannan, Assistant Professor",
   
     context:
