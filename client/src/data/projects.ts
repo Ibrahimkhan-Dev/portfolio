@@ -38,48 +38,113 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: "ehr-system",
+    title: "EHR System Legacy Support & Modernization",
+    shortDesc:
+      "Resolved bugs and support tickets in a legacy EHR codebase while contributing to its modernization through a newer Angular and .NET 8 architecture.",
+
+    description:
+      "A confidential healthcare platform case study completed at Epazz. I worked across both the legacy system and its newer modernization stack. On the old platform, I handled bug fixing, issue investigation, and support-ticket resolution across long-lived healthcare modules. In parallel, I contributed to the newer stack built with Angular and ASP.NET Core APIs, supporting a more maintainable and scalable direction for the system without exposing product or client identity.",
+
+    tech: [
+      "C#",
+      ".NET Framework",
+      "ASP.NET WebForms",
+      ".NET 8",
+      "ASP.NET Core Web API",
+      "Angular",
+      "TypeScript",
+      "SQL Server",
+      "Entity Framework",
+      "Entity Framework Core",
+      "JWT Authentication",
+      "Duende IdentityServer",
+    ],
+
+    role: "Full Stack Developer",
+    company: "Epazz",
+    duration: "Ongoing",
+    category: "Confidential Healthcare Platform Case Study",
+    team: "Team-based project",
+
+    context:
+      "A confidential healthcare system environment with a large legacy codebase and a newer API-driven modernization effort running in parallel. The platform supports clinical and operational workflows such as referrals, intake, provider management, service plans, notes, reporting, and related healthcare processes.",
+
+    purpose:
+      "To maintain stability in the legacy healthcare platform through bug fixes and support work while also contributing to the transition toward a newer Angular and .NET-based architecture.",
+
+    constraints:
+      "Worked in a confidential healthcare environment with a broad legacy surface area, mixed framework generations, production support demands, and the need to make safe changes while modernization continued.",
+
+    beforeState:
+      "The system included an older long-lived codebase used for active support and issue resolution, while a newer frontend and backend stack was being developed to improve maintainability, scalability, and architectural clarity.",
+
+    whatChanged:
+      "Handled bug fixing and support-ticket work in the legacy EHR codebase, including troubleshooting existing healthcare modules and stabilizing operational workflows. At the same time, contributed to the newer stack through work aligned with Angular frontend development and ASP.NET Core/.NET 8 backend services, helping move the platform toward a cleaner layered architecture and more modern API-driven workflows.",
+
+    outcome:
+      "Helped keep the legacy healthcare platform operational and supportable while also contributing to its modernization path, improving reliability in the old environment and supporting progress on the newer stack.",
+
+    highlights: [
+      "Fixed bugs and resolved support tickets in a legacy EHR codebase.",
+      "Worked across an older healthcare platform with long-lived modules and shared system components.",
+      "Contributed in parallel to a newer Angular and .NET 8 modernization effort.",
+      "Supported API-driven backend development with SQL-backed healthcare workflows.",
+      "Balanced production support responsibilities with modernization work in the same product ecosystem.",
+      "Presented as a confidential healthcare case study without exposing product or client identity.",
+    ],
+
+    proofNote:
+      "This project was completed as confidential healthcare platform work at Epazz. Product identity, client references, source code, and internal system assets are not shared publicly. The portfolio presentation focuses on my engineering contribution across legacy support and modernization work.",
+
+    ctaLabel: "View Case Study",
+  },
+
+  //===================================================================//
+
+  {
     id: "onc-ehi-export",
     title: "ONC EHI Export & Security Compliance for an EHR System",
     shortDesc:
       "As part of the Epazz Tech team, I individually developed key backend functionality for an EHR system to support ONC §170.315(b)(10) EHI export and related security requirements around authentication, access control, and protected credential handling.",
-  
+
     description:
       "A confidential healthcare compliance case study completed at Epazz Tech for an EHR system. The platform combined standards-based FHIR APIs under /fhir with a non-FHIR EHI export capability under /ehi for ONC certification support. Working as a team member, I individually developed core backend functionality that helped satisfy ONC §170.315(b)(10), with related support for §170.315(d)(1) authentication, access control, and authorization, plus §170.315(d)(12) encrypted credential protection. My work focused on export flows, authorization-aware access, auditability, artifact structure, and operational guardrails needed for a certification-ready implementation.",
-  
-      tech: [
-        "C#",
-        ".NET 9",
-        "ASP.NET Core Web API",
-        "SQL Server",
-        "JWT Bearer Authentication",
-        "Duende IdentityServer",
-        "HL7 FHIR R4",
-        "Background Job Processing",
-      ],
-  
+
+    tech: [
+      "C#",
+      ".NET 9",
+      "ASP.NET Core Web API",
+      "SQL Server",
+      "JWT Bearer Authentication",
+      "Duende IdentityServer",
+      "HL7 FHIR R4",
+      "Background Job Processing",
+    ],
+
     role: "Backend .NET Developer (Team Member)",
     company: "Epazz Tech",
     category: "Confidential Healthcare Compliance Case Study",
     team: "Team-based project",
-  
+
     context:
       "Healthcare platform and EHR system API work where ONC certification support required a structured, electronic, and computable EHI export capability, with clear separation between standards-based FHIR APIs and the ONC-specific non-FHIR export workflow.",
-  
+
     purpose:
       "To help an EHR system support ONC certification-focused capabilities by enabling auditable EHI export for single-patient and population scenarios while reinforcing secure access and compliance-oriented backend behavior.",
-  
+
     constraints:
       "Worked in a confidential healthcare environment with certification-driven requirements, sensitive data handling, strict authorization rules, auditability needs, and the requirement to clearly distinguish FHIR interoperability features from ONC-specific /ehi export behavior.",
-  
+
     beforeState:
       "The product needed a certification-ready export story that documented the format publicly, supported structured single-patient and population export workflows, enforced access rules, and produced auditable evidence suitable for technical and compliance review.",
-  
+
     whatChanged:
       "Individually developed key backend functionality for the ONC export workflow, including a public export-format description, single-patient and population export endpoints, ZIP artifact generation with manifest.json and dataset JSON files, export audit history, and guardrails around filters, limits, and timeouts. I also supported authentication, authorization, and security-aligned behavior for protected export routes through JWT-based access, policy checks, patient-context enforcement, and compliance-oriented handling around credential protection and transport security.",
-  
+
     outcome:
       "Helped turn the ONC work into a clearer, more auditable, and more implementation-ready certification case by supporting structured EHI export, stronger access-control alignment, transparent sensitive-data exclusion behavior, and evidence that reviewers could verify through documented endpoints, artifacts, and audit records.",
-  
+
     highlights: [
       "Individually developed key backend functionality supporting ONC §170.315(b)(10) EHI export within a team-based healthcare platform project.",
       "Implemented public export-format documentation plus single-patient and population export workflows under /ehi.",
@@ -88,21 +153,30 @@ export const projects: Project[] = [
       "Supported §170.315(d)(1) through authenticated access, authorization policies, and patient-context enforcement for protected routes.",
       "Supported §170.315(d)(12) through compliance-aligned credential and transport security expectations, including protected handling and TLS-oriented controls.",
     ],
-  
+
     evidence: [
-      { label: "Selected Technical Evidence",
+      {
+        label: "Selected Technical Evidence",
         gallery: [
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369184/pace_gw6mnj.png",
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369184/pace1_qrf5kq.png",
         ],
-       },
+      },
     ],
-  
+
     proofNote:
       "This project was completed as confidential healthcare platform work tied to ONC certification support for an EHR system. Public source code, production access, and internal certification assets are not shared publicly. The portfolio presentation focuses on system context, my specific backend ownership, documented export behavior, and sanitized supporting material where permitted.",
     ctaLabel: "View Case Study",
-    image: "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369450/EHR-CB-084a-Drummond-ONC-Health-IT-Certified-Seal-1024x1024_vzv5xv.png",
+    image:
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369450/EHR-CB-084a-Drummond-ONC-Health-IT-Certified-Seal-1024x1024_vzv5xv.png",
+    gallery: [
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369450/EHR-CB-084a-Drummond-ONC-Health-IT-Certified-Seal-1024x1024_vzv5xv.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774514183/Screenshot_2026-03-26_133550_gmpsa7.png",
+    ],
   },
+
+  //===================================================================//
+
   {
     id: "erp-system",
     title: "Enterprise Resource Planning System Modernization",
@@ -186,7 +260,8 @@ export const projects: Project[] = [
 
     ctaLabel: "View Case Study",
 
-    image: "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169939/dark_mode_nk6xdb.png",
+    image:
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169939/dark_mode_nk6xdb.png",
     gallery: [
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774170381/login_system_z3f6ko.png",
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774367564/Screenshot_2026-03-22_135237_domqrn.png",
@@ -194,6 +269,9 @@ export const projects: Project[] = [
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169233/Capture12_bxq4hk.png",
     ],
   },
+
+  //===================================================================//
+
   {
     id: "home-automation",
     title: "Home Automation System Using IoT",
@@ -290,7 +368,8 @@ export const projects: Project[] = [
 
     ctaLabel: "Documentation & Media",
 
-    image: "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774078922/System_Architecture_Diagram_czwwia.png",
+    image:
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774078922/System_Architecture_Diagram_czwwia.png",
     gallery: [
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Logo_efqyjk.jpg",
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Home_screen_vxhuaw.jpg",
@@ -298,6 +377,9 @@ export const projects: Project[] = [
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774050504/4_a781kz.jpg",
     ],
   },
+
+  //===================================================================//
+
   {
     id: "selenium-bot",
     title: "Selenium-Based Web Automation Bot",
@@ -334,6 +416,9 @@ export const projects: Project[] = [
       "/media/images/projects/selenium-bot/Bot.png",
     ],
   },
+
+  //===================================================================//
+
   {
     id: "private-cloud",
     title: "University Private Cloud Lab with OpenStack",
