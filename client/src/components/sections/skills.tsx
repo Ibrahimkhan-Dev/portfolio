@@ -25,7 +25,7 @@ export default function Skills() {
           {skillCategories.map((cat) => (
             <div
               key={cat.title}
-              className="bg-card border-t-4 border-primary p-4 sm:p-8 hover:bg-[#111] transition-all"
+              className="bg-card border-t-4 border-primary p-4 sm:p-8 hover:bg-[#111] transition-all h-full flex flex-col"
             >
               <div className="text-primary mb-4 sm:mb-6 flex items-center justify-between">
                 <span className="font-black uppercase tracking-widest text-[10px] sm:text-xs">
@@ -34,7 +34,7 @@ export default function Skills() {
                 {categoryIcons[cat.title] ?? null}
               </div>
 
-              <div className="flex flex-wrap gap-1.5 sm:gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 flex-grow content-start">
                 {cat.skills.map((skill) => (
                   <div
                     key={skill}

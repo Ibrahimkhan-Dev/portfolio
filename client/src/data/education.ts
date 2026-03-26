@@ -14,7 +14,7 @@ export const education: Education[] = [
     institution: "Abasyn University",
     degree: "Bachelor's in Computer Science",
     period: "2020 - 2024",
-    desc: "Studied core computer science concepts including programming, software development, and computer systems.",
+    desc: "Completed a four-year CS degree with a focus on backend development and software engineering. Served as a Teaching Assistant and led the final-year IoT thesis project.",
     details: [
       "Learned programming fundamentals, data structures, and algorithms.",
       "Worked on academic and personal software development projects.",

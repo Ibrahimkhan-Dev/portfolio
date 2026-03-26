@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRoute, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Code2, Globe, Github, Layers, ChevronLeft, ChevronRight, ExternalLink, X, Images } from "lucide-react";
@@ -24,35 +24,15 @@ export default function ProjectDetail() {
   const [, setLocation] = useLocation();
   const project = projects.find((p) => p.id === params?.id);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [params?.id]);
-
-  if (!project) {
-    return (
-      <div className="bg-background min-h-screen text-foreground flex items-center justify-center px-4">
-        <div className="text-center space-y-6">
-          <h1 className="text-5xl sm:text-6xl font-black uppercase italic text-primary">404</h1>
-          <p className="text-lg sm:text-xl text-muted-foreground font-medium">Project not found</p>
-          <button
-            type="button"
-          onClick={() => {
-            sessionStorage.setItem("portfolio_scroll_to_projects", "1");
-            setLocation("/");
-          }}
-          className="inline-flex items-center gap-3 bg-primary text-black px-6 sm:px-8 py-3 sm:py-4 font-black uppercase tracking-widest hover:scale-105 transition-transform text-sm sm:text-base"
-        >
-            <ArrowLeft size={20} />
-            Back Home
-          </button>
-        </div>
-      </div>
-    );
-  }
-
+  // ── all hooks unconditionally at the top ──────────────────────────────────
   const [galleryModal, setGalleryModal] = useState<{ title: string; items: string[] } | null>(null);
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [mediaLoading, setMediaLoading] = useState(false);
+  const sliderRef = React.useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [params?.id]);
 
   const openGallery = (title: string, items: string[]) => {
     setGalleryIndex(0);
@@ -60,8 +40,8 @@ export default function ProjectDetail() {
     setGalleryModal({ title, items });
   };
   const closeGallery = () => setGalleryModal(null);
-  const galleryPrev = () => { setMediaLoading(true); setGalleryIndex((i) => (i === 0 ? (galleryModal?.items.length ?? 1) - 1 : i - 1)); };
-  const galleryNext = () => { setMediaLoading(true); setGalleryIndex((i) => (i === (galleryModal?.items.length ?? 1) - 1 ? 0 : i + 1)); };
+  const galleryPrev = useCallback(() => { setMediaLoading(true); setGalleryIndex((i) => (i === 0 ? (galleryModal?.items.length ?? 1) - 1 : i - 1)); }, [galleryModal?.items.length]);
+  const galleryNext = useCallback(() => { setMediaLoading(true); setGalleryIndex((i) => (i === (galleryModal?.items.length ?? 1) - 1 ? 0 : i + 1)); }, [galleryModal?.items.length]);
 
   useEffect(() => {
     if (!galleryModal) return;
@@ -72,26 +52,13 @@ export default function ProjectDetail() {
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [galleryModal, galleryIndex]);
+  }, [galleryModal, galleryIndex, galleryPrev, galleryNext]);
 
-  const hasLiveOrSource = Boolean(project.liveUrl || project.sourceUrl);
-  const openIfExists = (url?: string) => {
-    if (!url) return;
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
-  const mediaSlides = project.gallery?.length
+  const mediaSlides = project?.gallery?.length
     ? project.gallery
-    : project.image
+    : project?.image
       ? [project.image]
       : [];
-  const sliderRef = React.useRef<HTMLDivElement | null>(null);
-  const scrollMedia = (direction: "left" | "right") => {
-    const el = sliderRef.current;
-    if (!el) return;
-    const amount = el.clientWidth;
-    el.scrollBy({ left: direction === "left" ? -amount : amount, behavior: "smooth" });
-  };
 
   const AUTO_SLIDE_INTERVAL_MS = 5000;
   useEffect(() => {
@@ -109,6 +76,40 @@ export default function ProjectDetail() {
     }, AUTO_SLIDE_INTERVAL_MS);
     return () => clearInterval(id);
   }, [mediaSlides.length]);
+
+  // ── guard: all hooks already called above ────────────────────────────────
+  if (!project) {
+    return (
+      <div className="bg-background min-h-screen text-foreground flex items-center justify-center px-4">
+        <div className="text-center space-y-6">
+          <h1 className="text-5xl sm:text-6xl font-black uppercase italic text-primary">404</h1>
+          <p className="text-lg sm:text-xl text-muted-foreground font-medium">Project not found</p>
+          <button
+            type="button"
+            onClick={() => {
+              sessionStorage.setItem("portfolio_scroll_to_projects", "1");
+              setLocation("/");
+            }}
+            className="inline-flex items-center gap-3 bg-primary text-black px-6 sm:px-8 py-3 sm:py-4 font-black uppercase tracking-widest hover:scale-105 transition-transform text-sm sm:text-base"
+          >
+            <ArrowLeft size={20} />
+            Back Home
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const hasLiveOrSource = Boolean(project.liveUrl || project.sourceUrl);
+  const openIfExists = (url?: string) => {
+    if (!url) return;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+  const scrollMedia = (direction: "left" | "right") => {
+    const el = sliderRef.current;
+    if (!el) return;
+    el.scrollBy({ left: direction === "left" ? -el.clientWidth : el.clientWidth, behavior: "smooth" });
+  };
 
   return (
     <div className="bg-background min-h-screen text-foreground selection:bg-primary selection:text-black overflow-x-hidden">

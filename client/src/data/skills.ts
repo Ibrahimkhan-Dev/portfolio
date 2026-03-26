@@ -6,25 +6,26 @@ export type SkillCategory = {
 export const skillCategories: SkillCategory[] = [
   {
     title: "Languages",
-    skills: ["Python", ".NET Core", "C#", "C++", "JavaScript", "SQL", "PHP"],
+    skills: ["C#", "Python", "JavaScript", "TypeScript", "SQL", "C++", "PHP"],
   },
   {
     title: "Frameworks",
     skills: [
+      "ASP.NET Core",
+      ".NET MVC",
+      "Entity Framework",
+      "Angular",
       "Django",
       "Flask",
-      ".NET MVC",
       "React",
-      "Bootstrap",
-      "Entity Framework",
     ],
   },
   {
-    title: "Cloud & Dev",
-    skills: ["AWS", "Azure", "Docker", "OpenStack", "CI/CD", "Git", "Linux"],
+    title: "Cloud & DevOps",
+    skills: ["Azure", "AWS", "Docker", "Git", "CI/CD", "Linux", "OpenStack"],
   },
   {
-    title: "Automation",
-    skills: ["Selenium", "Unit Testing", "Jira", "Postman", "Agile", "Scrum"],
+    title: "Tools & QA",
+    skills: ["Postman", "Selenium", "Unit Testing", "Jira", "Agile", "Scrum", "SSMS"],
   },
 ];

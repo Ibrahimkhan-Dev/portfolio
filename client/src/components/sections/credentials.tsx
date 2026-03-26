@@ -57,12 +57,12 @@ export default function Credentials() {
           </span>
         </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-6 sm:gap-12 mb-16 sm:mb-24">
+        <div className="grid md:grid-cols-2 gap-6 sm:gap-12 mb-16 sm:mb-24 items-stretch">
           {education.map((item, idx) => (
-            <Reveal key={item.id ?? String(idx)} delay={idx * 0.1}>
+            <Reveal key={item.id ?? String(idx)} delay={idx * 0.1} className="h-full">
               <Dialog>
                 <DialogTrigger asChild>
-                  <div className="bg-card border-2 border-white/5 p-6 sm:p-10 hover:border-primary transition-all group relative overflow-hidden cursor-pointer">
+                  <div className="bg-card border-2 border-white/5 p-6 sm:p-10 hover:border-primary transition-all group relative overflow-hidden cursor-pointer h-full flex flex-col">
                     <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
                       <GraduationCap size={120} className="sm:w-[150px] sm:h-[150px]" />
                     </div>
@@ -79,7 +79,7 @@ export default function Credentials() {
                       {item.degree}
                     </p>
 
-                    <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+                    <p className="text-muted-foreground text-base sm:text-lg leading-relaxed flex-grow">
                       {item.desc}
                     </p>
                   </div>
@@ -211,7 +211,7 @@ export default function Credentials() {
                     </motion.div>
                   </DialogTrigger>
 
-                  <DialogContent className="bg-[#0b0b0b] border-2 border-primary/50 text-white max-w-2xl rounded-none max-h-[85vh] overflow-y-auto">
+                  <DialogContent className="bg-[#0b0b0b] border-2 border-primary/50 text-white max-w-4xl rounded-none max-h-[85vh] overflow-y-auto">
                     <DialogHeader>
                       <DialogTitle className="text-2xl sm:text-4xl font-black uppercase italic text-primary">
                         {cert.title}

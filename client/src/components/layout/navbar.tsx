@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -27,20 +28,24 @@ export default function Navbar() {
 
   const scrollToSection = (e: React.MouseEvent<HTMLElement>, sectionId: string) => {
     e.preventDefault();
+    setIsMobileMenuOpen(false);
+
+    const id = sectionId.replace("#", "");
 
     if (location !== "/") {
-      window.location.href = "/#" + sectionId.replace("#", "");
+      sessionStorage.setItem("portfolio_scroll_to_section", id);
+      setLocation("/");
       return;
     }
 
-    const element = document.querySelector(sectionId.startsWith("#") ? sectionId : "#" + sectionId);
+    const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
     }
   };
 
   return (
+    <>
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -78,7 +83,7 @@ export default function Navbar() {
             onClick={(e) => scrollToSection(e, "#contact")}
             className="px-6 xl:px-8 py-3 bg-primary text-black text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_0_15px_rgba(255,87,34,0.3)] border-0 cursor-pointer"
           >
-            Start Project
+            Hire Me
           </button>
         </div>
 
@@ -91,6 +96,9 @@ export default function Navbar() {
         </button>
       </div>
 
+    </motion.nav>
+
+    {createPortal(
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -98,35 +106,54 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "tween", duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
-            className="lg:hidden fixed inset-0 bg-[#050505] z-[60] flex flex-col items-center justify-center space-y-6 sm:space-y-10 p-6 overflow-y-auto"
+            className="lg:hidden fixed inset-0 bg-[#050505] z-[9999] flex flex-col overflow-y-auto"
           >
-            <button
-              className="absolute top-6 right-6 sm:top-8 sm:right-8 text-primary"
-              onClick={() => setIsMobileMenuOpen(false)}
-              aria-label="Close menu"
-            >
-              <X size={36} />
-            </button>
-            {navLinks.map((link) => (
+            {/* Mobile menu header */}
+            <div className="flex items-center justify-between px-6 py-5 border-b border-white/5 shrink-0">
+              <span className="text-xl font-black uppercase italic tracking-tighter text-white">
+                IBRAHIM<span className="text-primary">.</span>
+              </span>
               <button
-                key={link.name}
-                type="button"
-                onClick={(e) => scrollToSection(e, link.href)}
-                className="text-3xl sm:text-5xl font-black uppercase tracking-tighter text-white hover:text-primary transition-colors text-center bg-transparent border-0 cursor-pointer"
+                className="text-primary p-1"
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Close menu"
               >
-                {link.name}
+                <X size={32} />
               </button>
-            ))}
-            <button
-              type="button"
-              onClick={(e) => scrollToSection(e, "#contact")}
-              className="w-full max-w-md py-5 sm:py-6 bg-primary text-black text-lg sm:text-xl font-black uppercase tracking-widest text-center border-0 cursor-pointer"
-            >
-              Start Project
-            </button>
+            </div>
+
+            {/* Nav links */}
+            <div className="flex flex-col flex-grow px-6 py-8 gap-1">
+              {navLinks.map((link, i) => (
+                <button
+                  key={link.name}
+                  type="button"
+                  onClick={(e) => scrollToSection(e, link.href)}
+                  className="text-left text-2xl sm:text-4xl font-black uppercase tracking-tighter text-white hover:text-primary transition-colors py-3 sm:py-4 border-b border-white/5 bg-transparent border-x-0 border-t-0 cursor-pointer w-full"
+                >
+                  <span className="text-primary/30 text-sm font-black mr-3 tabular-nums">
+                    0{i + 1}
+                  </span>
+                  {link.name}
+                </button>
+              ))}
+            </div>
+
+            {/* CTA button */}
+            <div className="px-6 pb-10 shrink-0">
+              <button
+                type="button"
+                onClick={(e) => scrollToSection(e, "#contact")}
+                className="w-full py-5 bg-primary text-black text-base font-black uppercase tracking-widest text-center border-0 cursor-pointer hover:opacity-90 transition-opacity"
+              >
+                Hire Me
+              </button>
+            </div>
           </motion.div>
         )}
-      </AnimatePresence>
-    </motion.nav>
+      </AnimatePresence>,
+      document.body
+    )}
+    </>
   );
 }

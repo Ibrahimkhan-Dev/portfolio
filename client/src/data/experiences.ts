@@ -22,7 +22,7 @@ export const experiences: Experience[] = [
     description:
       "Epazz Tech is a multinational technology company with 450+ employees in Pakistan, operating across software development, AI engineering, drone technologies, mobile applications, and enterprise solutions, with executive leadership based in the USA and Canada. As a Full Stack Developer, I am part of the healthcare software team, contributing to enterprise-level system modernization and compliance-driven development.",
     contributions: [
-      "Revamping a legacy EHR (Electronic Health Record) system from .NET Framework to .NET Core 8, developing scalable REST APIs and implementing a modern Angular 20 frontend.",
+      "Revamping a legacy EHR (Electronic Health Record) system from .NET Framework to .NET Core 8, developing scalable REST APIs and implementing a modern Angular frontend.",
       "Contributing to ONC Certification requirements, ensuring regulatory compliance and system interoperability standards.",
       "Working on HIPAA compliance implementation, strengthening data privacy, secure authentication, and healthcare data protection.",
       "Collaborating within a team of 6 developers in an Agile environment to deliver secure, production-ready healthcare solutions.",
@@ -34,7 +34,7 @@ export const experiences: Experience[] = [
       "Hipaa Compliance",
       ".NET Core 8",
       "REST APIs",
-      "Angular 20",
+      "Angular",
       "SQL",
       "Agile",
       "Git",
@@ -103,7 +103,6 @@ export const experiences: Experience[] = [
       "Developed an understanding of how research-driven startups operate in fast-paced environments.",
     ],
     tech: ["Python", "Django", "Flask", "PostgreSQL", "IoT"],
-    letterUrl: "/media/images/internship-letter.jpg",
   },
   {
     id: "wp-developer-2021",

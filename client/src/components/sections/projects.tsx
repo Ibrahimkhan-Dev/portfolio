@@ -22,12 +22,12 @@ export default function Projects() {
           </div>
         </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-6 sm:gap-10">
+        <div className="grid md:grid-cols-2 gap-6 sm:gap-10 items-stretch">
           {projects.map((project, index) => (
-            <Reveal key={project.id} delay={index * 0.1}>
+            <Reveal key={project.id} delay={index * 0.1} className="h-full">
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                className="cursor-pointer"
+                className="cursor-pointer h-full"
                 role="link"
                 tabIndex={0}
                 onClick={() => setLocation(`/project/${project.id}`)}
@@ -38,7 +38,7 @@ export default function Projects() {
                   }
                 }}
               >
-                <Card className="group bg-card border-2 border-white/5 hover:border-primary transition-all duration-500 rounded-none p-6 sm:p-10 relative overflow-hidden">
+                <Card className="group bg-card border-2 border-white/5 hover:border-primary transition-all duration-500 rounded-none p-6 sm:p-10 relative overflow-hidden h-full flex flex-col">
                   <div className="mb-6 sm:mb-8 overflow-hidden border border-white/10 bg-card flex items-center justify-center h-48 sm:h-56">
                     {project.image ? (
                       <img
@@ -63,7 +63,7 @@ export default function Projects() {
                     {project.title}
                   </h3>
 
-                  <p className="text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed font-medium line-clamp-2">
+                  <p className="text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed font-medium line-clamp-2 flex-grow">
                     {project.shortDesc}
                   </p>
 

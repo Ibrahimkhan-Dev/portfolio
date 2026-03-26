@@ -17,7 +17,7 @@ export default function Contact() {
     const body = encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
     );
-    window.location.href = `mailto:ibrahimkhanwork7@gmail.com?subject=${subject}&body=${body}`;
+    window.open(`mailto:ibrahimkhanwork7@gmail.com?subject=${subject}&body=${body}`);
   };
 
   return (
@@ -29,7 +29,7 @@ export default function Contact() {
               Let's <br /> <span className="text-primary">Connect</span>
             </h2>
             <p className="text-muted-foreground text-lg sm:text-2xl max-w-lg mb-8 sm:mb-12 font-medium leading-tight uppercase tracking-tighter">
-              "Got a website idea, need backend support, or want to automate something?"
+              "Building enterprise software, need a .NET backend developer, or want to modernize a legacy system?"
             </p>
 
             <div className="space-y-6 sm:space-y-10">
@@ -48,8 +48,8 @@ export default function Contact() {
                   <Linkedin className="w-6 h-6 sm:w-8 sm:h-8" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs font-black uppercase tracking-[0.2em] text-white/40">LinkedIn</p>
-                  <p className="text-base sm:text-2xl font-black text-white group-hover:text-primary transition-colors truncate">muhammad-ibrahim-khan</p>
+                  <p className="text-xs font-black uppercase tracking-[0.2em] text-white/40">Connect</p>
+                  <p className="text-base sm:text-2xl font-black text-white group-hover:text-primary transition-colors truncate">LinkedIn</p>
                 </div>
               </a>
 
@@ -93,8 +93,8 @@ export default function Contact() {
         <div className="mt-20 sm:mt-40 pt-8 sm:pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
           <p className="text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/30">&copy; {new Date().getFullYear()} MUHAMMAD IBRAHIM KHAN</p>
           <div className="flex gap-6 sm:gap-10">
-            <a href="#" className="text-xs font-black uppercase tracking-[0.2em] text-white/30 hover:text-primary transition-colors">Privacy</a>
-            <a href="#" className="text-xs font-black uppercase tracking-[0.2em] text-white/30 hover:text-primary transition-colors">Terms</a>
+            <a href="https://linkedin.com/in/muhammad-ibrahim-khan-8022a7375" target="_blank" rel="noopener noreferrer" className="text-xs font-black uppercase tracking-[0.2em] text-white/30 hover:text-primary transition-colors">LinkedIn</a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-xs font-black uppercase tracking-[0.2em] text-white/30 hover:text-primary transition-colors">GitHub</a>
           </div>
         </div>
       </div>

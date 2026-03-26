@@ -23,7 +23,6 @@ export const certifications: Certification[] = [
       "Data Acquisition",
       "Internet of Things (IoT)",
     ],
-    credentialUrl: "/media/Certificates/early-warning-system.pdf",
   },
   {
     id: "risk-thinking-sdpi-2025",
@@ -34,7 +33,6 @@ export const certifications: Certification[] = [
     description:
       "Completed an SDPI capacity-building workshop on integrating risk assessment and strategic foresight into development planning, emphasizing risk-aware decision making, resilient system architecture, and long-term planning methodologies.",
     skills: ["Risk Management", "Strategic Planning", "System Architecture"],
-    credentialUrl: "/media/Certificates/safeguard-the-future.pdf",
   },
   {
     id: "ai-policy-sdpi-2025",
@@ -49,7 +47,6 @@ export const certifications: Certification[] = [
       "Policy Analysis",
       "Public Learning",
     ],
-    credentialUrl: "/media/Certificates/thinking-beyond-knowledge.pdf",
   },
   {
     id: "python-for-everybody-2025",

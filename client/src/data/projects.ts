@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export type Project = {
   id: string;
 
@@ -33,7 +35,7 @@ export type Project = {
   liveUrl?: string;
   sourceUrl?: string;
 
-  icon?: string;
+  icon?: ReactNode;
 };
 
 export const projects: Project[] = [
@@ -41,7 +43,7 @@ export const projects: Project[] = [
     id: "ehr-system",
     title: "EHR System Legacy Support & Modernization",
     shortDesc:
-      "Resolved bugs and support tickets in a legacy EHR codebase while contributing to its modernization through a newer Angular and .NET 8 architecture.",
+      "Contributing to EHR modernization from .NET Framework to .NET 8 and Angular at Epazz — while maintaining stability in the live legacy clinical platform.",
 
     description:
       "A confidential healthcare platform case study completed at Epazz. I worked across both the legacy system and its newer modernization stack. On the old platform, I handled bug fixing, issue investigation, and support-ticket resolution across long-lived healthcare modules. In parallel, I contributed to the newer stack built with Angular and ASP.NET Core APIs, supporting a more maintainable and scalable direction for the system without exposing product or client identity.",
@@ -410,11 +412,6 @@ export const projects: Project[] = [
     ],
     proofNote:
       "This project was completed as confidential company-associated work. Source code, workflow access, and screenshots are not publicly available.",
-    image: "/media/images/projects/selenium-bot/selenium-bot.png",
-    gallery: [
-      "/media/images/projects/selenium-bot/selenium-bot.png",
-      "/media/images/projects/selenium-bot/Bot.png",
-    ],
   },
 
   //===================================================================//
@@ -425,7 +422,7 @@ export const projects: Project[] = [
     shortDesc:
       "Built a learning-focused private cloud lab with a 4-member university team by connecting five PCs and configuring an OpenStack-based local cloud environment.",
     description:
-      "This academic team project was completed under the supervision of Prof. Asad Hanif at Abasyn University. Our team used five university lab PCs, including one parent/controller system, to build a local private-cloud setup for learning cloud infrastructure, networking, and virtualization concepts through hands-on practice.",
+      "A hands-on academic team project completed under Prof. Asad Hanif at Abasyn University. We configured a functional private cloud using five university lab PCs — one acting as the controller node — connected over a dedicated local network. The exercise gave practical experience in cloud provisioning, tenant isolation, inter-node networking, and OpenStack dashboard operations that theory alone cannot replicate.",
     tech: [
       "OpenStack",
       "Ubuntu Linux",
@@ -442,18 +439,13 @@ export const projects: Project[] = [
     purpose:
       "Learning-focused deployment of a local private cloud using available university hardware.",
     highlights: [
-      "Connected five university PCs over a local wired network.",
-      "Used one machine as the parent/controller node.",
-      "Configured dedicated IP-based communication between systems.",
-      "Explored private cloud concepts through OpenStack-based deployment.",
-      "Worked collaboratively in a supervised academic environment.",
+      "Designed a 5-node topology with dedicated controller and compute roles.",
+      "Configured static IP addressing and inter-node connectivity across all machines.",
+      "Deployed OpenStack services (Nova, Neutron, Glance, Keystone) in a real environment.",
+      "Provisioned virtual machines and validated tenant isolation on live hardware.",
+      "Gained hands-on exposure to cloud infrastructure concepts beyond coursework.",
     ],
     proofNote:
       "The original setup was built as a university lab activity and public screenshots from the original environment are not available. Supporting diagrams shown here are reconstructed for portfolio presentation.",
-    image: "/media/images/projects/private-cloud/topology-diagram.png",
-    gallery: [
-      "/media/images/projects/private-cloud/topology-diagram.png",
-      "/media/images/projects/private-cloud/architecture-diagram.png",
-    ],
   },
 ];

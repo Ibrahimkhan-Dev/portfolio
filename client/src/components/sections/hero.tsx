@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Linkedin, Mail } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import {
   BadgePowerOn,
   BadgeIdlePulse,
@@ -15,7 +15,7 @@ export default function Hero() {
   return (
     <section
       id="about"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 bg-black"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-24 bg-black"
     >
       <GlowBreath />
 
@@ -79,31 +79,12 @@ export default function Hero() {
           </CTAButton>
         </StaggerIn>
 
-        <StaggerIn
-          className="mt-12 sm:mt-16 flex justify-center items-center gap-8 text-muted-foreground"
-          start={HERO_T.ctaStart + 2 * 0.06}
-        >
-          <a
-            href="https://www.linkedin.com/in/muhammad-ibrahim-khan-8022a7375"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn profile"
-            className="hover:text-primary transition-colors"
-          >
-            <Linkedin size={28} />
-          </a>
-
-          <a
-            href="mailto:ibrahimkhanwork7@gmail.com"
-            aria-label="Send email"
-            className="hover:text-primary transition-colors"
-          >
-            <Mail size={28} />
-          </a>
-        </StaggerIn>
       </div>
 
-      <motion.div
+      <motion.button
+        type="button"
+        aria-label="Scroll to contact"
+        onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
         initial={{ opacity: isIntroPlayed() ? 1 : 0 }}
         animate={{ opacity: 1 }}
         transition={
@@ -111,7 +92,7 @@ export default function Hero() {
             ? { duration: 0 }
             : { delay: HERO_T.polishEnd, duration: 0.5 }
         }
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-primary"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-primary cursor-pointer bg-transparent border-0 p-2 hover:text-white transition-colors"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
@@ -119,7 +100,7 @@ export default function Hero() {
         >
           <ArrowDown size={32} strokeWidth={3} />
         </motion.div>
-      </motion.div>
+      </motion.button>
     </section>
   );
 }
