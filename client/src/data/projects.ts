@@ -412,6 +412,12 @@ export const projects: Project[] = [
     ],
     proofNote:
       "This project was completed as confidential company-associated work. Source code, workflow access, and screenshots are not publicly available.",
+    image:
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596210/selenium-bot_jaehdr.png",
+    gallery: [
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596210/selenium-bot_jaehdr.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596211/Bot_bxy54a.png",
+    ],
   },
 
   //===================================================================//
@@ -447,5 +453,11 @@ export const projects: Project[] = [
     ],
     proofNote:
       "The original setup was built as a university lab activity and public screenshots from the original environment are not available. Supporting diagrams shown here are reconstructed for portfolio presentation.",
+    image:
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596192/topology-diagram_ahrcs1.png",
+    gallery: [
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596192/topology-diagram_ahrcs1.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596191/architecture-diagram_us3bcq.png",
+    ],
   },
 ];
