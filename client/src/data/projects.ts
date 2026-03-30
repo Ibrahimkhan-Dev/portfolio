@@ -160,6 +160,7 @@ export const projects: Project[] = [
       {
         label: "Selected Technical Evidence",
         gallery: [
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774872955/ChatGPT_Image_Mar_30_2026_05_10_59_PM_cjmili.png",
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369184/pace_gw6mnj.png",
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369184/pace1_qrf5kq.png",
         ],
@@ -172,6 +173,7 @@ export const projects: Project[] = [
     image:
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369450/EHR-CB-084a-Drummond-ONC-Health-IT-Certified-Seal-1024x1024_vzv5xv.png",
     gallery: [
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774872955/ChatGPT_Image_Mar_30_2026_05_10_59_PM_cjmili.png",
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369450/EHR-CB-084a-Drummond-ONC-Health-IT-Certified-Seal-1024x1024_vzv5xv.png",
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774514183/Screenshot_2026-03-26_133550_gmpsa7.png",
     ],
