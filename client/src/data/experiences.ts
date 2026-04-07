@@ -20,7 +20,7 @@ export const experiences: Experience[] = [
     location: "Lahore",
     duration: "December 2025 - Present",
     description:
-      "Epazz Tech is a multinational technology company with 450+ employees in Pakistan, operating across software development, AI engineering, drone technologies, mobile applications, and enterprise solutions, with executive leadership based in the USA and Canada. As a Full Stack Developer, I am part of the healthcare software team, contributing to enterprise-level system modernization and compliance-driven development.",
+      "I work as a Full Stack Developer at Epazz Tech, a Pakistan-based technology company with 350+ employees, on the healthcare software team, contributing to the development and modernization of secure, scalable, and compliance-focused healthcare applications. Epazz Tech operates within the broader ZenaTech ecosystem, a global business technology company focused on mission-critical solutions spanning AI drones, Drone as a Service (DaaS), enterprise SaaS, and quantum computing, with a corporate presence in Toronto, Ontario, Canada.",
     contributions: [
       "Revamping a legacy EHR (Electronic Health Record) system from .NET Framework to .NET Core 8, developing scalable REST APIs and implementing a modern Angular frontend.",
       "Contributing to ONC Certification requirements, ensuring regulatory compliance and system interoperability standards.",
