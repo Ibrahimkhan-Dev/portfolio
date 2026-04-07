@@ -160,8 +160,8 @@ export const projects: Project[] = [
       {
         label: "Selected Technical Evidence",
         gallery: [
-          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774872955/ChatGPT_Image_Mar_30_2026_05_10_59_PM_cjmili.png",
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369184/pace_gw6mnj.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774872955/ChatGPT_Image_Mar_30_2026_05_10_59_PM_cjmili.png",
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369184/pace1_qrf5kq.png",
         ],
       },
