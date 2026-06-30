@@ -95,11 +95,38 @@ export const projects: Project[] = [
       "Balanced production support responsibilities with modernization work in the same product ecosystem.",
       "Presented as a confidential healthcare case study without exposing product or client identity.",
     ],
+    evidence: [
+      {
+        label: "Legacy EHR",
+        gallery: [
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818732/Pace_old_rb6alq.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818733/Pace_old2_xyiggj.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818732/Pace_old3_mvmbuj.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818733/Pace_old4_cladtm.png",
+        ],
+      },
+      {
+        label: "After Modernization",
+        gallery: [
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818755/Pace-Plus-New1_idmoey.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818755/Pace-Plus-New2_gkpxlv.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818755/Pace-Plus-New3_frzgir.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782819279/Screenshot_2026-06-30_163218_worook.png",
+        ],
+      },
+    ],
 
     proofNote:
       "This project was completed as confidential healthcare platform work at Epazz. Product identity, client references, source code, and internal system assets are not shared publicly. The portfolio presentation focuses on my engineering contribution across legacy support and modernization work.",
 
     ctaLabel: "View Case Study",
+    image:
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818755/Pace-Plus-New1_idmoey.png",
+    gallery: [
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818755/Pace-Plus-New1_idmoey.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818755/Pace-Plus-New2_gkpxlv.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782819279/Screenshot_2026-06-30_163218_worook.png",
+    ],
   },
 
   //===================================================================//

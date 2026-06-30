@@ -204,7 +204,7 @@ export default function ProjectDetail() {
             {/* Row 1 right: project media slider (all images in one slider, like certifications) */}
             <div className="min-w-0 w-full md:row-start-1 md:col-start-2 flex flex-col">
               <h3 className="text-lg font-black uppercase italic mb-3">
-                {project.id === "home-automation" ? "App & Hardware Visuals" : "Diagrams / visuals"}
+                {project.id === "home-automation" ? "App & Hardware Visuals" : "Visuals"}
               </h3>
               <div className="relative flex-1 min-h-0">
                 {mediaSlides.length > 0 ? (
