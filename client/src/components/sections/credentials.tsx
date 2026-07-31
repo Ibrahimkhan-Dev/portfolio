@@ -126,7 +126,7 @@ export default function Credentials() {
         {/* ── Certifications ── */}
         <Reveal className="mb-4 sm:mb-6">
           <span className="text-xs font-black uppercase tracking-[0.25em] text-primary/60">
-            Certifications
+           Certifications & Professional Learning
           </span>
         </Reveal>
 
@@ -231,7 +231,7 @@ export default function Credentials() {
 
                       <div className="space-y-3 sm:space-y-4">
                         <h4 className="text-xl sm:text-2xl font-black uppercase italic border-b border-white/10 pb-2">
-                          Skills Validated
+                           Skills & Topics
                         </h4>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">

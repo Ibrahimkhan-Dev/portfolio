@@ -142,7 +142,7 @@ export function BackgroundFX({ network = false }: { network?: boolean }) {
    Terminal Boot Overlay — plays once per session
 ───────────────────────────────────────────────────────── */
 const BOOT_TEXT =
-  "> initializing portfolio...\n> loading modules: [██████████] done\n> welcome, visitor.";
+  "> initializing engineering portfolio...\n> loading enterprise systems: [██████████] done\n> welcome.";
 
 export function TerminalBoot() {
   const [count, setCount] = useState(_introPlayed ? BOOT_TEXT.length : 0);

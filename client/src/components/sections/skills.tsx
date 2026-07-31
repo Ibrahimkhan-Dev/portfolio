@@ -4,19 +4,18 @@ import type React from "react";
 import { Reveal, Stagger } from "@/components/ui/site-animations";
 
 const categoryIcons: Record<string, React.ReactNode> = {
-  Languages: <Terminal size={24} />,
-  Frameworks: <Settings size={24} />,
-  "Cloud & Dev": <Cloud size={24} />,
-  Automation: <ShieldCheck size={24} />,
+  "Backend & APIs": <Terminal size={24} />,
+  "Frontend & Mobile": <Settings size={24} />,
+  "Data & Infrastructure": <Cloud size={24} />,
+  "Security & Quality": <ShieldCheck size={24} />,
 };
-
 export default function Skills() {
   return (
     <section id="skills" className="py-12 sm:py-16 md:py-20 bg-[#050505] overflow-hidden relative">
       <div className="container mx-auto px-4 sm:px-6">
         <Reveal className="mb-12 sm:mb-24 text-center">
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-black font-display mb-4 uppercase italic">
-            Tech Stack
+            Technical Capabilities
           </h2>
           <div className="h-2 w-32 sm:w-40 bg-primary mx-auto" />
         </Reveal>

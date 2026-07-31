@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, FileText } from "lucide-react";
 import {
   BadgePowerOn,
   BadgeIdlePulse,
@@ -12,18 +12,24 @@ import {
 } from "@/components/ui/site-animations";
 
 export default function Hero() {
+  const scrollToSection = (sectionId: string) => {
+    document
+      .getElementById(sectionId)
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section
       id="about"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-24 bg-black"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black px-0 pb-24 pt-20"
     >
       <GlowBreath />
 
-      <div className="container mx-auto px-4 sm:px-6 z-10 text-center">
+      <div className="container z-10 mx-auto px-4 text-center sm:px-6">
         <BadgeIdlePulse className="mb-6">
           <BadgePowerOn className="inline-block">
-            <div className="inline-block px-4 py-1 rounded-sm bg-primary text-black text-xs font-black uppercase tracking-widest">
-              Software Developer
+            <div className="inline-block rounded-sm bg-primary px-4 py-1 text-xs font-black uppercase tracking-widest text-black">
+              Enterprise Full-Stack Developer
             </div>
           </BadgePowerOn>
         </BadgeIdlePulse>
@@ -37,68 +43,104 @@ export default function Hero() {
         </div>
 
         <motion.p
-  initial={{ opacity: isIntroPlayed() ? 1 : 0, y: isIntroPlayed() ? 0 : 10 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{
-    delay: HERO_T.compileEnd,
-    duration: 0.6,
-    ease: "easeOut",
-  }}
-  className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed font-medium italic"
->
-  From real-world problems to scalable systems, I build software where
-  automation and reliability matter.
-</motion.p>
+          initial={{
+            opacity: isIntroPlayed() ? 1 : 0,
+            y: isIntroPlayed() ? 0 : 10,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            delay: HERO_T.compileEnd,
+            duration: 0.6,
+            ease: "easeOut",
+          }}
+          className="mx-auto mb-8 max-w-3xl text-base font-medium italic leading-relaxed text-muted-foreground sm:mb-10 sm:text-lg md:text-xl"
+        >
+          I build and modernize secure, scalable enterprise platforms across
+          healthcare, pharmaceutical traceability, ERP, automation, IoT, and
+          cloud-connected environments using .NET, Angular, SQL Server, and
+          Flutter.
+        </motion.p>
 
         <StaggerIn className="flex flex-wrap justify-center gap-4 sm:gap-6">
           <CTAButton
             href="#projects"
-            className="px-6 py-3 sm:px-10 sm:py-4 bg-primary text-black font-black text-base sm:text-lg uppercase tracking-tighter border-b-4 border-orange-900"
-            onClick={(e) => {
-              e.preventDefault();
-              document
-                .getElementById("projects")
-                ?.scrollIntoView({ behavior: "smooth" });
+            className="border-b-4 border-orange-900 bg-primary px-6 py-3 text-base font-black uppercase tracking-tighter text-black sm:px-10 sm:py-4 sm:text-lg"
+            onClick={(event) => {
+              event.preventDefault();
+              scrollToSection("projects");
             }}
           >
-            Explore Projects
+            View Case Studies
           </CTAButton>
+
+          <a
+            href="/Muhammad-Ibrahim-Khan-Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View Muhammad Ibrahim Khan's resume in a new tab"
+            className="group inline-flex items-center justify-center gap-2 border-2 border-white/30 px-6 py-3 text-base font-black uppercase tracking-tighter text-white transition-all hover:-translate-y-0.5 hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:px-10 sm:py-4 sm:text-lg"
+          >
+            <FileText
+              size={20}
+              strokeWidth={2.5}
+              aria-hidden="true"
+              className="shrink-0"
+            />
+
+            <span>View Resume</span>
+          </a>
 
           <CTAButton
             href="#contact"
-            className="px-6 py-3 sm:px-10 sm:py-4 border-2 border-primary text-primary font-black text-base sm:text-lg uppercase tracking-tighter hover:bg-primary hover:text-black transition-all"
-            onClick={(e) => {
-              e.preventDefault();
-              document
-                .getElementById("contact")
-                ?.scrollIntoView({ behavior: "smooth" });
+            className="border-2 border-primary px-6 py-3 text-base font-black uppercase tracking-tighter text-primary transition-all hover:bg-primary hover:text-black sm:px-10 sm:py-4 sm:text-lg"
+            onClick={(event) => {
+              event.preventDefault();
+              scrollToSection("contact");
             }}
             showArrow={false}
           >
-            Get In Touch
+            Contact Me
           </CTAButton>
         </StaggerIn>
-
       </div>
 
       <motion.button
         type="button"
-        aria-label="Scroll to contact"
-        onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-        initial={{ opacity: isIntroPlayed() ? 1 : 0 }}
-        animate={{ opacity: 1 }}
+        aria-label="Scroll to contact section"
+        onClick={() => scrollToSection("contact")}
+        initial={{
+          opacity: isIntroPlayed() ? 1 : 0,
+        }}
+        animate={{
+          opacity: 1,
+        }}
         transition={
           isIntroPlayed()
             ? { duration: 0 }
-            : { delay: HERO_T.polishEnd, duration: 0.5 }
+            : {
+                delay: HERO_T.polishEnd,
+                duration: 0.5,
+              }
         }
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-primary cursor-pointer bg-transparent border-0 p-2 hover:text-white transition-colors"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer border-0 bg-transparent p-2 text-primary transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
+          animate={{
+            y: [0, 10, 0],
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: 2,
+          }}
         >
-          <ArrowDown size={32} strokeWidth={3} />
+          <ArrowDown
+            size={32}
+            strokeWidth={3}
+            aria-hidden="true"
+          />
         </motion.div>
       </motion.button>
     </section>

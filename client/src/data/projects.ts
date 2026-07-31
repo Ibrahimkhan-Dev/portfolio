@@ -40,13 +40,138 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: "ehr-system",
-    title: "EHR System Legacy Support & Modernization",
+    id: "zenatrace",
+    title: "ZenaTrace Pharmaceutical Traceability Platform",
     shortDesc:
-      "Contributing to EHR modernization from .NET Framework to .NET 8 and Angular at Epazz — while maintaining stability in the live legacy clinical platform.",
+      "Developed and validated a multi-tenant web platform for pharmaceutical serialization and supply-chain traceability, with a separate Flutter mobile R&D track.",
 
     description:
-      "A confidential healthcare platform case study completed at Epazz. I worked across both the legacy system and its newer modernization stack. On the old platform, I handled bug fixing, issue investigation, and support-ticket resolution across long-lived healthcare modules. In parallel, I contributed to the newer stack built with Angular and ASP.NET Core APIs, supporting a more maintainable and scalable direction for the system without exposing product or client identity.",
+      "ZenaTrace is a multi-tenant pharmaceutical supply-chain traceability platform developed at Epazz Tech. My work covered requirements analysis, full-stack implementation, frontend and backend integration, authentication, tenant isolation, role-based access, responsive quality assurance, and testing. The completed Angular web MVP supports master data, serial generation and import, commissioning, aggregation, shipments, trace events, audit logs, search, file handling, imports and exports, dashboards, and administration. A separate Flutter application is being developed as a mobile R&D track and is not presented here as a production mobile release.",
+
+    tech: [
+      "Angular",
+      "TypeScript",
+      ".NET 8",
+      "ASP.NET Core",
+      "C#",
+      "SQL Server",
+      "Entity Framework Core",
+      "REST APIs",
+      "SQL Server Full-Text Search",
+      "Redis",
+      "SQL Server Outbox",
+      "Amazon S3",
+      "JWT Authentication",
+      "Refresh Token Rotation",
+      "Flutter",
+      "Dart",
+      "Playwright",
+    ],
+
+    role: "Full-Stack Developer",
+    company: "Epazz Tech",
+    duration: "2026 - Present",
+    category: "Enterprise Pharmaceutical Traceability",
+    team: "Epazz Tech product project",
+
+    context:
+      "Pharmaceutical and other compliance-focused supply chains need accurate product identity, controlled serial-number lifecycles, clear shipment history, tenant-isolated data, permission-based access, and reliable audit evidence. ZenaTrace brings these workflows together in one enterprise platform.",
+
+    purpose:
+      "To provide a secure and maintainable foundation for managing pharmaceutical master data, serialized products, packaging relationships, shipment operations, traceability records, audit evidence, imports, exports, files, and tenant-level administration.",
+
+    constraints:
+      "The project had to follow a fixed MVP scope, preserve strict tenant isolation, enforce action-level permissions, protect security-sensitive workflows, maintain trace and audit history, and avoid claiming regulatory integrations or certifications that were outside the approved release boundary.",
+
+    beforeState:
+      "The project began with separate scope, permission, technical-stack, data-model, API, UI/UX, and implementation documents. These requirements needed to be converted into one consistent application without introducing undocumented workflows, permissions, database fields, or API behavior.",
+
+    whatChanged:
+      "Converted the approved baselines into an Angular web portal, ASP.NET Core REST API, and SQL Server data model. Developed and reviewed workflows for products, GTINs, lots, partners, locations, serial batches, serial numbers, imports, commissioning, aggregations, shipments, trace events, exports, files, users, roles, permissions, settings, and dashboards. Added tenant-aware data access, role-based authorization, audit and trace records, SQL Server Full-Text Search, Redis caching, Amazon S3-backed file handling, SQL Server Outbox processing, and separate browser and mobile authentication flows.",
+
+    outcome:
+      "Delivered a working and test-backed web MVP that combines core pharmaceutical serialization and traceability workflows in one tenant-aware platform. The implementation also provides a stable backend foundation for the separate Flutter mobile R&D track and future product phases.",
+
+    highlights: [
+      "Developed and reviewed tenant-aware workflows for products, GTINs, lots, partners, locations, serial batches, and serial numbers.",
+      "Implemented serialization workflows covering serial generation, CSV import, duplicate validation, status tracking, commissioning, and controlled lifecycle actions.",
+      "Supported packaging hierarchies through aggregation workflows for items, cases, pallets, and bundles.",
+      "Developed shipment workflows covering item assignment, shipping, receiving, cancellation, exception handling, and trace-history updates.",
+      "Applied granular permissions across frontend routes, user actions, and protected backend endpoints while keeping backend authorization as the final security boundary.",
+      "Implemented separate browser and mobile authentication flows with short-lived access tokens, refresh-token rotation, revocation, reuse detection, browser HttpOnly cookies, and mobile secure storage.",
+      "Added trace events, audit logs, import and export jobs, S3-backed file metadata, full-text search, Redis caching, and SQL Server Outbox processing.",
+      "Reviewed 37 application pages across seven viewport sizes through a responsive audit that produced 259 screenshots.",
+      "Recorded verification checkpoints included 224 passing Playwright end-to-end tests, 99 passing Angular unit tests, and 613 passing backend tests, with no failures in those runs.",
+    ],
+
+    evidence: [
+      {
+        label: "Web Portal",
+        gallery: [
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/login_screen_s1pyac.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/Dashboard_light_mode_unfbvw.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/Dashboard_dark_mode_yltlga.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/product_page_zam32y.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/audit_log_ugjvga.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504030/roles_and_permission_lo9pq1.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/permissions_cpecqr.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504030/user_list_qksdj3.png",
+        ],
+      },
+      // {
+      //   label: "Responsive Views",
+      //   gallery: [
+      //     "PASTE_APPROVED_DESKTOP_SCREENSHOT_URL_HERE",
+      //     "PASTE_APPROVED_TABLET_SCREENSHOT_URL_HERE",
+      //     "PASTE_APPROVED_MOBILE_SCREENSHOT_URL_HERE",
+      //   ],
+      // },
+      // {
+      //   label: "Architecture and Authentication",
+      //   gallery: [
+      //     "PASTE_SANITIZED_ARCHITECTURE_DIAGRAM_URL_HERE",
+      //     "PASTE_SANITIZED_AUTH_FLOW_URL_HERE",
+      //   ],
+      // },
+      // {
+      //   label: "Testing and QA",
+      //   gallery: [
+      //     "PASTE_TEST_SUMMARY_URL_HERE",
+      //     "PASTE_RESPONSIVE_QA_SUMMARY_URL_HERE",
+      //   ],
+      // },
+      // {
+      //   label: "Flutter Mobile R&D",
+      //   gallery: [
+      //     "PASTE_APPROVED_MOBILE_SCREENSHOT_URL_1_HERE",
+      //     "PASTE_APPROVED_MOBILE_SCREENSHOT_URL_2_HERE",
+      //   ],
+      // },
+    ],
+
+    proofNote:
+      "This is a confidential Epazz Tech company project. Only employer-approved, sanitized visuals should be published. I used ChatGPT and Claude as coding assistants for analysis, implementation support, and review, while remaining responsible for interpreting the approved documents, directing tasks, reviewing code and architecture, running verification, identifying defects, and accepting or rejecting changes. This case study presents the completed Angular web MVP and a separate Flutter mobile R&D track. It does not claim full DSCSA or EU FMD network integration, EPCIS certification, GS1 certification, production IoT integration, or a production mobile/offline release. Test numbers represent recorded project checkpoints and may change as development continues.",
+
+    ctaLabel: "View Case Study",
+
+    image: "",
+    gallery: [
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/login_screen_s1pyac.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/Dashboard_light_mode_unfbvw.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/Dashboard_dark_mode_yltlga.png",
+    ],
+  },
+
+  //===================================================================//
+
+  {
+    id: "ehr-system",
+    title: "Multi-Tenant EHR Legacy Support and Modernization",
+    shortDesc:
+      "Supported a live multi-tenant EHR while contributing to its transition from .NET Framework and WebForms toward Angular and .NET 8 APIs.",
+
+    description:
+      "A confidential healthcare platform case study completed at Epazz Tech. I worked across a live multi-tenant Electronic Health Record system and its parallel modernization initiative. My responsibilities combined legacy defect investigation and support-ticket resolution with contributions to the newer Angular and ASP.NET Core stack, helping preserve operational stability while the platform moved toward a cleaner API-driven architecture.",
 
     tech: [
       "C#",
@@ -63,38 +188,39 @@ export const projects: Project[] = [
       "Duende IdentityServer",
     ],
 
-    role: "Full Stack Developer",
-    company: "Epazz",
-    duration: "Ongoing",
-    category: "Confidential Healthcare Platform Case Study",
-    team: "Team-based project",
+    role: "Full-Stack Developer",
+    company: "Epazz Tech",
+    duration: "December 2025 - Present",
+    category: "Multi-Tenant Healthcare Platform",
+    team: "Three-developer Agile team",
 
     context:
-      "A confidential healthcare system environment with a large legacy codebase and a newer API-driven modernization effort running in parallel. The platform supports clinical and operational workflows such as referrals, intake, provider management, service plans, notes, reporting, and related healthcare processes.",
+      "The product environment included a long-running multi-tenant healthcare platform with clinical and operational modules alongside a newer modernization stack. The system supports workflows such as referrals, intake, provider management, service plans, notes, reporting, and related healthcare operations.",
 
     purpose:
-      "To maintain stability in the legacy healthcare platform through bug fixes and support work while also contributing to the transition toward a newer Angular and .NET-based architecture.",
+      "To maintain reliability in the active legacy platform while contributing to a gradual transition toward a more maintainable Angular and .NET architecture.",
 
     constraints:
-      "Worked in a confidential healthcare environment with a broad legacy surface area, mixed framework generations, production support demands, and the need to make safe changes while modernization continued.",
+      "Changes had to be made safely within a confidential healthcare environment involving sensitive information, production support obligations, shared legacy components, mixed framework generations, tenant-specific behavior, and ongoing modernization work.",
 
     beforeState:
-      "The system included an older long-lived codebase used for active support and issue resolution, while a newer frontend and backend stack was being developed to improve maintainability, scalability, and architectural clarity.",
+      "The live product depended on an older .NET Framework and WebForms codebase that required continuous maintenance, while a newer frontend and backend stack was being developed to improve maintainability and long-term support.",
 
     whatChanged:
-      "Handled bug fixing and support-ticket work in the legacy EHR codebase, including troubleshooting existing healthcare modules and stabilizing operational workflows. At the same time, contributed to the newer stack through work aligned with Angular frontend development and ASP.NET Core/.NET 8 backend services, helping move the platform toward a cleaner layered architecture and more modern API-driven workflows.",
+      "Investigated defects, resolved support tickets, and stabilized workflows within the legacy EHR while contributing to Angular frontend development and ASP.NET Core/.NET 8 backend services in the modernized platform. Supported API-driven workflows, SQL-backed healthcare operations, secure access patterns, and tenant-aware behavior across the product environment.",
 
     outcome:
-      "Helped keep the legacy healthcare platform operational and supportable while also contributing to its modernization path, improving reliability in the old environment and supporting progress on the newer stack.",
+      "Helped maintain continuity for active healthcare workflows while supporting the platform's move toward a more maintainable and API-driven architecture.",
 
     highlights: [
-      "Fixed bugs and resolved support tickets in a legacy EHR codebase.",
-      "Worked across an older healthcare platform with long-lived modules and shared system components.",
-      "Contributed in parallel to a newer Angular and .NET 8 modernization effort.",
-      "Supported API-driven backend development with SQL-backed healthcare workflows.",
-      "Balanced production support responsibilities with modernization work in the same product ecosystem.",
-      "Presented as a confidential healthcare case study without exposing product or client identity.",
+      "Investigated and resolved defects and support tickets across a long-running EHR codebase.",
+      "Worked with multi-tenant healthcare workflows involving referrals, intake, providers, service plans, notes, and reporting.",
+      "Contributed to Angular frontend development and ASP.NET Core/.NET 8 backend services.",
+      "Supported SQL-backed APIs, authenticated functionality, and tenant-aware healthcare workflows.",
+      "Balanced live-system maintenance with modernization work in the same product environment.",
+      "Collaborated within a three-developer Agile team and coordinated with international management and cross-functional stakeholders.",
     ],
+
     evidence: [
       {
         label: "Legacy EHR",
@@ -106,7 +232,7 @@ export const projects: Project[] = [
         ],
       },
       {
-        label: "After Modernization",
+        label: "Modernized EHR",
         gallery: [
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818755/Pace-Plus-New1_idmoey.png",
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818755/Pace-Plus-New2_gkpxlv.png",
@@ -117,11 +243,13 @@ export const projects: Project[] = [
     ],
 
     proofNote:
-      "This project was completed as confidential healthcare platform work at Epazz. Product identity, client references, source code, and internal system assets are not shared publicly. The portfolio presentation focuses on my engineering contribution across legacy support and modernization work.",
+      "This project was completed as confidential healthcare platform work at Epazz Tech. Product identity, patient information, client references, source code, production access, and restricted internal assets are not shared. The presentation focuses on my development contribution to legacy support and modernization. Publish these visuals only if Epazz Tech has approved their public use.",
 
     ctaLabel: "View Case Study",
+
     image:
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818755/Pace-Plus-New1_idmoey.png",
+
     gallery: [
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818755/Pace-Plus-New1_idmoey.png",
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818755/Pace-Plus-New2_gkpxlv.png",
@@ -133,12 +261,12 @@ export const projects: Project[] = [
 
   {
     id: "onc-ehi-export",
-    title: "ONC EHI Export & Security Compliance for an EHR System",
+    title: "ONC EHI Export and Supporting Security Controls",
     shortDesc:
-      "As part of the Epazz Tech team, I individually developed key backend functionality for an EHR system to support ONC §170.315(b)(10) EHI export and related security requirements around authentication, access control, and protected credential handling.",
+      "Developed key backend functionality for ONC 170.315(b)(10) EHI export, including patient and population exports, structured artifacts, access checks, and audit history.",
 
     description:
-      "A confidential healthcare compliance case study completed at Epazz Tech for an EHR system. The platform combined standards-based FHIR APIs under /fhir with a non-FHIR EHI export capability under /ehi for ONC certification support. Working as a team member, I individually developed core backend functionality that helped satisfy ONC §170.315(b)(10), with related support for §170.315(d)(1) authentication, access control, and authorization, plus §170.315(d)(12) encrypted credential protection. My work focused on export flows, authorization-aware access, auditability, artifact structure, and operational guardrails needed for a certification-ready implementation.",
+      "A confidential healthcare compliance case study completed at Epazz Tech for an EHR platform. The product combined standards-based FHIR APIs under /fhir with a separate non-FHIR EHI export workflow under /ehi. As a team member, I individually developed key backend functionality supporting ONC 170.315(b)(10), including export endpoints, ZIP artifact generation, manifest and dataset files, export tracking, authorization-aware access, and operational safeguards. My contribution supported certification preparation but does not represent independent certification ownership.",
 
     tech: [
       "C#",
@@ -149,59 +277,66 @@ export const projects: Project[] = [
       "Duende IdentityServer",
       "HL7 FHIR R4",
       "Background Job Processing",
+      "JSON",
+      "ZIP Artifact Generation",
     ],
 
-    role: "Backend .NET Developer (Team Member)",
+    role: "Backend .NET Developer",
     company: "Epazz Tech",
-    category: "Confidential Healthcare Compliance Case Study",
+    duration: "2026",
+    category: "Healthcare Compliance Case Study",
     team: "Team-based project",
 
     context:
-      "Healthcare platform and EHR system API work where ONC certification support required a structured, electronic, and computable EHI export capability, with clear separation between standards-based FHIR APIs and the ONC-specific non-FHIR export workflow.",
+      "The EHR platform required a structured and computable EHI export capability for ONC certification support. The solution also needed a clear separation between standards-based FHIR APIs and the ONC-specific non-FHIR export workflow.",
 
     purpose:
-      "To help an EHR system support ONC certification-focused capabilities by enabling auditable EHI export for single-patient and population scenarios while reinforcing secure access and compliance-oriented backend behavior.",
+      "To support individual-patient and population EHI exports while keeping access decisions, generated artifacts, execution history, and operational results secure and reviewable.",
 
     constraints:
-      "Worked in a confidential healthcare environment with certification-driven requirements, sensitive data handling, strict authorization rules, auditability needs, and the requirement to clearly distinguish FHIR interoperability features from ONC-specific /ehi export behavior.",
+      "The work involved sensitive healthcare data, strict authorization rules, certification-focused requirements, potentially long-running exports, artifact integrity, auditability, and clear handling of excluded sensitive data.",
 
     beforeState:
-      "The product needed a certification-ready export story that documented the format publicly, supported structured single-patient and population export workflows, enforced access rules, and produced auditable evidence suitable for technical and compliance review.",
+      "The product needed a reviewable export process with public format documentation, structured patient and population workflows, protected access, clear artifact contents, and operational evidence for technical and compliance assessment.",
 
     whatChanged:
-      "Individually developed key backend functionality for the ONC export workflow, including a public export-format description, single-patient and population export endpoints, ZIP artifact generation with manifest.json and dataset JSON files, export audit history, and guardrails around filters, limits, and timeouts. I also supported authentication, authorization, and security-aligned behavior for protected export routes through JWT-based access, policy checks, patient-context enforcement, and compliance-oriented handling around credential protection and transport security.",
+      "Developed core backend functionality for the EHI export workflow, including public export-format documentation, individual-patient and population endpoints, ZIP generation, manifest metadata, dataset-level JSON output, export history, status transitions, file hashes, dataset counts, filters, limits, and timeout controls. Also supported JWT-based access, authorization policies, patient-context enforcement, protected credential handling, and transport-security expectations for export routes.",
 
     outcome:
-      "Helped turn the ONC work into a clearer, more auditable, and more implementation-ready certification case by supporting structured EHI export, stronger access-control alignment, transparent sensitive-data exclusion behavior, and evidence that reviewers could verify through documented endpoints, artifacts, and audit records.",
+      "Helped create a clearer and more auditable EHI export capability with structured artifacts, protected access, traceable execution history, and evidence that technical and compliance reviewers could assess during certification preparation.",
 
     highlights: [
-      "Individually developed key backend functionality supporting ONC §170.315(b)(10) EHI export within a team-based healthcare platform project.",
-      "Implemented public export-format documentation plus single-patient and population export workflows under /ehi.",
-      "Built structured export artifacts using ZIP packaging with manifest metadata and dataset-level JSON output.",
-      "Added auditable export tracking with start, complete, and fail states, artifact hashes, and per-dataset counts.",
-      "Supported §170.315(d)(1) through authenticated access, authorization policies, and patient-context enforcement for protected routes.",
-      "Supported §170.315(d)(12) through compliance-aligned credential and transport security expectations, including protected handling and TLS-oriented controls.",
+      "Individually developed key backend functionality supporting ONC 170.315(b)(10) within a team-based EHR project.",
+      "Implemented public export-format documentation and protected individual-patient and population export workflows.",
+      "Generated ZIP artifacts containing manifest metadata and dataset-level JSON output.",
+      "Added export tracking with started, completed, and failed states, artifact hashes, and per-dataset record counts.",
+      "Implemented filters, limits, timeouts, and other safeguards for larger export operations.",
+      "Supported authenticated access, authorization policies, and patient-context enforcement for protected routes.",
+      "Maintained a clear separation between FHIR interoperability APIs and the ONC-specific EHI export workflow.",
     ],
 
     evidence: [
       {
-        label: "Selected Technical Evidence",
+        label: "Sanitized Technical Evidence",
         gallery: [
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369184/pace_gw6mnj.png",
-          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774872955/ChatGPT_Image_Mar_30_2026_05_10_59_PM_cjmili.png",
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369184/pace1_qrf5kq.png",
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774514183/Screenshot_2026-03-26_133550_gmpsa7.png",
         ],
       },
     ],
 
     proofNote:
-      "This project was completed as confidential healthcare platform work tied to ONC certification support for an EHR system. Public source code, production access, and internal certification assets are not shared publicly. The portfolio presentation focuses on system context, my specific backend ownership, documented export behavior, and sanitized supporting material where permitted.",
+      "This project was completed as confidential healthcare platform work at Epazz Tech. Public source code, production access, patient data, and internal certification assets are not shared. This case study describes my specific backend contribution and does not claim that I personally certified the product or own any ONC certification mark. Publish the sanitized visuals only if their public use has been approved.",
+
     ctaLabel: "View Case Study",
+
     image:
-      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369450/EHR-CB-084a-Drummond-ONC-Health-IT-Certified-Seal-1024x1024_vzv5xv.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369184/pace_gw6mnj.png",
+
     gallery: [
-      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774872955/ChatGPT_Image_Mar_30_2026_05_10_59_PM_cjmili.png",
-      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369450/EHR-CB-084a-Drummond-ONC-Health-IT-Certified-Seal-1024x1024_vzv5xv.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369184/pace_gw6mnj.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369184/pace1_qrf5kq.png",
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774514183/Screenshot_2026-03-26_133550_gmpsa7.png",
     ],
   },
@@ -210,56 +345,61 @@ export const projects: Project[] = [
 
   {
     id: "erp-system",
-    title: "Enterprise Resource Planning System Modernization",
+    title: "Enterprise ERP Platform Modernization",
     shortDesc:
-      "Primarily designed and developed core logistics, order, and warehouse management workflows while supporting the modernization of a legacy ERP into a .NET 8 and Angular-based platform.",
+      "Designed and developed inventory, warehouse, logistics, order, and export workflows while supporting the move from ASP.NET MVC toward .NET 8 and Angular.",
 
     description:
-      "A confidential enterprise ERP case study completed at Sanwa Systems. I worked across both the legacy .NET MVC ERP and its newer modernization effort built with .NET 8 APIs and an Angular frontend. My strongest ownership was in the logistics, order, and warehouse management areas, where I primarily designed and developed core workflows and backend functionality. I also maintained existing ERP features, built and improved APIs, optimized SQL-backed operations, and resolved complex issues to support reliability, scalability, and smoother business operations.",
+      "A confidential enterprise ERP case study completed at Sanwa Systems for an automotive spare-parts business operating across the UAE and United States. I worked across the legacy ASP.NET MVC platform and its modernization initiative. My strongest ownership covered inventory, warehouse, logistics, order-management, and export-related workflows, supported by backend APIs, SQL Server operations, business-rule implementation, production issue resolution, and direct collaboration with the product owner.",
 
     tech: [
       "C#",
-      ".NET MVC",
+      "ASP.NET MVC",
       ".NET 8",
       "ASP.NET Core Web API",
       "Angular",
       "JavaScript",
+      "Entity Framework",
       "SQL Server",
-      "REST API",
+      "Stored Procedures",
+      "REST APIs",
+      "Microsoft Azure",
       "Git",
       "Jira",
     ],
 
-    role: "Backend .NET Developer",
+    role: "ASP.NET Developer",
     company: "Sanwa Systems",
-    duration: "December/2023 – December/2025",
-    category: "ERP System Modernization",
+    duration: "November 2023 - November 2025",
+    category: "Enterprise ERP Modernization",
 
     context:
-      "Enterprise ERP environment supporting business-critical workflows across logistics, order processing, warehouse operations, inventory handling, and related operational modules.",
+      "The ERP ecosystem supported business-critical automotive spare-parts operations across inventory, warehousing, logistics, orders, exports, B2B, B2C, HRM, and mobile-connected workflows for UAE and US operations.",
 
     purpose:
-      "To maintain business continuity in the legacy ERP while helping modernize core workflows through a newer API-driven architecture using .NET 8 and Angular.",
+      "To maintain continuity in the legacy ERP while improving important operational workflows and supporting a gradual move toward a more maintainable API-driven architecture.",
 
     constraints:
-      "Worked within a confidential enterprise environment involving legacy dependencies, production reliability needs, business-rule complexity, and coordination across teams during an active modernization phase.",
+      "The work involved legacy dependencies, complex operational rules, production reliability requirements, SQL-heavy workflows, direct product-owner coordination, and gradual modernization without interrupting daily business operations.",
 
     beforeState:
-      "The older ERP platform was built in .NET MVC and required ongoing maintenance and enhancement while newer architecture and workflows were being introduced.",
+      "The business depended on an established ASP.NET MVC ERP that required ongoing maintenance and enhancement while newer APIs, interfaces, and architectural patterns were introduced.",
 
     whatChanged:
-      "Primarily designed and developed core logistics, order, and warehouse management workflows, maintained parts of the legacy MVC-based ERP, and contributed to the newer revamp through backend API development in .NET 8. Improved backend performance, resolved complex issues, and helped move critical workflows toward a more scalable API-based architecture integrated with Angular.",
+      "Independently designed and developed major workflows covering inventory, warehouse operations, logistics, order processing, and export-related functionality. Maintained existing MVC modules, implemented backend services and REST APIs, optimized SQL Server queries and stored procedures, resolved production defects, and contributed to the transition toward a .NET 8 and Angular architecture.",
 
     outcome:
-      "Helped sustain critical ERP operations, improved reliability and backend performance, and advanced the modernization of key operational workflows in logistics, order handling, and warehouse management.",
+      "Helped sustain business-critical ERP operations while improving workflow reliability, database performance, backend maintainability, and modernization progress across major automotive supply-chain functions.",
 
     highlights: [
-      "Primarily designed and developed core logistics, order, and warehouse management workflows.",
-      "Maintained and enhanced legacy ERP functionality built with .NET MVC.",
-      "Contributed to ERP modernization using .NET 8 APIs and Angular.",
-      "Built and improved backend logic, APIs, and SQL-driven operations.",
-      "Optimized performance and resolved complex production-oriented issues.",
-      "Collaborated with cross-functional agile teams through code reviews, sprint planning, and delivery coordination.",
+      "Independently designed and developed major business modules covering inventory, warehouse operations, logistics, and export-related processes.",
+      "Maintained and enhanced ERP functionality built with ASP.NET MVC, C#, Entity Framework, and SQL Server.",
+      "Contributed to modernization through .NET 8 APIs and Angular-integrated workflows.",
+      "Implemented business rules, backend services, validation logic, and database integrations for operational modules.",
+      "Developed and optimized SQL Server queries, stored procedures, database structures, and data-access workflows.",
+      "Investigated production issues and resolved defects affecting important ERP operations.",
+      "Worked directly with the CEO and product owner to translate UAE and US business processes into software functionality.",
+      "Gained practical experience deploying and maintaining .NET applications in Microsoft Azure environments.",
     ],
 
     evidence: [
@@ -274,7 +414,7 @@ export const projects: Project[] = [
         ],
       },
       {
-        label: "After Modernization",
+        label: "Modernized ERP",
         gallery: [
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774170381/login_system_z3f6ko.png",
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774367564/Screenshot_2026-03-22_135237_domqrn.png",
@@ -287,12 +427,13 @@ export const projects: Project[] = [
     ],
 
     proofNote:
-      "This project was completed as confidential enterprise work. Public source code, production screenshots, and internal workflows are not shared publicly. Portfolio presentation focuses on system context, my role, modernization scope, and sanitized supporting material where permitted.",
+      "This project was completed as confidential enterprise work at Sanwa Systems. Public source code, production access, customer data, and restricted internal workflows are not shared. The presentation focuses on my module ownership, maintenance work, modernization contribution, and sanitized supporting material. Publish these visuals only if Sanwa Systems has approved their public use.",
 
     ctaLabel: "View Case Study",
 
     image:
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169939/dark_mode_nk6xdb.png",
+
     gallery: [
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774170381/login_system_z3f6ko.png",
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774367564/Screenshot_2026-03-22_135237_domqrn.png",
@@ -304,51 +445,130 @@ export const projects: Project[] = [
   //===================================================================//
 
   {
-    id: "home-automation",
-    title: "Home Automation System Using IoT",
+    id: "selenium-bot",
+    title: "Selenium Browser Automation System",
     shortDesc:
-      "Supervised final-year thesis project where I built the Flutter app, Django APIs, and Arduino-based hardware logic for an IoT home automation system.",
+      "Built a confidential browser-automation system with one teammate for data extraction, form workflows, location-sensitive execution, and reliable processing on dynamic websites.",
 
     description:
-      "A supervised final-year bachelor's thesis completed under Mr. Abdul Hannan, Assistant Professor. I built the Flutter mobile application, developed Django/Python APIs to handle communication between the app and IoT devices, and programmed the hardware logic in Arduino IDE for device control and sensor-based interaction. The system was designed to improve convenience, efficiency, and home-device management by combining mobile control, backend communication, and hardware automation in one integrated solution.",
+      "A confidential automation project completed at Spacedome by a two-member team. We developed a Selenium-based system to automate repetitive browser workflows involving web scraping, form completion, submissions, and location-sensitive execution. My work focused on Python automation logic, browser interaction, structured data extraction, exception handling, wait strategies, and reliable execution across changing webpage conditions.",
+
+    tech: [
+      "Python",
+      "Selenium",
+      "Browser Automation",
+      "Web Scraping",
+      "Data Extraction",
+      "Workflow Automation",
+      "Exception Handling",
+    ],
+
+    role: "Backend Python Developer",
+    company: "Spacedome (NASTP)",
+    duration: "2023 - 2024",
+    category: "Confidential Automation Case Study",
+    team: "Two-member team",
+
+    context:
+      "The project involved repetitive browser activities across dynamic websites where manual execution was time-consuming and location requirements affected how certain workflows needed to run.",
+
+    purpose:
+      "To automate structured data extraction, form completion, submission workflows, and location-sensitive browser operations while improving repeatability and execution reliability.",
+
+    constraints:
+      "The automation had to handle changing page states, asynchronous content, variable response times, form validation, location-based network requirements, and failures that could interrupt longer workflows.",
+
+    beforeState:
+      "The target activities required repeated manual browser interaction, making execution slower, less consistent, and harder to repeat across multiple workflow conditions.",
+
+    whatChanged:
+      "Implemented Selenium automation for navigation, data extraction, form filling, validation, and submission. Added explicit wait strategies, exception handling, retry-oriented behavior, and location-sensitive execution based on project requirements.",
+
+    outcome:
+      "Converted repetitive browser activities into a more structured and repeatable workflow with improved handling of dynamic content, timing differences, validation states, and recoverable failures.",
+
+    highlights: [
+      "Automated browser navigation, form completion, validation, and submission workflows.",
+      "Extracted structured data from dynamic web pages using Python and Selenium.",
+      "Supported location-sensitive execution according to project requirements.",
+      "Improved stability through explicit waits, exception handling, and recoverable workflow behavior.",
+      "Collaborated with one teammate to develop and maintain the confidential automation solution.",
+    ],
+
+    proofNote:
+      "This project was completed as confidential company-associated work at Spacedome. Source code, target-system access, private workflow logic, and production data are not publicly available. The displayed visuals should remain conceptual or sanitized and must not reveal the target websites or private operating details.",
+
+    ctaLabel: "View Case Study",
+
+    image:
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596210/selenium-bot_jaehdr.png",
+
+    gallery: [
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596210/selenium-bot_jaehdr.png",
+      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596211/Bot_bxy54a.png",
+    ],
+  },
+
+  //===================================================================//
+
+  {
+    id: "home-automation",
+    title: "IoT Home Automation System",
+    shortDesc:
+      "Built a Flutter application, Django APIs, and ESP8266/Arduino device logic for a supervised home-automation thesis combining mobile software and physical hardware.",
+
+    description:
+      "A supervised bachelor's final-year thesis completed at Abasyn University under Mr. Abdul Hannan, Assistant Professor. I developed the Flutter mobile application, built Django/Python APIs connecting the application with IoT devices, and programmed Arduino-based hardware logic for appliance control and sensor-driven behavior. The project combined mobile development, backend services, database communication, networking, and physical hardware into one working prototype.",
 
     tech: [
       "Flutter",
+      "Dart",
       "Django",
       "Python",
+      "REST APIs",
       "Arduino IDE",
       "C/C++",
-      "IoT",
       "ESP8266",
+      "IoT",
+      "Sensor Integration",
     ],
 
-    role: "Mobile, API & IoT Developer",
+    role: "Mobile, Backend and IoT Developer",
     company: "Abasyn University",
-    duration: "2023-2024",
-    category: "Bachelor's Final Year Project",
+    duration: "2023 - 2024",
+    category: "Bachelor's Final-Year Project",
     supervisor: "Mr. Abdul Hannan, Assistant Professor",
 
     context:
-      "Bachelor's final-year thesis project developed in an academic environment to explore practical home automation through mobile software, backend APIs, and IoT hardware integration.",
+      "The thesis explored how a mobile application, backend APIs, connected hardware, and sensors could be combined into a practical home-automation solution using accessible development tools and low-cost IoT components.",
 
     purpose:
-      "To build a home automation system that allows users to monitor and control household appliances through a mobile app connected to IoT hardware via backend APIs.",
+      "To allow users to monitor and control household appliances through a Flutter application communicating with IoT hardware through Django-based backend APIs.",
+
+    constraints:
+      "The project required communication across mobile, backend, database, network, microcontroller, relay, appliance, and sensor layers while working within an academic budget and available hardware resources.",
+
+    beforeState:
+      "Home-device control and monitoring were handled manually without a unified mobile interface, backend communication layer, scheduling workflow, or sensor-driven automation logic.",
 
     whatChanged:
-      "Built the Flutter app as the user-facing control layer, developed Django/Python APIs for communication between the application and IoT devices, and programmed the Arduino-based hardware logic for appliance control and sensor-driven behavior.",
+      "Built the Flutter application as the user-facing control layer, developed Django/Python APIs for communication and data processing, and programmed ESP8266/Arduino logic for appliance switching, scheduling, monitoring, and sensor-based automation.",
+
+    outcome:
+      "Delivered a working end-to-end prototype demonstrating mobile-controlled appliances, backend-mediated device communication, sensor interaction, scheduled actions, and integrated hardware-software behavior.",
 
     highlights: [
-      "Built the Flutter mobile application for controlling and monitoring home devices.",
-      "Developed Django/Python APIs to connect the mobile app with IoT hardware.",
-      "Programmed Arduino-based device logic and hardware behavior.",
-      "Integrated software, backend communication, and physical hardware into one working system.",
-      "Supported home automation use cases such as appliance control, monitoring, and sensor-based interaction.",
-      "Backed the project with thesis documentation, hardware photos, and demo videos.",
+      "Built the Flutter application for monitoring and controlling connected household devices.",
+      "Developed Django/Python REST APIs connecting the mobile application with the IoT hardware layer.",
+      "Programmed ESP8266 and Arduino-based logic for appliance switching and sensor-driven behavior.",
+      "Integrated mobile software, backend services, database communication, networking, and physical hardware.",
+      "Implemented device control, monitoring, scheduling, and automated-response use cases.",
+      "Documented the project through system diagrams, application screenshots, hardware photographs, demonstration videos, and a formal thesis.",
     ],
 
     evidence: [
       {
-        label: "System Diagrams",
+        label: "System Architecture and Design",
         gallery: [
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774078922/System_Architecture_Diagram_czwwia.png",
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774078922/Sequence_Diagram_nt7r6i.png",
@@ -357,7 +577,7 @@ export const projects: Project[] = [
         ],
       },
       {
-        label: "App screenshots",
+        label: "Flutter Application",
         gallery: [
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Logo_efqyjk.jpg",
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018658/Signup_screen_odkj6y.jpg",
@@ -372,7 +592,7 @@ export const projects: Project[] = [
         ],
       },
       {
-        label: "Hardware setup photos",
+        label: "Hardware Prototype",
         gallery: [
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774050503/1_wdieil.jpg",
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774050503/2_odttch.jpg",
@@ -381,7 +601,7 @@ export const projects: Project[] = [
         ],
       },
       {
-        label: "Demo videos",
+        label: "System Demonstrations",
         gallery: [
           "https://res.cloudinary.com/dxeoxpsm5/video/upload/v1774050469/2_cy6cb2.mp4",
           "https://res.cloudinary.com/dxeoxpsm5/video/upload/v1774050469/3_wm4fl1.mp4",
@@ -389,18 +609,19 @@ export const projects: Project[] = [
         ],
       },
       {
-        label: "Thesis abstract",
+        label: "Thesis Documentation",
         url: "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774050551/Home_Automation_System_Ibrahim_final_dmxbyn.pdf",
       },
     ],
 
     proofNote:
-      "This project was completed as a supervised final-year academic thesis. Portfolio evidence includes original app screenshots, hardware photos, demo videos, and thesis-based documentation.",
+      "This project was completed as a supervised bachelor's final-year thesis. The portfolio evidence includes original application screens, architecture diagrams, hardware photographs, demonstration videos, and thesis documentation.",
 
-    ctaLabel: "Documentation & Media",
+    ctaLabel: "View Project Evidence",
 
     image:
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774078922/System_Architecture_Diagram_czwwia.png",
+
     gallery: [
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Logo_efqyjk.jpg",
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774018657/Home_screen_vxhuaw.jpg",
@@ -412,78 +633,68 @@ export const projects: Project[] = [
   //===================================================================//
 
   {
-    id: "selenium-bot",
-    title: "Selenium-Based Web Automation Bot",
-    shortDesc:
-      "Built a confidential Selenium automation bot with one teammate to handle web scraping, form workflows, and location-based IP switching across browser tasks.",
-    description:
-      "A confidential automation project completed at Spacedome by a 2-member team. We developed a Selenium-based bot to automate repetitive browser workflows such as web scraping, form filling, and submission tasks across dynamic websites. The solution also supported IP changes based on postal-code requirements, with exception handling and wait logic to improve execution reliability across different workflow conditions.",
-    tech: [
-      "Python",
-      "Selenium",
-      "Automation",
-      "Web Scraping",
-      "Browser Automation",
-    ],
-    role: "Python Developer",
-    company: "Spacedome",
-    duration: "2023",
-    category: "Confidential Enterprise Case Study",
-    team: "2 members",
-    purpose:
-      "To automate repetitive browser-based workflows and support location-sensitive task execution more efficiently.",
-    highlights: [
-      "Automated form filling, submission, and repetitive browser workflows.",
-      "Supported web scraping across dynamic web pages.",
-      "Handled location-based IP changes according to postal-code requirements.",
-      "Improved workflow reliability with exception handling and wait conditions.",
-      "Built as a confidential company-associated solution by a 2-member team.",
-    ],
-    proofNote:
-      "This project was completed as confidential company-associated work. Source code, workflow access, and screenshots are not publicly available.",
-    image:
-      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596210/selenium-bot_jaehdr.png",
-    gallery: [
-      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596210/selenium-bot_jaehdr.png",
-      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596211/Bot_bxy54a.png",
-    ],
-  },
-
-  //===================================================================//
-
-  {
     id: "private-cloud",
-    title: "University Private Cloud Lab with OpenStack",
+    title: "OpenStack Private Cloud Lab",
     shortDesc:
-      "Built a learning-focused private cloud lab with a 4-member university team by connecting five PCs and configuring an OpenStack-based local cloud environment.",
+      "Built a five-node private-cloud lab with a four-member university team to practice OpenStack services, networking, virtualization, provisioning, and tenant isolation.",
+
     description:
-      "A hands-on academic team project completed under Prof. Asad Hanif at Abasyn University. We configured a functional private cloud using five university lab PCs — one acting as the controller node — connected over a dedicated local network. The exercise gave practical experience in cloud provisioning, tenant isolation, inter-node networking, and OpenStack dashboard operations that theory alone cannot replicate.",
+      "A hands-on academic infrastructure project completed at Abasyn University under Prof. Asad Hanif. Our four-member team configured a functional private-cloud environment using five university laboratory computers connected through a dedicated local network. The project provided practical experience with controller and compute roles, OpenStack services, virtual-machine provisioning, inter-node communication, dashboard operations, and tenant isolation.",
+
     tech: [
       "OpenStack",
       "Ubuntu Linux",
+      "Nova",
+      "Neutron",
+      "Glance",
+      "Keystone",
       "Networking",
       "Virtualization",
-      "Linux",
+      "Private Cloud",
     ],
-    role: "Team Member",
+
+    role: "Cloud Infrastructure Team Member",
     company: "Abasyn University",
     duration: "2022",
     category: "Academic Infrastructure Project",
-    team: "4 members",
+    team: "Four-member team",
     supervisor: "Prof. Asad Hanif",
+
+    context:
+      "The project was created to move beyond theoretical cloud-computing coursework and gain practical experience deploying a private-cloud environment on physical university hardware.",
+
     purpose:
-      "Learning-focused deployment of a local private cloud using available university hardware.",
+      "To configure a working local private cloud capable of provisioning virtual machines, managing identities and images, connecting controller and compute nodes, and demonstrating tenant-isolated cloud operations.",
+
+    constraints:
+      "The team worked with five existing laboratory computers, local network resources, limited hardware capacity, manual Linux configuration, and the complexity of coordinating several OpenStack services across physical nodes.",
+
+    beforeState:
+      "The cloud-computing concepts had previously been studied mainly through coursework without a functioning multi-node environment for practical deployment and validation.",
+
+    whatChanged:
+      "Contributed to a five-node topology with controller and compute responsibilities, configured static network addresses and inter-node connectivity, helped deploy core OpenStack services, created users and projects, uploaded machine images, provisioned virtual machines, and validated dashboard and tenant-isolation behavior.",
+
+    outcome:
+      "Delivered a functioning educational private-cloud lab that demonstrated identity management, image management, compute provisioning, virtual networking, multi-node communication, and tenant isolation on real hardware.",
+
     highlights: [
-      "Designed a 5-node topology with dedicated controller and compute roles.",
-      "Configured static IP addressing and inter-node connectivity across all machines.",
-      "Deployed OpenStack services (Nova, Neutron, Glance, Keystone) in a real environment.",
-      "Provisioned virtual machines and validated tenant isolation on live hardware.",
-      "Gained hands-on exposure to cloud infrastructure concepts beyond coursework.",
+      "Contributed to a five-node topology with defined controller and compute responsibilities.",
+      "Configured static IP addressing and validated inter-node network connectivity.",
+      "Helped deploy and configure Nova, Neutron, Glance, and Keystone services.",
+      "Provisioned virtual machines and managed resources through the OpenStack dashboard.",
+      "Created users, projects, and isolated tenant environments.",
+      "Gained practical Linux, networking, virtualization, and cloud-infrastructure experience beyond classroom theory.",
     ],
+
     proofNote:
-      "The original setup was built as a university lab activity and public screenshots from the original environment are not available. Supporting diagrams shown here are reconstructed for portfolio presentation.",
+      "The original environment was built as a university laboratory project. Original deployment screenshots are not available, so the supporting topology and architecture diagrams were reconstructed for portfolio presentation and should be labeled as reconstructed visuals.",
+
+    ctaLabel: "View Case Study",
+
     image:
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596192/topology-diagram_ahrcs1.png",
+
     gallery: [
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596192/topology-diagram_ahrcs1.png",
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596191/architecture-diagram_us3bcq.png",

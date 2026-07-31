@@ -1,17 +1,36 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useRoute, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, Code2, Globe, Github, Layers, ChevronLeft, ChevronRight, ExternalLink, X, Images } from "lucide-react";
+import {
+  ArrowLeft,
+  Code2,
+  Globe,
+  Github,
+  Layers,
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+  X,
+  Images,
+} from "lucide-react";
 import { projects } from "@/data/portfolio";
 import CustomCursor from "@/components/ui/custom-cursor";
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="space-y-3 sm:space-y-4">
       {/* DESIGN: accent bar before title — revert by replacing this div with the plain h3 below */}
       <div className="flex items-center gap-3">
         <span className="block w-1 h-6 sm:h-7 bg-primary shrink-0" />
-        <h3 className="text-2xl sm:text-3xl font-black uppercase italic">{title}</h3>
+        <h3 className="text-2xl sm:text-3xl font-black uppercase italic">
+          {title}
+        </h3>
       </div>
       {/* REVERT TO: <h3 className="text-2xl sm:text-3xl font-black uppercase italic">{title}</h3> */}
       {children}
@@ -25,7 +44,10 @@ export default function ProjectDetail() {
   const project = projects.find((p) => p.id === params?.id);
 
   // ── all hooks unconditionally at the top ──────────────────────────────────
-  const [galleryModal, setGalleryModal] = useState<{ title: string; items: string[] } | null>(null);
+  const [galleryModal, setGalleryModal] = useState<{
+    title: string;
+    items: string[];
+  } | null>(null);
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [mediaLoading, setMediaLoading] = useState(false);
   const sliderRef = React.useRef<HTMLDivElement | null>(null);
@@ -40,8 +62,18 @@ export default function ProjectDetail() {
     setGalleryModal({ title, items });
   };
   const closeGallery = () => setGalleryModal(null);
-  const galleryPrev = useCallback(() => { setMediaLoading(true); setGalleryIndex((i) => (i === 0 ? (galleryModal?.items.length ?? 1) - 1 : i - 1)); }, [galleryModal?.items.length]);
-  const galleryNext = useCallback(() => { setMediaLoading(true); setGalleryIndex((i) => (i === (galleryModal?.items.length ?? 1) - 1 ? 0 : i + 1)); }, [galleryModal?.items.length]);
+  const galleryPrev = useCallback(() => {
+    setMediaLoading(true);
+    setGalleryIndex((i) =>
+      i === 0 ? (galleryModal?.items.length ?? 1) - 1 : i - 1,
+    );
+  }, [galleryModal?.items.length]);
+  const galleryNext = useCallback(() => {
+    setMediaLoading(true);
+    setGalleryIndex((i) =>
+      i === (galleryModal?.items.length ?? 1) - 1 ? 0 : i + 1,
+    );
+  }, [galleryModal?.items.length]);
 
   useEffect(() => {
     if (!galleryModal) return;
@@ -82,8 +114,12 @@ export default function ProjectDetail() {
     return (
       <div className="bg-background min-h-screen text-foreground flex items-center justify-center px-4">
         <div className="text-center space-y-6">
-          <h1 className="text-5xl sm:text-6xl font-black uppercase italic text-primary">404</h1>
-          <p className="text-lg sm:text-xl text-muted-foreground font-medium">Project not found</p>
+          <h1 className="text-5xl sm:text-6xl font-black uppercase italic text-primary">
+            404
+          </h1>
+          <p className="text-lg sm:text-xl text-muted-foreground font-medium">
+            Project not found
+          </p>
           <button
             type="button"
             onClick={() => {
@@ -108,7 +144,10 @@ export default function ProjectDetail() {
   const scrollMedia = (direction: "left" | "right") => {
     const el = sliderRef.current;
     if (!el) return;
-    el.scrollBy({ left: direction === "left" ? -el.clientWidth : el.clientWidth, behavior: "smooth" });
+    el.scrollBy({
+      left: direction === "left" ? -el.clientWidth : el.clientWidth,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -124,7 +163,10 @@ export default function ProjectDetail() {
           }}
           className="inline-flex items-center gap-2 sm:gap-3 bg-card border-2 border-white/5 p-3 sm:p-4 uppercase font-black text-xs sm:text-sm tracking-widest hover:border-primary transition-all group"
         >
-          <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+          <ArrowLeft
+            size={18}
+            className="group-hover:-translate-x-1 transition-transform"
+          />
           Back Home
         </button>
       </header>
@@ -168,33 +210,53 @@ export default function ProjectDetail() {
             </div>
 
             {/* Row 2: full-width metadata - Institution, Supervisor, Team, Duration in one line */}
-            {(project.company || project.duration || project.team || project.supervisor) && (
+            {(project.company ||
+              project.duration ||
+              project.team ||
+              project.supervisor) && (
               <div className="min-w-0 w-full md:row-start-2 md:col-span-2 border-y border-white/5 py-4 sm:py-6">
                 <div className="flex flex-wrap gap-y-4 gap-x-6 sm:gap-x-10 lg:gap-x-16">
                   {project.company && (
                     <div className="flex-1 min-w-[120px]">
                       <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary mb-1">
-                        {project.category ? "Institution" : "Company"}
+                        {project.category?.includes("Academic") ||
+                        project.category?.includes("Final-Year")
+                          ? "Institution"
+                          : "Company"}
                       </p>
-                      <p className="text-base sm:text-xl font-black uppercase italic">{project.company}</p>
+                      <p className="text-base sm:text-xl font-black uppercase italic">
+                        {project.company}
+                      </p>
                     </div>
                   )}
                   {project.supervisor && (
                     <div className="flex-1 min-w-[120px]">
-                      <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary mb-1">Supervisor</p>
-                      <p className="text-base sm:text-xl font-black uppercase italic">{project.supervisor}</p>
+                      <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary mb-1">
+                        Supervisor
+                      </p>
+                      <p className="text-base sm:text-xl font-black uppercase italic">
+                        {project.supervisor}
+                      </p>
                     </div>
                   )}
                   {project.team && (
                     <div className="flex-1 min-w-[120px]">
-                      <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary mb-1">Team</p>
-                      <p className="text-base sm:text-xl font-black uppercase italic">{project.team}</p>
+                      <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary mb-1">
+                        Team
+                      </p>
+                      <p className="text-base sm:text-xl font-black uppercase italic">
+                        {project.team}
+                      </p>
                     </div>
                   )}
                   {project.duration && (
                     <div className="flex-1 min-w-[120px]">
-                      <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary mb-1">Duration</p>
-                      <p className="text-base sm:text-xl font-black uppercase italic">{project.duration}</p>
+                      <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary mb-1">
+                        Duration
+                      </p>
+                      <p className="text-base sm:text-xl font-black uppercase italic">
+                        {project.duration}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -204,7 +266,9 @@ export default function ProjectDetail() {
             {/* Row 1 right: project media slider (all images in one slider, like certifications) */}
             <div className="min-w-0 w-full md:row-start-1 md:col-start-2 flex flex-col">
               <h3 className="text-lg font-black uppercase italic mb-3">
-                {project.id === "home-automation" ? "App & Hardware Visuals" : "Visuals"}
+                {project.id === "home-automation"
+                  ? "App & Hardware Visuals"
+                  : "Visuals"}
               </h3>
               <div className="relative flex-1 min-h-0">
                 {mediaSlides.length > 0 ? (
@@ -257,7 +321,9 @@ export default function ProjectDetail() {
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
                     <div className="absolute inset-0 flex items-center justify-center">
-                      {project.icon ?? <Layers className="text-primary w-16 h-16 sm:w-20 sm:h-20" />}
+                      {project.icon ?? (
+                        <Layers className="text-primary w-16 h-16 sm:w-20 sm:h-20" />
+                      )}
                     </div>
                   </motion.div>
                 )}
@@ -304,7 +370,10 @@ export default function ProjectDetail() {
                 <Section title="Highlights">
                   <ul className="space-y-0 text-muted-foreground font-medium text-base sm:text-lg">
                     {project.highlights.map((item, i) => (
-                      <li key={i} className="flex items-start gap-4 border-b border-white/5 py-3 last:border-b-0">
+                      <li
+                        key={i}
+                        className="flex items-start gap-4 border-b border-white/5 py-3 last:border-b-0"
+                      >
                         <span className="text-primary font-black shrink-0 text-xs sm:text-sm tracking-widest mt-1 w-6 text-right">
                           {String(i + 1).padStart(2, "0")}
                         </span>
@@ -331,7 +400,9 @@ export default function ProjectDetail() {
                   <ul className="space-y-0 text-muted-foreground font-medium text-base sm:text-lg">
                     {project.evidence.map((item, i) => {
                       const isLink = Boolean(item.url);
-                      const hasGallery = Boolean(item.gallery && item.gallery.length > 0);
+                      const hasGallery = Boolean(
+                        item.gallery && item.gallery.length > 0,
+                      );
                       const isClickable = isLink || hasGallery;
 
                       const handleClick = () => {
@@ -362,17 +433,25 @@ export default function ProjectDetail() {
                           <span
                             className={[
                               "font-black shrink-0 text-xs sm:text-sm tracking-widest w-6 text-right",
-                              isClickable ? "text-primary animate-pulse" : "text-primary",
+                              isClickable
+                                ? "text-primary animate-pulse"
+                                : "text-primary",
                             ].join(" ")}
                           >
                             {String(i + 1).padStart(2, "0")}
                           </span>
                           <span>{item.label}</span>
                           {hasGallery && (
-                            <Images size={14} className="ml-auto shrink-0 text-primary animate-pulse" />
+                            <Images
+                              size={14}
+                              className="ml-auto shrink-0 text-primary animate-pulse"
+                            />
                           )}
                           {isLink && !hasGallery && (
-                            <ExternalLink size={14} className="ml-auto shrink-0 text-primary animate-pulse" />
+                            <ExternalLink
+                              size={14}
+                              className="ml-auto shrink-0 text-primary animate-pulse"
+                            />
                           )}
                         </li>
                       );
@@ -469,14 +548,17 @@ export default function ProjectDetail() {
               {/* Image / Video viewer */}
               <div className="relative aspect-video bg-card border-4 border-white/5 overflow-hidden">
                 {/* Skeleton loader — visible while media is loading (images only, not videos) */}
-                {mediaLoading && !/\.(mp4|webm|mov|ogg)$/i.test(galleryModal.items[galleryIndex]) && (
-                  <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-card">
-                    <div className="w-10 h-10 border-2 border-white/10 border-t-primary rounded-full animate-spin" />
-                    <p className="text-xs font-black uppercase tracking-widest text-white/30 animate-pulse">
-                      Loading…
-                    </p>
-                  </div>
-                )}
+                {mediaLoading &&
+                  !/\.(mp4|webm|mov|ogg)$/i.test(
+                    galleryModal.items[galleryIndex],
+                  ) && (
+                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-card">
+                      <div className="w-10 h-10 border-2 border-white/10 border-t-primary rounded-full animate-spin" />
+                      <p className="text-xs font-black uppercase tracking-widest text-white/30 animate-pulse">
+                        Loading…
+                      </p>
+                    </div>
+                  )}
 
                 {(() => {
                   const src = galleryModal.items[galleryIndex];
@@ -534,7 +616,9 @@ export default function ProjectDetail() {
                       onClick={() => setGalleryIndex(idx)}
                       className={[
                         "h-2 rounded-full transition-all",
-                        idx === galleryIndex ? "bg-primary w-4" : "bg-white/20 hover:bg-white/40 w-2",
+                        idx === galleryIndex
+                          ? "bg-primary w-4"
+                          : "bg-white/20 hover:bg-white/40 w-2",
                       ].join(" ")}
                       aria-label={`Go to item ${idx + 1}`}
                     />
@@ -544,7 +628,8 @@ export default function ProjectDetail() {
 
               {/* Keyboard hint */}
               <p className="text-center text-xs text-white/30 font-medium tracking-widest uppercase">
-                ← → to navigate &nbsp;·&nbsp; Esc to close &nbsp;·&nbsp; click outside to close
+                ← → to navigate &nbsp;·&nbsp; Esc to close &nbsp;·&nbsp; click
+                outside to close
               </p>
             </motion.div>
           </motion.div>

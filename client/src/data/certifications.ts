@@ -12,41 +12,19 @@ export type Certification = {
 
 export const certifications: Certification[] = [
   {
-    id: "ews-workshop-sdpi-2025",
-    title: "Early Warning System Workshop",
-    issuer: "Sustainable Development Policy Institute (SDPI)",
+    id: "python-data-structures-2025",
+    title: "Python Data Structures",
+    issuer: "University of Michigan",
     year: "2025",
     description:
-      "Completed a specialized workshop on community-based Early Warning Systems (EWS), focusing on real-time environmental monitoring, IoT-enabled data acquisition, and system design for disaster preparedness and risk mitigation.",
+      "Completed the University of Michigan course covering strings, files, lists, dictionaries, and tuples, with practical exercises in organizing and processing data in Python.",
     skills: [
-      "System Monitoring",
-      "Data Acquisition",
-      "Internet of Things (IoT)",
+      "Python",
+      "Data Structures",
+      "File Processing",
+      "Problem Solving",
     ],
-  },
-  {
-    id: "risk-thinking-sdpi-2025",
-    title:
-      "Safeguarding the Future: Integrating Risk Thinking into Development Planning",
-    issuer: "Sustainable Development Policy Institute (SDPI)",
-    year: "2025",
-    description:
-      "Completed an SDPI capacity-building workshop on integrating risk assessment and strategic foresight into development planning, emphasizing risk-aware decision making, resilient system architecture, and long-term planning methodologies.",
-    skills: ["Risk Management", "Strategic Planning", "System Architecture"],
-  },
-  {
-    id: "ai-policy-sdpi-2025",
-    title:
-      "Thinking Beyond Knowledge Dissemination in the Age of AI: A Policy Perspective for Future Public Learning",
-    issuer: "Sustainable Development Policy Institute (SDPI)",
-    year: "2025",
-    description:
-      "Completed an SDPI workshop examining the policy implications of Artificial Intelligence in public learning systems, focusing on responsible AI adoption, knowledge dissemination frameworks, and the evolving role of AI in education and governance.",
-    skills: [
-      "Artificial Intelligence (AI)",
-      "Policy Analysis",
-      "Public Learning",
-    ],
+    credentialUrl: "https://coursera.org/verify/0QCN9ZOU2H3K",
   },
   {
     id: "python-for-everybody-2025",
@@ -54,8 +32,13 @@ export const certifications: Certification[] = [
     issuer: "University of Michigan",
     year: "2025",
     description:
-      "Completed the University of Michigan's Python programming course, covering fundamental programming concepts including variables, control structures, functions, and data handling for problem solving and software development.",
-    skills: ["Python", "Programming Fundamentals"],
+      "Completed the University of Michigan introductory Python course covering variables, expressions, conditional logic, loops, functions, and basic data handling.",
+    skills: [
+      "Python",
+      "Programming Fundamentals",
+      "Control Flow",
+      "Functions",
+    ],
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/records/VZ7ZQ6K8MNZ9",
   },
@@ -65,46 +48,15 @@ export const certifications: Certification[] = [
     issuer: "Imperial College London",
     year: "2025",
     description:
-      "Completed a machine learning mathematics course focused on linear algebra concepts including vectors, matrices, eigenvalues, and matrix transformations used in modern machine learning algorithms.",
+      "Completed a course focused on vectors, matrices, linear transformations, eigenvalues, and eigenvectors as mathematical foundations used in machine learning.",
     skills: [
       "Linear Algebra",
-      "Mathematics for ML",
+      "Vectors and Matrices",
+      "Linear Transformations",
       "Machine Learning Foundations",
     ],
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/records/93ZFAK7AQTB8",
-  },
-  {
-    id: "python-data-structures-2025",
-    title: "Python Data Structures",
-    issuer: "University of Michigan",
-    year: "2025",
-    description:
-      "Completed a course on Python data structures focusing on lists, dictionaries, tuples, and efficient data organization techniques used in algorithm design and problem solving.",
-    skills: [
-      "Python",
-      "Data Structures",
-      "Algorithms",
-      "Problem Solving",
-      "Computational Thinking",
-    ],
-    credentialUrl: "https://coursera.org/verify/0QCN9ZOU2H3K",
-  },
-  {
-    id: "probability-2025",
-    title: "An Intuitive Introduction to Probability",
-    issuer: "University of Zurich",
-    year: "2025",
-    description:
-      "Completed a probability course covering foundational concepts including probability distributions, statistical reasoning, and quantitative analysis used in data science and predictive modeling.",
-    skills: [
-      "Probability",
-      "Statistics",
-      "Data Analysis",
-      "Statistical Modeling",
-      "Predictive Analytics",
-    ],
-    credentialUrl: "https://coursera.org/verify/7WCBNZ50OQAF",
   },
   {
     id: "data-science-bootcamp-2025",
@@ -112,10 +64,77 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     year: "2025",
     description:
-      "Completed a comprehensive data science bootcamp covering Python programming, data analysis, machine learning fundamentals, and practical workflows for building data-driven solutions.",
-    skills: ["Python", "Data Science", "Machine Learning"],
+      "Completed an applied introductory program covering Python, statistics, data preparation, visualization, and foundational machine-learning workflows.",
+    skills: [
+      "Python",
+      "Data Analysis",
+      "Statistics",
+      "Machine Learning Fundamentals",
+    ],
     credentialUrl:
       "https://www.udemy.com/certificate/UC-ea5fde42-65ae-4b26-87f0-4877ebc0cdfe/",
+  },
+  {
+    id: "probability-2025",
+    title: "An Intuitive Introduction to Probability",
+    issuer: "University of Zurich",
+    year: "2025",
+    description:
+      "Completed a course covering probability rules, conditional probability, random variables, common distributions, and statistical reasoning.",
+    skills: [
+      "Probability",
+      "Statistical Reasoning",
+      "Random Variables",
+      "Data Analysis",
+    ],
+    credentialUrl: "https://coursera.org/verify/7WCBNZ50OQAF",
+  },
+  {
+    id: "ews-workshop-sdpi-2025",
+    title: "Early Warning System Workshop",
+    issuer: "Sustainable Development Policy Institute (SDPI)",
+    year: "2025",
+    description:
+      "Participated in a specialized SDPI workshop on community-based early warning systems, including environmental monitoring, IoT-supported data collection, and disaster-risk preparedness.",
+    skills: [
+      "Early Warning Systems",
+      "Environmental Monitoring",
+      "IoT Data Collection",
+      "Risk Preparedness",
+    ],
+    credentialUrl: "/media/Certificates/early-warning-system.pdf",
+  },
+  {
+    id: "ai-policy-sdpi-2025",
+    title:
+      "Thinking Beyond Knowledge Dissemination in the Age of AI: A Policy Perspective for Future Public Learning",
+    issuer: "Sustainable Development Policy Institute (SDPI)",
+    year: "2025",
+    description:
+      "Participated in an SDPI workshop on how artificial intelligence is changing public learning and knowledge sharing, with emphasis on responsible adoption, policy considerations, and governance.",
+    skills: [
+      "Responsible AI",
+      "Policy Awareness",
+      "Public Learning",
+      "Technology Governance",
+    ],
+    credentialUrl: "/media/Certificates/thinking-beyond-knowledge.pdf",
+  },
+  {
+    id: "risk-thinking-sdpi-2025",
+    title:
+      "Safeguarding the Future: Integrating Risk Thinking into Development Planning",
+    issuer: "Sustainable Development Policy Institute (SDPI)",
+    year: "2025",
+    description:
+      "Participated in an SDPI workshop on applying risk awareness and long-term thinking to development planning and resilient decision-making.",
+    skills: [
+      "Risk Awareness",
+      "Resilience Planning",
+      "Strategic Foresight",
+      "Decision-Making",
+    ],
+    credentialUrl: "/media/Certificates/safeguard-the-future.pdf",
   },
   {
     id: "cloud-computing-2022",
@@ -123,8 +142,13 @@ export const certifications: Certification[] = [
     issuer: "Pakistan Software Export Board (PSEB)",
     year: "2022",
     description:
-      "Completed a training program on cloud computing fundamentals, covering cloud service models, deployment architectures, and the role of cloud infrastructure in modern application development.",
-    skills: ["Cloud Computing", "Cloud Infrastructure", "Distributed Systems"],
+      "Completed a PSEB training program covering cloud service models, deployment models, virtualization, and the role of cloud platforms in application hosting.",
+    skills: [
+      "Cloud Computing",
+      "Cloud Service Models",
+      "Virtualization",
+      "Application Hosting",
+    ],
   },
   {
     id: "certified-python-programmer-2019",
@@ -132,12 +156,13 @@ export const certifications: Certification[] = [
     issuer: "Aptech",
     year: "2019",
     description:
-      "Earned certification in Python programming with focus on object-oriented programming principles, application development, and building web applications using Flask.",
+      "Earned an Aptech certification covering Python fundamentals, object-oriented programming, application development, and introductory web development with Flask.",
     skills: [
       "Python",
       "Object-Oriented Programming",
       "Flask",
-      "Backend Development",
+      "Backend Fundamentals",
     ],
+    credentialUrl: "/media/Certificates/Aptech.pdf",
   },
 ];
