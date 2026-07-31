@@ -2,12 +2,23 @@ interface Env {
   RESEND_API_KEY?: string;
   CONTACT_TO_EMAIL?: string;
   CONTACT_FROM_EMAIL?: string;
+  TURNSTILE_SECRET_KEY?: string;
 }
 
 interface ContactRequestBody {
   name?: unknown;
   email?: unknown;
   message?: unknown;
+  turnstileToken?: unknown;
+}
+
+interface TurnstileVerificationResponse {
+  success: boolean;
+  challenge_ts?: string;
+  hostname?: string;
+  action?: string;
+  cdata?: string;
+  "error-codes"?: string[];
 }
 
 interface FunctionContext {
@@ -19,6 +30,8 @@ const JSON_HEADERS = {
   "Content-Type": "application/json; charset=utf-8",
   "Cache-Control": "no-store",
 };
+
+const EXPECTED_TURNSTILE_HOSTNAME = "portfolio-4rr.pages.dev";
 
 function jsonResponse(
   body: Record<string, unknown>,
@@ -47,6 +60,44 @@ function cleanSubjectValue(value: string): string {
   return value.replace(/[\r\n]+/g, " ").trim();
 }
 
+async function verifyTurnstileToken(
+  secretKey: string,
+  token: string,
+  remoteIp: string | null,
+): Promise<TurnstileVerificationResponse> {
+  const payload: {
+    secret: string;
+    response: string;
+    remoteip?: string;
+  } = {
+    secret: secretKey,
+    response: token,
+  };
+
+  if (remoteIp) {
+    payload.remoteip = remoteIp;
+  }
+
+  const response = await fetch(
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `Turnstile Siteverify returned status ${response.status}.`,
+    );
+  }
+
+  return (await response.json()) as TurnstileVerificationResponse;
+}
+
 export async function onRequestPost(
   context: FunctionContext,
 ): Promise<Response> {
@@ -55,7 +106,8 @@ export async function onRequestPost(
   if (
     !env.RESEND_API_KEY ||
     !env.CONTACT_TO_EMAIL ||
-    !env.CONTACT_FROM_EMAIL
+    !env.CONTACT_FROM_EMAIL ||
+    !env.TURNSTILE_SECRET_KEY
   ) {
     console.error("Contact form environment variables are missing.");
 
@@ -107,6 +159,11 @@ export async function onRequestPost(
       ? body.message.trim()
       : "";
 
+  const turnstileToken =
+    typeof body.turnstileToken === "string"
+      ? body.turnstileToken.trim()
+      : "";
+
   if (name.length < 2 || name.length > 100) {
     return jsonResponse(
       {
@@ -117,10 +174,7 @@ export async function onRequestPost(
     );
   }
 
-  if (
-    email.length > 254 ||
-    !isValidEmail(email)
-  ) {
+  if (email.length > 254 || !isValidEmail(email)) {
     return jsonResponse(
       {
         success: false,
@@ -136,6 +190,70 @@ export async function onRequestPost(
         success: false,
         message:
           "Your message must contain between 10 and 2000 characters.",
+      },
+      400,
+    );
+  }
+
+  if (!turnstileToken || turnstileToken.length > 2048) {
+    return jsonResponse(
+      {
+        success: false,
+        message: "Please complete the security verification.",
+      },
+      400,
+    );
+  }
+
+  let turnstileVerification: TurnstileVerificationResponse;
+
+  try {
+    turnstileVerification = await verifyTurnstileToken(
+      env.TURNSTILE_SECRET_KEY,
+      turnstileToken,
+      request.headers.get("CF-Connecting-IP"),
+    );
+  } catch (error) {
+    console.error("Turnstile verification request failed:", error);
+
+    return jsonResponse(
+      {
+        success: false,
+        message:
+          "Security verification is temporarily unavailable. Please try again.",
+      },
+      502,
+    );
+  }
+
+  if (!turnstileVerification.success) {
+    console.warn(
+      "Turnstile verification rejected:",
+      turnstileVerification["error-codes"] ?? [],
+    );
+
+    return jsonResponse(
+      {
+        success: false,
+        message: "Security verification failed. Please try again.",
+      },
+      400,
+    );
+  }
+
+  if (
+    turnstileVerification.hostname !==
+    EXPECTED_TURNSTILE_HOSTNAME
+  ) {
+    console.warn(
+      "Turnstile verification returned an unexpected hostname:",
+      turnstileVerification.hostname ?? "missing",
+    );
+
+    return jsonResponse(
+      {
+        success: false,
+        message: "Security verification failed. Please try again.",
       },
       400,
     );

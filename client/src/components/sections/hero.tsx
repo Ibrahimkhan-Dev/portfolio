@@ -81,7 +81,7 @@ export default function Hero() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View Muhammad Ibrahim Khan's resume in a new tab"
-            className="group inline-flex items-center justify-center gap-2 border-2 border-white/30 px-6 py-3 text-base font-black uppercase tracking-tighter text-white transition-all hover:-translate-y-0.5 hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:px-10 sm:py-4 sm:text-lg"
+            className="group inline-flex items-center justify-center gap-2 border-2 border-primary bg-primary/5 px-6 py-3 text-base font-black uppercase tracking-tighter text-primary transition-all hover:-translate-y-0.5 hover:bg-primary hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:px-10 sm:py-4 sm:text-lg"
           >
             <FileText
               size={20}

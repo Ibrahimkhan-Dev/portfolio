@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AlertCircle,
   CheckCircle2,
@@ -23,6 +23,8 @@ const linkedInUrl =
 
 const resumeUrl = "/Muhammad-Ibrahim-Khan-Resume.pdf";
 
+const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY;
+
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
 interface ContactFormState {
@@ -46,6 +48,107 @@ export default function Contact() {
   const [form, setForm] = useState<ContactFormState>(initialForm);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [statusMessage, setStatusMessage] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+
+  const turnstileContainerRef = useRef<HTMLDivElement | null>(null);
+  const turnstileWidgetIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    const siteKey = turnstileSiteKey;
+
+    if (!siteKey) {
+      setStatus("error");
+      setStatusMessage(
+        "Security verification is unavailable. Please try again later.",
+      );
+      return;
+    }
+
+    let retryTimer: number | undefined;
+    let attempts = 0;
+
+    const renderTurnstileWidget = (): boolean => {
+      if (turnstileWidgetIdRef.current !== null) {
+        return true;
+      }
+
+      if (!turnstileContainerRef.current || !window.turnstile) {
+        return false;
+      }
+
+      turnstileWidgetIdRef.current = window.turnstile.render(
+        turnstileContainerRef.current,
+        {
+          sitekey: siteKey,
+          theme: "dark",
+          size: "flexible",
+          appearance: "always",
+          callback: (token) => {
+            setTurnstileToken(token);
+          },
+          "expired-callback": () => {
+            setTurnstileToken("");
+          },
+          "error-callback": () => {
+            setTurnstileToken("");
+            setStatus("error");
+            setStatusMessage(
+              "Security verification failed. Please try again.",
+            );
+          },
+        },
+      );
+
+      return true;
+    };
+
+    if (!renderTurnstileWidget()) {
+      retryTimer = window.setInterval(() => {
+        attempts += 1;
+
+        if (renderTurnstileWidget()) {
+          window.clearInterval(retryTimer);
+          retryTimer = undefined;
+          return;
+        }
+
+        if (attempts >= 50) {
+          window.clearInterval(retryTimer);
+          retryTimer = undefined;
+
+          setStatus("error");
+          setStatusMessage(
+            "Security verification could not load. Please refresh the page.",
+          );
+        }
+      }, 100);
+    }
+
+    return () => {
+      if (retryTimer !== undefined) {
+        window.clearInterval(retryTimer);
+      }
+
+      if (
+        window.turnstile &&
+        turnstileWidgetIdRef.current !== null
+      ) {
+        window.turnstile.remove(turnstileWidgetIdRef.current);
+        turnstileWidgetIdRef.current = null;
+      }
+    };
+  }, []);
+
+  const resetTurnstile = () => {
+    setTurnstileToken("");
+
+    if (
+      window.turnstile &&
+      turnstileWidgetIdRef.current !== null
+    ) {
+      window.turnstile.reset(turnstileWidgetIdRef.current);
+    }
+  };
 
   const updateField = (
     field: keyof ContactFormState,
@@ -91,6 +194,14 @@ export default function Contact() {
       return;
     }
 
+    if (!turnstileToken) {
+      setStatus("error");
+      setStatusMessage(
+        "Please complete the security verification.",
+      );
+      return;
+    }
+
     setStatus("submitting");
     setStatusMessage("");
 
@@ -104,6 +215,7 @@ export default function Contact() {
           name,
           email,
           message,
+          turnstileToken,
         }),
       });
 
@@ -135,10 +247,13 @@ export default function Contact() {
           ? error.message
           : "Your message could not be sent. Please try again.",
       );
+    } finally {
+      resetTurnstile();
     }
   };
 
   const isSubmitting = status === "submitting";
+  const isSubmitDisabled = isSubmitting || !turnstileToken;
 
   return (
     <footer
@@ -146,7 +261,7 @@ export default function Contact() {
       className="relative border-t-8 border-primary bg-[#050505] pb-10 pt-14 sm:pb-14 sm:pt-20 md:pt-24"
     >
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
+        <div className="grid items-stretch gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(440px,0.95fr)] lg:gap-14 xl:gap-20">
           <Reveal>
             <h2 className="mb-6 text-4xl font-black uppercase italic leading-none sm:mb-10 sm:text-6xl md:text-8xl">
               Let&apos;s
@@ -155,15 +270,15 @@ export default function Contact() {
             </h2>
 
             <p className="mb-8 max-w-xl text-lg font-medium leading-relaxed text-muted-foreground sm:mb-12 sm:text-2xl">
-              Building enterprise software, modernizing a legacy
-              system, or looking for a .NET developer? Let&apos;s
-              discuss how I can contribute.
+              Building enterprise software, modernizing a legacy system, or
+              looking for a .NET developer? Let&apos;s discuss how I can
+              contribute.
             </p>
 
-            <div className="space-y-6 sm:space-y-8">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
               <a
                 href={`mailto:${emailAddress}`}
-                className="group flex items-center gap-4 sm:gap-6"
+                className="group flex min-h-[108px] items-center gap-4 border border-white/5 bg-white/[0.02] p-4 transition-all hover:border-primary/40 hover:bg-primary/[0.04] sm:col-span-2 sm:gap-5 sm:p-5"
                 aria-label={`Email Muhammad Ibrahim Khan at ${emailAddress}`}
               >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-white/5 text-primary transition-all group-hover:bg-primary group-hover:text-black sm:h-16 sm:w-16">
@@ -188,7 +303,7 @@ export default function Contact() {
                 href={linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-4 sm:gap-6"
+                className="group flex min-h-[108px] items-center gap-4 border border-white/5 bg-white/[0.02] p-4 transition-all hover:border-primary/40 hover:bg-primary/[0.04] sm:gap-5 sm:p-5"
                 aria-label="View Muhammad Ibrahim Khan's LinkedIn profile in a new tab"
               >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-white/5 text-primary transition-all group-hover:bg-primary group-hover:text-black sm:h-16 sm:w-16">
@@ -211,7 +326,7 @@ export default function Contact() {
 
               <a
                 href="tel:+923345019225"
-                className="group flex items-center gap-4 sm:gap-6"
+                className="group flex min-h-[108px] items-center gap-4 border border-white/5 bg-white/[0.02] p-4 transition-all hover:border-primary/40 hover:bg-primary/[0.04] sm:gap-5 sm:p-5"
                 aria-label="Call Muhammad Ibrahim Khan at plus 92 334 5019225"
               >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-white/5 text-primary transition-all group-hover:bg-primary group-hover:text-black sm:h-16 sm:w-16">
@@ -232,7 +347,7 @@ export default function Contact() {
                 </div>
               </a>
 
-              <div className="flex items-center gap-4 sm:gap-6">
+              <div className="flex min-h-[108px] items-center gap-4 border border-white/5 bg-white/[0.02] p-4 sm:gap-5 sm:p-5">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-white/5 text-primary sm:h-16 sm:w-16">
                   <MapPin
                     className="h-6 w-6 sm:h-8 sm:w-8"
@@ -255,7 +370,7 @@ export default function Contact() {
                 href={resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-4 sm:gap-6"
+                className="group flex min-h-[108px] items-center gap-4 border border-white/5 bg-white/[0.02] p-4 transition-all hover:border-primary/40 hover:bg-primary/[0.04] sm:gap-5 sm:p-5"
                 aria-label="View Muhammad Ibrahim Khan's resume in a new tab"
               >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-white/5 text-primary transition-all group-hover:bg-primary group-hover:text-black sm:h-16 sm:w-16">
@@ -279,7 +394,7 @@ export default function Contact() {
           </Reveal>
 
           <Reveal delay={0.15}>
-            <div className="border-2 border-white/5 bg-card p-6 sm:p-10 md:p-16">
+            <div className="h-full border-2 border-white/5 bg-card p-6 shadow-[0_20px_80px_rgba(0,0,0,0.35)] sm:p-10 lg:p-12 xl:p-14">
               <div className="mb-8">
                 <h3 className="text-2xl font-black uppercase tracking-tight text-white sm:text-3xl">
                   Start a Conversation
@@ -289,8 +404,8 @@ export default function Contact() {
                   id="contact-form-description"
                   className="mt-3 leading-relaxed text-muted-foreground"
                 >
-                  Send me a message directly through the website. I will
-                  reply to the email address you provide.
+                  Send me a message directly through the website. I will reply
+                  to the email address you provide.
                 </p>
               </div>
 
@@ -380,6 +495,13 @@ export default function Contact() {
                   </p>
                 </div>
 
+                <div
+                  ref={turnstileContainerRef}
+                  className="min-h-[65px] w-full overflow-hidden"
+                  role="group"
+                  aria-label="Security verification"
+                />
+
                 {status === "success" && (
                   <div
                     role="status"
@@ -412,13 +534,12 @@ export default function Contact() {
 
                 <Button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitDisabled}
                   className="flex h-16 w-full gap-3 rounded-none bg-primary text-lg font-black uppercase tracking-tighter text-black transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100 sm:h-20 sm:gap-4 sm:text-2xl"
                 >
                   {isSubmitting ? (
                     <>
                       Sending Message
-
                       <LoaderCircle
                         className="h-5 w-5 animate-spin sm:h-6 sm:w-6"
                         aria-hidden="true"
@@ -427,7 +548,6 @@ export default function Contact() {
                   ) : (
                     <>
                       Send Message
-
                       <Send
                         className="h-5 w-5 sm:h-6 sm:w-6"
                         aria-hidden="true"
