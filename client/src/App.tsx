@@ -1,3 +1,4 @@
+import { MotionConfig } from "framer-motion";
 import { Switch, Route, Router } from "wouter";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ErrorBoundary } from "@/components/error-boundary";
@@ -8,15 +9,17 @@ import ProjectDetail from "@/pages/project-detail";
 export default function App() {
   return (
     <ErrorBoundary>
-      <Router>
-        <TooltipProvider>
-          <Switch>
-            <Route path="/" component={Home} />
-            <Route path="/project/:id" component={ProjectDetail} />
-            <Route component={NotFound} />
-          </Switch>
-        </TooltipProvider>
-      </Router>
+      <MotionConfig reducedMotion="user">
+        <Router>
+          <TooltipProvider>
+            <Switch>
+              <Route path="/" component={Home} />
+              <Route path="/project/:id" component={ProjectDetail} />
+              <Route component={NotFound} />
+            </Switch>
+          </TooltipProvider>
+        </Router>
+      </MotionConfig>
     </ErrorBoundary>
   );
 }

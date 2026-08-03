@@ -14,28 +14,28 @@
 
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
-  
+
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
-  
+
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
-  
+
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
-  
+
   --color-secondary: hsl(var(--secondary));
   --color-secondary-foreground: hsl(var(--secondary-foreground));
-  
+
   --color-muted: hsl(var(--muted));
   --color-muted-foreground: hsl(var(--muted-foreground));
-  
+
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
-  
+
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
-  
+
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
@@ -45,6 +45,7 @@
 :root {
   /* Deep Black #050505 */
   --background: 0 0% 2%;
+
   /* Pure White for readability */
   --foreground: 0 0% 98%;
 
@@ -75,35 +76,65 @@
   --input: 0 0% 12%;
   --ring: 14 100% 57%;
 
-  --radius: 0.5rem; /* Sharper corners for a bolder look */
+  /* Sharper corners for a bolder look */
+  --radius: 0.5rem;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    scrollbar-width: thin;
+    scrollbar-color:
+      hsl(var(--primary) / 0.7)
+      hsl(var(--foreground) / 0.04);
   }
+
   *::-webkit-scrollbar {
-    display: none;
+    width: 10px;
+    height: 10px;
   }
+
+  *::-webkit-scrollbar-track {
+    background: hsl(var(--foreground) / 0.04);
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.65);
+    border: 2px solid hsl(var(--background));
+    border-radius: 999px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary));
+  }
+
+  *::-webkit-scrollbar-corner {
+    background: hsl(var(--background));
+  }
+
   body {
     @apply font-sans antialiased bg-background text-foreground;
   }
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-display tracking-tight uppercase font-black;
   }
 }
 
 @layer utilities {
   .text-glow {
-    text-shadow: 0 0 20px hsla(var(--primary), 0.6);
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.6);
   }
-  
+
   .border-glow {
-    box-shadow: 0 0 15px hsla(var(--primary), 0.4);
+    box-shadow: 0 0 15px hsl(var(--primary) / 0.4);
   }
-  
+
   .glass {
     background: rgba(5, 5, 5, 0.8);
     backdrop-filter: blur(12px);
@@ -112,6 +143,10 @@
   }
 
   .orange-gradient {
-    background: linear-gradient(135deg, hsl(var(--primary)), #FF8A65);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary)),
+      #ff8a65
+    );
   }
 }
