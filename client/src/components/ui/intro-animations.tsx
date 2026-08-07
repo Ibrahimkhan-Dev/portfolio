@@ -1,19 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useReducedMotion,
+} from "framer-motion";
 
 /* ─────────────────────────────────────────────────────────
-   Intro-played flag — persists across SPA route changes AND
-   full-page reloads (bfcache miss) via sessionStorage.
-   Only ever transitions false → true (never reset).
+   Intro-played flag — persists across SPA route changes and
+   full-page reloads during the current browser session.
 ───────────────────────────────────────────────────────── */
 const INTRO_KEY = "portfolio_intro_played";
 
-let introPlayed =
-  typeof sessionStorage !== "undefined"
-    ? sessionStorage.getItem(INTRO_KEY) === "1"
-    : false;
+function readIntroPlayed() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  try {
+    return window.sessionStorage.getItem(INTRO_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+let introPlayed = readIntroPlayed();
 
 export function isIntroPlayed() {
   return introPlayed;
@@ -22,8 +33,12 @@ export function isIntroPlayed() {
 export function markIntroPlayed() {
   introPlayed = true;
 
+  if (typeof window === "undefined") {
+    return;
+  }
+
   try {
-    sessionStorage.setItem(INTRO_KEY, "1");
+    window.sessionStorage.setItem(INTRO_KEY, "1");
   } catch {
     /* Storage may be blocked — safely ignore. */
   }
@@ -37,14 +52,22 @@ export const BOOT_DURATION = 0.9;
 /* ─────────────────────────────────────────────────────────
    Background FX — cursor halo + optional network canvas
 ───────────────────────────────────────────────────────── */
-export function BackgroundFX({ network = false }: { network?: boolean }) {
-  const prefersReducedMotion = useReducedMotion();
+export function BackgroundFX({
+  network = false,
+}: {
+  network?: boolean;
+}) {
+  const prefersReducedMotion =
+    useReducedMotion() ?? false;
 
-  const [haloRef, setHaloRef] = useState<HTMLDivElement | null>(null);
-  const [canvasRef, setCanvasRef] = useState<HTMLCanvasElement | null>(null);
+  const haloRef = useRef<HTMLDivElement | null>(null);
+  const canvasRef =
+    useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    if (!haloRef || prefersReducedMotion) {
+    const haloElement = haloRef.current;
+
+    if (!haloElement || prefersReducedMotion) {
       return;
     }
 
@@ -53,68 +76,107 @@ export function BackgroundFX({ network = false }: { network?: boolean }) {
     let currentX = mouseX;
     let currentY = mouseY;
 
-    const speed = 0.08;
+    const smoothingSpeed = 0.08;
+    const settleThreshold = 0.1;
 
-    const onMove = (event: MouseEvent) => {
-      mouseX = event.clientX;
-      mouseY = event.clientY;
-    };
+    let haloAnimationFrame: number | null = null;
+    let resizeCanvas: (() => void) | undefined;
+    let drawNetwork: (() => void) | undefined;
 
-    window.addEventListener("mousemove", onMove, {
-      passive: true,
-    });
+    const updateHalo = () => {
+      haloAnimationFrame = null;
 
-    let haloAnimationFrame = 0;
+      if (document.hidden) {
+        return;
+      }
 
-    const animateHalo = () => {
-      currentX += (mouseX - currentX) * speed;
-      currentY += (mouseY - currentY) * speed;
+      currentX +=
+        (mouseX - currentX) * smoothingSpeed;
+      currentY +=
+        (mouseY - currentY) * smoothingSpeed;
 
-      haloRef.style.transform = `translate(
+      haloElement.style.transform = `translate3d(
         ${currentX - 200}px,
-        ${currentY - 200}px
+        ${currentY - 200}px,
+        0
       )`;
 
-      haloAnimationFrame = window.requestAnimationFrame(animateHalo);
+      const horizontalDistance = Math.abs(
+        mouseX - currentX,
+      );
+
+      const verticalDistance = Math.abs(
+        mouseY - currentY,
+      );
+
+      if (
+        horizontalDistance > settleThreshold ||
+        verticalDistance > settleThreshold
+      ) {
+        haloAnimationFrame =
+          window.requestAnimationFrame(updateHalo);
+      }
     };
 
-    animateHalo();
+    const scheduleHaloUpdate = () => {
+      if (
+        haloAnimationFrame !== null ||
+        document.hidden
+      ) {
+        return;
+      }
 
-    let resizeHandler: (() => void) | undefined;
-    let networkAnimationFrame = 0;
+      haloAnimationFrame =
+        window.requestAnimationFrame(updateHalo);
+    };
 
-    if (network && canvasRef) {
-      const context = canvasRef.getContext("2d");
+    const canvasElement = canvasRef.current;
+
+    if (network && canvasElement) {
+      const context =
+        canvasElement.getContext("2d");
 
       if (context) {
-        let width = (canvasRef.width = window.innerWidth);
-        let height = (canvasRef.height = window.innerHeight);
+        let width = window.innerWidth;
+        let height = window.innerHeight;
 
-        const dots = Array.from({ length: 8 }, () => ({
-          x: Math.random() * width,
-          y: Math.random() * height,
-        }));
+        let dots: Array<{
+          x: number;
+          y: number;
+        }> = [];
 
-        resizeHandler = () => {
-          width = canvasRef.width = window.innerWidth;
-          height = canvasRef.height = window.innerHeight;
+        const generateDots = () => {
+          dots = Array.from({ length: 8 }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+          }));
         };
 
-        window.addEventListener("resize", resizeHandler);
+        drawNetwork = () => {
+          if (document.hidden) {
+            return;
+          }
 
-        const drawNetwork = () => {
           context.clearRect(0, 0, width, height);
 
           for (const dot of dots) {
             context.beginPath();
-            context.arc(dot.x, dot.y, 2, 0, Math.PI * 2);
-            context.fillStyle = "rgba(255, 140, 0, 0.08)";
+            context.arc(
+              dot.x,
+              dot.y,
+              2,
+              0,
+              Math.PI * 2,
+            );
+            context.fillStyle =
+              "rgba(255, 140, 0, 0.08)";
             context.fill();
           }
 
           for (const dot of dots) {
             const deltaX = mouseX - dot.x;
             const deltaY = mouseY - dot.y;
+
             const distance = Math.sqrt(
               deltaX * deltaX + deltaY * deltaY,
             );
@@ -123,36 +185,137 @@ export function BackgroundFX({ network = false }: { network?: boolean }) {
               context.beginPath();
               context.moveTo(dot.x, dot.y);
               context.lineTo(mouseX, mouseY);
-              context.strokeStyle = "rgba(255, 140, 0, 0.05)";
+              context.strokeStyle =
+                "rgba(255, 140, 0, 0.05)";
               context.lineWidth = 1;
               context.stroke();
             }
           }
-
-          networkAnimationFrame =
-            window.requestAnimationFrame(drawNetwork);
         };
 
-        drawNetwork();
+        resizeCanvas = () => {
+          width = window.innerWidth;
+          height = window.innerHeight;
+
+          const pixelRatio = Math.min(
+            window.devicePixelRatio || 1,
+            2,
+          );
+
+          canvasElement.width = Math.floor(
+            width * pixelRatio,
+          );
+
+          canvasElement.height = Math.floor(
+            height * pixelRatio,
+          );
+
+          canvasElement.style.width = `${width}px`;
+          canvasElement.style.height = `${height}px`;
+
+          context.setTransform(
+            pixelRatio,
+            0,
+            0,
+            pixelRatio,
+            0,
+            0,
+          );
+
+          generateDots();
+          drawNetwork?.();
+        };
+
+        resizeCanvas();
+
+        window.addEventListener(
+          "resize",
+          resizeCanvas,
+          {
+            passive: true,
+          },
+        );
       }
     }
 
-    return () => {
-      window.removeEventListener("mousemove", onMove);
+    const handleMouseMove = (
+      event: MouseEvent,
+    ) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
 
-      if (resizeHandler) {
-        window.removeEventListener("resize", resizeHandler);
+      scheduleHaloUpdate();
+      drawNetwork?.();
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (haloAnimationFrame !== null) {
+          window.cancelAnimationFrame(
+            haloAnimationFrame,
+          );
+
+          haloAnimationFrame = null;
+        }
+
+        return;
       }
 
-      window.cancelAnimationFrame(haloAnimationFrame);
-      window.cancelAnimationFrame(networkAnimationFrame);
+      scheduleHaloUpdate();
+      drawNetwork?.();
     };
-  }, [canvasRef, haloRef, network, prefersReducedMotion]);
+
+    haloElement.style.transform = `translate3d(
+      ${currentX - 200}px,
+      ${currentY - 200}px,
+      0
+    )`;
+
+    drawNetwork?.();
+
+    window.addEventListener(
+      "mousemove",
+      handleMouseMove,
+      {
+        passive: true,
+      },
+    );
+
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibilityChange,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "mousemove",
+        handleMouseMove,
+      );
+
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange,
+      );
+
+      if (resizeCanvas) {
+        window.removeEventListener(
+          "resize",
+          resizeCanvas,
+        );
+      }
+
+      if (haloAnimationFrame !== null) {
+        window.cancelAnimationFrame(
+          haloAnimationFrame,
+        );
+      }
+    };
+  }, [network, prefersReducedMotion]);
 
   return (
     <>
       <div
-        ref={setHaloRef}
+        ref={haloRef}
         aria-hidden="true"
         className="pointer-events-none fixed left-0 top-0 -z-10"
         style={{
@@ -163,14 +326,17 @@ export function BackgroundFX({ network = false }: { network?: boolean }) {
             "radial-gradient(circle, rgba(255, 140, 0, 0.08) 0%, rgba(255, 140, 0, 0.04) 40%, transparent 70%)",
           filter: "blur(60px)",
           transform: prefersReducedMotion
-            ? "translate(calc(50vw - 200px), calc(50vh - 200px))"
-            : undefined,
+            ? "translate3d(calc(50vw - 200px), calc(50vh - 200px), 0)"
+            : "translate3d(calc(50vw - 200px), calc(50vh - 200px), 0)",
+          willChange: prefersReducedMotion
+            ? undefined
+            : "transform",
         }}
       />
 
       {network && !prefersReducedMotion && (
         <canvas
-          ref={setCanvasRef}
+          ref={canvasRef}
           aria-hidden="true"
           className="pointer-events-none fixed inset-0 -z-10"
         />
@@ -186,15 +352,21 @@ const BOOT_TEXT =
   "> initializing engineering portfolio...\n> loading enterprise systems: [██████████] done\n> welcome.";
 
 export function TerminalBoot() {
-  const prefersReducedMotion = useReducedMotion();
-  const skipAnimation = introPlayed || Boolean(prefersReducedMotion);
+  const prefersReducedMotion =
+    useReducedMotion() ?? false;
+
+  const skipAnimation =
+    introPlayed || prefersReducedMotion;
 
   const [count, setCount] = useState(
     skipAnimation ? BOOT_TEXT.length : 0,
   );
 
-  const [fading, setFading] = useState(skipAnimation);
-  const [gone, setGone] = useState(skipAnimation);
+  const [fading, setFading] =
+    useState(skipAnimation);
+
+  const [gone, setGone] =
+    useState(skipAnimation);
 
   const done = count >= BOOT_TEXT.length;
 
@@ -215,17 +387,20 @@ export function TerminalBoot() {
     }
 
     const totalCharacters = BOOT_TEXT.length;
-    const typingDurationMs = BOOT_DURATION * 600;
+    const typingDurationMs =
+      BOOT_DURATION * 600;
     const startedAt = performance.now();
 
     let typingAnimationFrame = 0;
     let finishTimeout: number | undefined;
 
     const tick = () => {
-      const elapsed = performance.now() - startedAt - 50;
+      const elapsed =
+        performance.now() - startedAt - 50;
 
       if (elapsed < 0) {
-        typingAnimationFrame = window.requestAnimationFrame(tick);
+        typingAnimationFrame =
+          window.requestAnimationFrame(tick);
         return;
       }
 
@@ -234,14 +409,18 @@ export function TerminalBoot() {
         elapsed / typingDurationMs,
       );
 
-      setCount(Math.round(progress * totalCharacters));
+      setCount(
+        Math.round(progress * totalCharacters),
+      );
 
       if (progress < 1) {
-        typingAnimationFrame = window.requestAnimationFrame(tick);
+        typingAnimationFrame =
+          window.requestAnimationFrame(tick);
       }
     };
 
-    typingAnimationFrame = window.requestAnimationFrame(tick);
+    typingAnimationFrame =
+      window.requestAnimationFrame(tick);
 
     const safetyTimeout = window.setTimeout(() => {
       setFading(true);
@@ -253,7 +432,10 @@ export function TerminalBoot() {
     }, (BOOT_DURATION + 1) * 1000);
 
     return () => {
-      window.cancelAnimationFrame(typingAnimationFrame);
+      window.cancelAnimationFrame(
+        typingAnimationFrame,
+      );
+
       window.clearTimeout(safetyTimeout);
 
       if (finishTimeout !== undefined) {
@@ -297,7 +479,7 @@ export function TerminalBoot() {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black"
+      className="fixed inset-0 z-100 flex items-center justify-center bg-black"
       animate={{
         opacity: fading ? 0 : 1,
       }}

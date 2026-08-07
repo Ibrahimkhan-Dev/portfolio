@@ -1,15 +1,6 @@
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useRoute } from "wouter";
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-} from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowLeft,
   ChevronLeft,
@@ -36,6 +27,42 @@ const FOCUSABLE_SELECTOR = [
   "video[controls]",
   '[tabindex]:not([tabindex="-1"])',
 ].join(",");
+
+const CLOUDINARY_HOST = "res.cloudinary.com";
+const CLOUDINARY_UPLOAD_SEGMENT = "/image/upload/";
+
+function isCloudinaryImage(source: string) {
+  return (
+    source.includes(CLOUDINARY_HOST) &&
+    source.includes(CLOUDINARY_UPLOAD_SEGMENT)
+  );
+}
+
+function getOptimizedProjectMediaUrl(
+  source: string,
+  width: number,
+) {
+  if (!isCloudinaryImage(source)) {
+    return source;
+  }
+
+  return source.replace(
+    CLOUDINARY_UPLOAD_SEGMENT,
+    `${CLOUDINARY_UPLOAD_SEGMENT}f_auto,q_auto:good,c_limit,w_${width}/`,
+  );
+}
+
+function getProjectMediaSrcSet(source: string) {
+  if (!isCloudinaryImage(source)) {
+    return undefined;
+  }
+
+  return [
+    `${getOptimizedProjectMediaUrl(source, 640)} 640w`,
+    `${getOptimizedProjectMediaUrl(source, 1200)} 1200w`,
+    `${getOptimizedProjectMediaUrl(source, 1600)} 1600w`,
+  ].join(", ");
+}
 
 function isVideoSource(source: string) {
   return /\.(mp4|webm|mov|ogg)(?:$|[?#])/i.test(source);
@@ -155,9 +182,7 @@ export default function ProjectDetail() {
       : "The requested portfolio project could not be found.";
     const pageUrl = `${window.location.origin}${window.location.pathname}`;
     const socialImage = toAbsoluteUrl(
-      project?.gallery?.[0] ??
-        project?.image ??
-        DEFAULT_SOCIAL_IMAGE,
+      project?.gallery?.[0] ?? project?.image ?? DEFAULT_SOCIAL_IMAGE,
     );
 
     document.title = pageTitle;
@@ -173,10 +198,7 @@ export default function ProjectDetail() {
       pageDescription,
     );
 
-    const propertyMeta = (
-      property: string,
-      value: string,
-    ) => {
+    const propertyMeta = (property: string, value: string) => {
       setHeadAttribute(
         `meta[property="${property}"]`,
         () => {
@@ -389,11 +411,7 @@ export default function ProjectDetail() {
   }, [closeGallery, galleryModal, galleryNext, galleryPrev]);
 
   useEffect(() => {
-    if (
-      prefersReducedMotion ||
-      sliderPaused ||
-      mediaSlides.length <= 1
-    ) {
+    if (prefersReducedMotion || sliderPaused || mediaSlides.length <= 1) {
       return;
     }
 
@@ -445,11 +463,6 @@ export default function ProjectDetail() {
   const hasLiveOrSource = Boolean(project.liveUrl || project.sourceUrl);
   const pulseClass = prefersReducedMotion ? "" : "animate-pulse";
 
-  const openIfExists = (url?: string) => {
-    if (!url) return;
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
   const scrollMedia = (direction: "left" | "right") => {
     const slider = sliderRef.current;
     if (!slider) return;
@@ -497,12 +510,14 @@ export default function ProjectDetail() {
           </button>
         </header>
 
-        <main className="pt-24 sm:pt-32 pb-12 sm:pb-20">
-          <div className="container mx-auto px-4 sm:px-6 max-w-[1600px]">
+        <main
+          id="main-content"
+          tabIndex={-1}
+          className="pt-24 pb-12 sm:pt-32 sm:pb-20"
+        >
+          <div className="container mx-auto px-4 sm:px-6 max-w-400">
             <motion.div
-              initial={
-                prefersReducedMotion ? false : { opacity: 0, y: 30 }
-              }
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 duration: prefersReducedMotion ? 0 : 0.6,
@@ -520,9 +535,7 @@ export default function ProjectDetail() {
                   {project.role && (
                     <motion.div
                       initial={
-                        prefersReducedMotion
-                          ? false
-                          : { opacity: 0, x: -20 }
+                        prefersReducedMotion ? false : { opacity: 0, x: -20 }
                       }
                       animate={{ opacity: 1, x: 0 }}
                       transition={{
@@ -558,7 +571,7 @@ export default function ProjectDetail() {
                 <div className="min-w-0 w-full md:row-start-2 md:col-span-2 border-y border-white/5 py-4 sm:py-6">
                   <div className="flex flex-wrap gap-y-4 gap-x-6 sm:gap-x-10 lg:gap-x-16">
                     {project.company && (
-                      <div className="flex-1 min-w-[120px]">
+                      <div className="flex-1 min-w-30">
                         <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary mb-1">
                           {project.category?.includes("Academic") ||
                           project.category?.includes("Final-Year")
@@ -572,7 +585,7 @@ export default function ProjectDetail() {
                     )}
 
                     {project.supervisor && (
-                      <div className="flex-1 min-w-[120px]">
+                      <div className="flex-1 min-w-30">
                         <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary mb-1">
                           Supervisor
                         </p>
@@ -583,7 +596,7 @@ export default function ProjectDetail() {
                     )}
 
                     {project.team && (
-                      <div className="flex-1 min-w-[120px]">
+                      <div className="flex-1 min-w-30">
                         <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary mb-1">
                           Team
                         </p>
@@ -594,7 +607,7 @@ export default function ProjectDetail() {
                     )}
 
                     {project.duration && (
-                      <div className="flex-1 min-w-[120px]">
+                      <div className="flex-1 min-w-30">
                         <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary mb-1">
                           Duration
                         </p>
@@ -650,11 +663,11 @@ export default function ProjectDetail() {
 
                       <div
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-background to-transparent z-10"
+                        className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-linear-to-r from-background to-transparent z-10"
                       />
                       <div
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-background to-transparent z-10"
+                        className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-linear-to-l from-background to-transparent z-10"
                       />
 
                       <div
@@ -669,17 +682,27 @@ export default function ProjectDetail() {
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label={`Open ${project.title} visual ${index + 1} of ${mediaSlides.length} in a new tab`}
-                            className="flex-shrink-0 w-full min-w-full snap-start block aspect-video bg-card border-4 sm:border-8 border-white/5 overflow-hidden hover:border-primary transition-colors"
+                            className="shrink-0 w-full min-w-full snap-start block aspect-video bg-card border-4 sm:border-8 border-white/5 overflow-hidden hover:border-primary transition-colors"
                           >
                             <img
-                              src={source}
+                              src={getOptimizedProjectMediaUrl(
+                                source,
+                                1200,
+                              )}
+                              srcSet={getProjectMediaSrcSet(source)}
+                              sizes={
+                                isCloudinaryImage(source)
+                                  ? "(min-width: 1280px) 720px, (min-width: 768px) 50vw, 100vw"
+                                  : undefined
+                              }
                               alt={`${project.title} visual ${index + 1}`}
                               width={1600}
                               height={900}
                               loading={index === 0 ? "eager" : "lazy"}
+                              fetchPriority={index === 0 ? "high" : "auto"}
                               decoding="async"
                               draggable={false}
-                              className="w-full h-full object-contain bg-card"
+                              className="h-full w-full bg-card object-contain"
                             />
                           </a>
                         ))}
@@ -700,7 +723,7 @@ export default function ProjectDetail() {
                       }}
                       className="aspect-video bg-card border-4 sm:border-8 border-white/5 relative overflow-hidden group"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
+                      <div className="absolute inset-0 bg-linear-to-br from-primary/20 to-transparent" />
                       <div className="absolute inset-0 flex items-center justify-center">
                         {project.icon ?? (
                           <Layers
@@ -878,31 +901,39 @@ export default function ProjectDetail() {
                 {hasLiveOrSource && (
                   <div className="grid gap-4 sm:gap-6">
                     {project.liveUrl && (
-                      <button
-                        type="button"
-                        onClick={() => openIfExists(project.liveUrl)}
-                        className="h-14 sm:h-20 bg-primary text-black font-black text-lg sm:text-2xl uppercase tracking-tighter hover:scale-[1.02] transition-transform flex items-center justify-center gap-3 sm:gap-4"
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open ${project.title} live preview in a new tab`}
+                        className={`flex h-14 items-center justify-center gap-3 bg-primary text-lg font-black uppercase tracking-tighter text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:h-20 sm:gap-4 sm:text-2xl ${
+                          prefersReducedMotion
+                            ? ""
+                            : "transition-transform hover:scale-[1.02]"
+                        }`}
                       >
                         Live Preview
                         <Globe
                           aria-hidden="true"
-                          className="w-5 h-5 sm:w-6 sm:h-6"
+                          className="h-5 w-5 sm:h-6 sm:w-6"
                         />
-                      </button>
+                      </a>
                     )}
 
                     {project.sourceUrl && (
-                      <button
-                        type="button"
-                        onClick={() => openIfExists(project.sourceUrl)}
-                        className="h-14 sm:h-20 border-2 border-white/10 text-white font-black text-lg sm:text-2xl uppercase tracking-tighter hover:bg-white/5 transition-all flex items-center justify-center gap-3 sm:gap-4"
+                      <a
+                        href={project.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open ${project.title} source code in a new tab`}
+                        className="flex h-14 items-center justify-center gap-3 border-2 border-white/10 text-lg font-black uppercase tracking-tighter text-white transition-colors hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:h-20 sm:gap-4 sm:text-2xl"
                       >
                         Source Code
                         <Github
                           aria-hidden="true"
-                          className="w-5 h-5 sm:w-6 sm:h-6"
+                          className="h-5 w-5 sm:h-6 sm:w-6"
                         />
-                      </button>
+                      </a>
                     )}
                   </div>
                 )}
@@ -940,7 +971,7 @@ export default function ProjectDetail() {
             exit={{ opacity: 0 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
             role="presentation"
-            className="fixed inset-0 z-[100] bg-black/90 flex flex-col items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 z-100 bg-black/90 flex flex-col items-center justify-center p-4 sm:p-6"
             onMouseDown={(event) => {
               if (event.target === event.currentTarget) {
                 closeGallery();

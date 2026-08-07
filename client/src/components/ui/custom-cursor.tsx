@@ -50,6 +50,8 @@ export default function CustomCursor() {
     setIsTouch(touchDevice);
 
     if (touchDevice || prefersReducedMotion) {
+      hoverRef.current = false;
+      setIsHovering(false);
       return;
     }
 
@@ -59,7 +61,11 @@ export default function CustomCursor() {
     };
 
     const onOver = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
+      const target = event.target;
+
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
 
       const isInteractive = Boolean(
         target.closest(
@@ -73,6 +79,13 @@ export default function CustomCursor() {
       }
     };
 
+    const onWindowLeave = () => {
+      if (hoverRef.current) {
+        hoverRef.current = false;
+        setIsHovering(false);
+      }
+    };
+
     window.addEventListener("mousemove", onMove, {
       passive: true,
     });
@@ -81,9 +94,18 @@ export default function CustomCursor() {
       passive: true,
     });
 
+    document.documentElement.addEventListener(
+      "mouseleave",
+      onWindowLeave,
+    );
+
     return () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseover", onOver);
+      document.documentElement.removeEventListener(
+        "mouseleave",
+        onWindowLeave,
+      );
     };
   }, [prefersReducedMotion, rawX, rawY]);
 
@@ -95,7 +117,7 @@ export default function CustomCursor() {
     <>
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-[9999] h-4 w-4 rounded-full bg-primary mix-blend-difference"
+        className="pointer-events-none fixed left-0 top-0 z-9999 h-4 w-4 rounded-full bg-primary mix-blend-difference"
         style={{
           x: dotX,
           y: dotY,
@@ -114,7 +136,7 @@ export default function CustomCursor() {
 
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-[9998] h-8 w-8 rounded-full border border-primary/50"
+        className="pointer-events-none fixed left-0 top-0 z-9998 h-8 w-8 rounded-full border border-primary/50"
         style={{
           x: ringX,
           y: ringY,

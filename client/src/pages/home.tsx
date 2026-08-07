@@ -1,47 +1,106 @@
 import { useEffect } from "react";
-import CustomCursor from "@/components/ui/custom-cursor";
 import Navbar from "@/components/layout/navbar";
-import Hero from "@/components/sections/hero";
+import Contact from "@/components/sections/contact";
+import Credentials from "@/components/sections/credentials";
 import Experience from "@/components/sections/experience";
+import Hero from "@/components/sections/hero";
 import Projects from "@/components/sections/projects";
 import Skills from "@/components/sections/skills";
-import Credentials from "@/components/sections/credentials";
-import Contact from "@/components/sections/contact";
-import { BackgroundFX, TerminalBoot } from "@/components/ui/site-animations";
+import CustomCursor from "@/components/ui/custom-cursor";
+import {
+  BackgroundFX,
+  TerminalBoot,
+} from "@/components/ui/site-animations";
 
-const SCROLL_TO_PROJECTS_KEY = "portfolio_scroll_to_projects";
-const SCROLL_TO_SECTION_KEY = "portfolio_scroll_to_section";
+const SCROLL_TO_PROJECTS_KEY =
+  "portfolio_scroll_to_projects";
+
+const SCROLL_TO_SECTION_KEY =
+  "portfolio_scroll_to_section";
 
 export default function Home() {
   useEffect(() => {
-    const sectionId =
-      sessionStorage.getItem(SCROLL_TO_SECTION_KEY) ||
-      (sessionStorage.getItem(SCROLL_TO_PROJECTS_KEY) ? "projects" : null);
+    let sectionId: string | null = null;
 
-    sessionStorage.removeItem(SCROLL_TO_SECTION_KEY);
-    sessionStorage.removeItem(SCROLL_TO_PROJECTS_KEY);
+    try {
+      sectionId =
+        window.sessionStorage.getItem(
+          SCROLL_TO_SECTION_KEY,
+        ) ||
+        (window.sessionStorage.getItem(
+          SCROLL_TO_PROJECTS_KEY,
+        )
+          ? "projects"
+          : null);
+
+      window.sessionStorage.removeItem(
+        SCROLL_TO_SECTION_KEY,
+      );
+
+      window.sessionStorage.removeItem(
+        SCROLL_TO_PROJECTS_KEY,
+      );
+    } catch {
+      /*
+       * Session storage may be blocked.
+       * The homepage can still load normally.
+       */
+    }
+
+    const prefersReducedMotion =
+      window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+    const scrollBehavior: ScrollBehavior =
+      prefersReducedMotion ? "auto" : "smooth";
+
+    let scrollFrame: number | null = null;
 
     if (sectionId) {
-      const el = document.getElementById(sectionId);
-      if (el) {
-        requestAnimationFrame(() => {
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
+      scrollFrame = window.requestAnimationFrame(() => {
+        const section =
+          document.getElementById(sectionId);
+
+        if (!section) {
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "auto",
+          });
+
+          return;
+        }
+
+        section.scrollIntoView({
+          behavior: scrollBehavior,
+          block: "start",
         });
-      }
+      });
     } else {
-      window.scrollTo(0, 0);
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "auto",
+      });
     }
+
+    return () => {
+      if (scrollFrame !== null) {
+        window.cancelAnimationFrame(scrollFrame);
+      }
+    };
   }, []);
 
   return (
-    <div className="bg-background min-h-screen text-foreground selection:bg-primary selection:text-black overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden bg-background text-foreground selection:bg-primary selection:text-black">
       <TerminalBoot />
 
       <CustomCursor />
       <BackgroundFX />
       <Navbar />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <Hero />
         <Experience />
         <Projects />

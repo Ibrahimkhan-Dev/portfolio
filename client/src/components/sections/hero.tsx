@@ -1,4 +1,7 @@
-import { motion } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+} from "framer-motion";
 import { ArrowDown, FileText } from "lucide-react";
 import {
   BadgePowerOn,
@@ -12,10 +15,19 @@ import {
 } from "@/components/ui/site-animations";
 
 export default function Hero() {
+  const prefersReducedMotion =
+    useReducedMotion() ?? false;
+
+  const scrollBehavior: ScrollBehavior =
+    prefersReducedMotion ? "auto" : "smooth";
+
   const scrollToSection = (sectionId: string) => {
     document
       .getElementById(sectionId)
-      ?.scrollIntoView({ behavior: "smooth" });
+      ?.scrollIntoView({
+        behavior: scrollBehavior,
+        block: "start",
+      });
   };
 
   return (
@@ -119,7 +131,9 @@ export default function Hero() {
         }}
         transition={
           isIntroPlayed()
-            ? { duration: 0 }
+            ? {
+                duration: 0,
+              }
             : {
                 delay: HERO_T.polishEnd,
                 duration: 0.5,
@@ -128,13 +142,25 @@ export default function Hero() {
         className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer border-0 bg-transparent p-2 text-primary transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
         <motion.div
-          animate={{
-            y: [0, 10, 0],
-          }}
-          transition={{
-            repeat: Infinity,
-            duration: 2,
-          }}
+          animate={
+            prefersReducedMotion
+              ? {
+                  y: 0,
+                }
+              : {
+                  y: [0, 10, 0],
+                }
+          }
+          transition={
+            prefersReducedMotion
+              ? {
+                  duration: 0,
+                }
+              : {
+                  repeat: Infinity,
+                  duration: 2,
+                }
+          }
         >
           <ArrowDown
             size={32}
