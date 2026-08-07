@@ -1,7 +1,4 @@
-import {
-  motion,
-  useReducedMotion,
-} from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, FileText } from "lucide-react";
 import {
   BadgePowerOn,
@@ -15,19 +12,17 @@ import {
 } from "@/components/ui/site-animations";
 
 export default function Hero() {
-  const prefersReducedMotion =
-    useReducedMotion() ?? false;
+  const prefersReducedMotion = useReducedMotion() ?? false;
 
-  const scrollBehavior: ScrollBehavior =
-    prefersReducedMotion ? "auto" : "smooth";
+  const scrollBehavior: ScrollBehavior = prefersReducedMotion
+    ? "auto"
+    : "smooth";
 
   const scrollToSection = (sectionId: string) => {
-    document
-      .getElementById(sectionId)
-      ?.scrollIntoView({
-        behavior: scrollBehavior,
-        block: "start",
-      });
+    document.getElementById(sectionId)?.scrollIntoView({
+      behavior: scrollBehavior,
+      block: "start",
+    });
   };
 
   return (
@@ -54,27 +49,12 @@ export default function Hero() {
           />
         </div>
 
-        <motion.p
-          initial={{
-            opacity: isIntroPlayed() ? 1 : 0,
-            y: isIntroPlayed() ? 0 : 10,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            delay: HERO_T.compileEnd,
-            duration: 0.6,
-            ease: "easeOut",
-          }}
-          className="mx-auto mb-8 max-w-3xl text-base font-medium italic leading-relaxed text-muted-foreground sm:mb-10 sm:text-lg md:text-xl"
-        >
+        <p className="mx-auto mb-8 max-w-3xl text-base font-medium italic leading-relaxed text-muted-foreground sm:mb-10 sm:text-lg md:text-xl">
           I build and modernize secure, scalable enterprise platforms across
           healthcare, pharmaceutical traceability, ERP, automation, IoT, and
           cloud-connected environments using .NET, Angular, SQL Server, and
           Flutter.
-        </motion.p>
+        </p>
 
         <StaggerIn className="flex flex-wrap justify-center gap-4 sm:gap-6">
           <CTAButton
@@ -162,11 +142,7 @@ export default function Hero() {
                 }
           }
         >
-          <ArrowDown
-            size={32}
-            strokeWidth={3}
-            aria-hidden="true"
-          />
+          <ArrowDown size={32} strokeWidth={3} aria-hidden="true" />
         </motion.div>
       </motion.button>
     </section>
