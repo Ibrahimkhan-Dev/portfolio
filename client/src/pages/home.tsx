@@ -1,16 +1,31 @@
-import { useEffect } from "react";
+import {
+  lazy,
+  Suspense,
+  useEffect,
+  useState,
+} from "react";
+
 import Navbar from "@/components/layout/navbar";
-import Contact from "@/components/sections/contact";
-import Credentials from "@/components/sections/credentials";
-import Experience from "@/components/sections/experience";
 import Hero from "@/components/sections/hero";
-import Projects from "@/components/sections/projects";
-import Skills from "@/components/sections/skills";
-import CustomCursor from "@/components/ui/custom-cursor";
 import {
   BackgroundFX,
   TerminalBoot,
 } from "@/components/ui/site-animations";
+import { scrollToElementWhenReady } from "@/lib/scroll-to";
+
+const LazyCustomCursor = lazy(
+  () =>
+    import(
+      "@/components/ui/custom-cursor"
+    ),
+);
+
+const LazyBelowFold = lazy(
+  () =>
+    import(
+      "@/components/home-below-fold"
+    ),
+);
 
 const SCROLL_TO_PROJECTS_KEY =
   "portfolio_scroll_to_projects";
@@ -18,7 +33,89 @@ const SCROLL_TO_PROJECTS_KEY =
 const SCROLL_TO_SECTION_KEY =
   "portfolio_scroll_to_section";
 
+type IdleWindow = Window & {
+  requestIdleCallback?: (
+    callback: () => void,
+    options?: {
+      timeout?: number;
+    },
+  ) => number;
+
+  cancelIdleCallback?: (
+    handle: number,
+  ) => void;
+};
+
 export default function Home() {
+  const [
+    cursorEnabled,
+    setCursorEnabled,
+  ] = useState(false);
+
+  const [
+    belowFoldEnabled,
+    setBelowFoldEnabled,
+  ] = useState(false);
+
+  /*
+   * Load the custom cursor only on devices that
+   * actually support a fine pointer.
+   *
+   * The dynamic cursor bundle is requested only
+   * after the first real pointer movement.
+   */
+  useEffect(() => {
+    const isFinePointer =
+      window.matchMedia(
+        "(hover: hover) and (pointer: fine)",
+      ).matches;
+
+    const reducedMotion =
+      window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+    if (
+      !isFinePointer ||
+      reducedMotion
+    ) {
+      return;
+    }
+
+    const onMove = () => {
+      setCursorEnabled(true);
+    };
+
+    window.addEventListener(
+      "pointermove",
+      onMove,
+      {
+        once: true,
+        passive: true,
+      },
+    );
+
+    return () => {
+      window.removeEventListener(
+        "pointermove",
+        onMove,
+      );
+    };
+  }, []);
+
+  /*
+   * Restore navigation intent when returning from
+   * another route.
+   *
+   * For a normal homepage visit, keep the
+   * below-the-fold bundle out of the first render
+   * and request it once the browser becomes idle.
+   *
+   * When a specific section was requested, load
+   * the deferred content immediately so the
+   * existing MutationObserver-based scroll helper
+   * can find the section as soon as it mounts.
+   */
   useEffect(() => {
     let sectionId: string | null = null;
 
@@ -53,41 +150,94 @@ export default function Home() {
       ).matches;
 
     const scrollBehavior: ScrollBehavior =
-      prefersReducedMotion ? "auto" : "smooth";
+      prefersReducedMotion
+        ? "auto"
+        : "smooth";
 
-    let scrollFrame: number | null = null;
-
+    /*
+     * A navigation target exists.
+     *
+     * Load the below-fold content immediately,
+     * then let scrollToElementWhenReady wait for
+     * the requested section to appear.
+     */
     if (sectionId) {
-      scrollFrame = window.requestAnimationFrame(() => {
-        const section =
-          document.getElementById(sectionId);
+      setBelowFoldEnabled(true);
 
-        if (!section) {
-          window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "auto",
-          });
+      return scrollToElementWhenReady(
+        sectionId,
+        scrollBehavior,
+      );
+    }
 
-          return;
-        }
+    /*
+     * Normal homepage visit always begins at the
+     * top of the page.
+     */
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
 
-        section.scrollIntoView({
-          behavior: scrollBehavior,
-          block: "start",
-        });
-      });
+    /*
+     * Keep Experience, Projects, Credentials,
+     * Skills and Contact out of the critical
+     * Navbar + Hero rendering window.
+     */
+    const idleWindow =
+      window as IdleWindow;
+
+    let idleCallbackId:
+      | number
+      | undefined;
+
+    let timeoutId:
+      | number
+      | undefined;
+
+    const enableBelowFold = () => {
+      setBelowFoldEnabled(true);
+    };
+
+    if (
+      idleWindow.requestIdleCallback
+    ) {
+      idleCallbackId =
+        idleWindow.requestIdleCallback(
+          enableBelowFold,
+          {
+            timeout: 1000,
+          },
+        );
     } else {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "auto",
-      });
+      /*
+       * Safari / browsers without
+       * requestIdleCallback support.
+       */
+      timeoutId = window.setTimeout(
+        enableBelowFold,
+        250,
+      );
     }
 
     return () => {
-      if (scrollFrame !== null) {
-        window.cancelAnimationFrame(scrollFrame);
+      if (
+        idleCallbackId !==
+          undefined &&
+        idleWindow.cancelIdleCallback
+      ) {
+        idleWindow.cancelIdleCallback(
+          idleCallbackId,
+        );
+      }
+
+      if (
+        timeoutId !== undefined
+      ) {
+        window.clearTimeout(
+          timeoutId,
+        );
       }
     };
   }, []);
@@ -96,17 +246,27 @@ export default function Home() {
     <div className="min-h-screen overflow-x-hidden bg-background text-foreground selection:bg-primary selection:text-black">
       <TerminalBoot />
 
-      <CustomCursor />
+      {cursorEnabled && (
+        <Suspense fallback={null}>
+          <LazyCustomCursor />
+        </Suspense>
+      )}
+
       <BackgroundFX />
+
       <Navbar />
 
-      <main id="main-content" tabIndex={-1}>
+      <main
+        id="main-content"
+        tabIndex={-1}
+      >
         <Hero />
-        <Experience />
-        <Projects />
-        <Credentials />
-        <Skills />
-        <Contact />
+
+        {belowFoldEnabled && (
+          <Suspense fallback={null}>
+            <LazyBelowFold />
+          </Suspense>
+        )}
       </main>
     </div>
   );

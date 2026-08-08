@@ -8,43 +8,12 @@ import { Link } from "wouter";
 
 import { Card } from "@/components/ui/card";
 import { Reveal } from "@/components/ui/site-animations";
-import { projects } from "@/data/portfolio";
-
-const CLOUDINARY_HOST = "res.cloudinary.com";
-const CLOUDINARY_UPLOAD_SEGMENT = "/image/upload/";
-
-function isCloudinaryImage(source: string) {
-  return (
-    source.includes(CLOUDINARY_HOST) &&
-    source.includes(CLOUDINARY_UPLOAD_SEGMENT)
-  );
-}
-
-function getOptimizedProjectImageUrl(
-  source: string,
-  width: number,
-) {
-  if (!isCloudinaryImage(source)) {
-    return source;
-  }
-
-  return source.replace(
-    CLOUDINARY_UPLOAD_SEGMENT,
-    `${CLOUDINARY_UPLOAD_SEGMENT}f_auto,q_auto:eco,c_limit,w_${width}/`,
-  );
-}
-
-function getProjectImageSrcSet(source: string) {
-  if (!isCloudinaryImage(source)) {
-    return undefined;
-  }
-
-  return [
-    `${getOptimizedProjectImageUrl(source, 480)} 480w`,
-    `${getOptimizedProjectImageUrl(source, 800)} 800w`,
-    `${getOptimizedProjectImageUrl(source, 1200)} 1200w`,
-  ].join(", ");
-}
+import { projectCards } from "@/data/project-cards";
+import {
+  getCloudinarySrcSet,
+  getOptimizedCloudinaryUrl,
+  isCloudinaryImage,
+} from "@/lib/cloudinary";
 
 export default function Projects() {
   return (
@@ -67,7 +36,7 @@ export default function Projects() {
         </Reveal>
 
         <div className="grid items-stretch gap-6 sm:gap-10 md:grid-cols-2">
-          {projects.map((project, index) => (
+          {projectCards.map((project, index) => (
             <Reveal
               key={project.id}
               delay={index * 0.1}
@@ -86,12 +55,13 @@ export default function Projects() {
                     <div className="mb-6 flex h-48 items-center justify-center overflow-hidden border border-white/10 bg-card sm:mb-8 sm:h-56">
                       {project.image ? (
                         <img
-                          src={getOptimizedProjectImageUrl(
+                          src={getOptimizedCloudinaryUrl(
                             project.image,
                             800,
                           )}
-                          srcSet={getProjectImageSrcSet(
+                          srcSet={getCloudinarySrcSet(
                             project.image,
+                            [480, 800, 1200],
                           )}
                           sizes={
                             isCloudinaryImage(project.image)

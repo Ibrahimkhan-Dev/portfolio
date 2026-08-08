@@ -1,5 +1,5 @@
 import { Terminal, Cloud, Settings, ShieldCheck } from "lucide-react";
-import { skillCategories } from "@/data/portfolio";
+import { skillCategories } from "@/data/skills";
 import type React from "react";
 import { Reveal, Stagger } from "@/components/ui/site-animations";
 

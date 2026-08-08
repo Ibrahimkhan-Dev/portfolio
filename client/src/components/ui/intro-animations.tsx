@@ -355,8 +355,14 @@ export function TerminalBoot() {
   const prefersReducedMotion =
     useReducedMotion() ?? false;
 
+  // Skip on coarse-pointer (touch/mobile) devices so the hero is
+  // immediately visible without a full-screen boot overlay.
+  const isCoarsePointer =
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: coarse)").matches;
+
   const skipAnimation =
-    introPlayed || prefersReducedMotion;
+    introPlayed || prefersReducedMotion || isCoarsePointer;
 
   const [count, setCount] = useState(
     skipAnimation ? BOOT_TEXT.length : 0,

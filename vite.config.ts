@@ -23,6 +23,9 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true,
+    // Home is statically bundled so the root route needs no JS waterfall.
+    // Combined gzip (~161 kB) matches the previous home + shared + entry split.
+    chunkSizeWarningLimit: 600,
   },
 
   server: {

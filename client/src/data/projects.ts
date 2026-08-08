@@ -40,127 +40,145 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: "zenatrace",
-    title: "ZenaTrace Pharmaceutical Traceability Platform",
-    shortDesc:
-      "Developed and validated a multi-tenant web platform for pharmaceutical serialization and supply-chain traceability, with a separate Flutter mobile R&D track.",
+  id: "zenatrace",
+  title: "ZenaTrace Pharmaceutical Traceability Platform",
 
-    description:
-      "ZenaTrace is a multi-tenant pharmaceutical supply-chain traceability platform developed at Epazz Tech. My work covered requirements analysis, full-stack implementation, frontend and backend integration, authentication, tenant isolation, role-based access, responsive quality assurance, and testing. The completed Angular web MVP supports master data, serial generation and import, commissioning, aggregation, shipments, trace events, audit logs, search, file handling, imports and exports, dashboards, and administration. A separate Flutter application is being developed as a mobile R&D track and is not presented here as a production mobile release.",
+  shortDesc:
+    "Planned, directed, reviewed, debugged, and validated the AI-assisted delivery of a multi-tenant web platform for pharmaceutical serialization and supply-chain traceability, with a separate Flutter mobile R&D track.",
 
-    tech: [
-      "Angular",
-      "TypeScript",
-      ".NET 8",
-      "ASP.NET Core",
-      "C#",
-      "SQL Server",
-      "Entity Framework Core",
-      "REST APIs",
-      "SQL Server Full-Text Search",
-      "Redis",
-      "SQL Server Outbox",
-      "Amazon S3",
-      "JWT Authentication",
-      "Refresh Token Rotation",
-      "Flutter",
-      "Dart",
-      "Playwright",
-    ],
+  description:
+    "ZenaTrace is a multi-tenant pharmaceutical supply-chain traceability platform developed at Epazz Tech. My contribution centered on project execution planning, application and database logic, workflow design, architecture review, AI-assisted implementation direction, code review, debugging, verification, and quality assurance. I used ChatGPT and Claude as AI development assistants while remaining responsible for interpreting the approved requirements, defining implementation direction, reviewing generated code, identifying defects, and accepting or rejecting changes. The completed Angular web MVP supports master data, serial generation and import, commissioning, aggregation, shipments, trace events, audit logs, search, file handling, imports and exports, dashboards, and administration. A separate Flutter application is being developed as a mobile R&D track and is not presented here as a production mobile release.",
 
-    role: "Full-Stack Developer",
-    company: "Epazz Tech",
-    duration: "2026 - Present",
-    category: "Enterprise Pharmaceutical Traceability",
-    team: "Epazz Tech product project",
+  tech: [
+    "Angular",
+    "TypeScript",
+    ".NET 10",
+    "ASP.NET Core",
+    "C#",
+    "SQL Server",
+    "Entity Framework Core",
+    "REST APIs",
+    "SQL Server Full-Text Search",
+    "Redis",
+    "SQL Server Outbox",
+    "Amazon S3",
+    "JWT Authentication",
+    "Refresh Token Rotation",
+    "Flutter",
+    "Dart",
+    "Playwright",
+  ],
 
-    context:
-      "Pharmaceutical and other compliance-focused supply chains need accurate product identity, controlled serial-number lifecycles, clear shipment history, tenant-isolated data, permission-based access, and reliable audit evidence. ZenaTrace brings these workflows together in one enterprise platform.",
+  role: "Full-Stack Developer",
+  company: "Epazz Tech",
+  duration: "2026 - Present",
+  category: "Enterprise Pharmaceutical Traceability",
+  team: "Epazz Tech product project",
 
-    purpose:
-      "To provide a secure and maintainable foundation for managing pharmaceutical master data, serialized products, packaging relationships, shipment operations, traceability records, audit evidence, imports, exports, files, and tenant-level administration.",
+  context:
+    "Pharmaceutical and other compliance-focused supply chains need accurate product identity, controlled serial-number lifecycles, clear shipment history, tenant-isolated data, permission-based access, and reliable audit evidence. ZenaTrace brings these workflows together in one enterprise platform.",
 
-    constraints:
-      "The project had to follow a fixed MVP scope, preserve strict tenant isolation, enforce action-level permissions, protect security-sensitive workflows, maintain trace and audit history, and avoid claiming regulatory integrations or certifications that were outside the approved release boundary.",
+  purpose:
+    "To provide a secure and maintainable foundation for managing pharmaceutical master data, serialized products, packaging relationships, shipment operations, traceability records, audit evidence, imports, exports, files, and tenant-level administration.",
 
-    beforeState:
-      "The project began with separate scope, permission, technical-stack, data-model, API, UI/UX, and implementation documents. These requirements needed to be converted into one consistent application without introducing undocumented workflows, permissions, database fields, or API behavior.",
+  constraints:
+    "The project had to follow a fixed MVP scope, preserve strict tenant isolation, enforce action-level permissions, protect security-sensitive workflows, maintain trace and audit history, and avoid claiming regulatory integrations or certifications that were outside the approved release boundary.",
 
-    whatChanged:
-      "Converted the approved baselines into an Angular web portal, ASP.NET Core REST API, and SQL Server data model. Developed and reviewed workflows for products, GTINs, lots, partners, locations, serial batches, serial numbers, imports, commissioning, aggregations, shipments, trace events, exports, files, users, roles, permissions, settings, and dashboards. Added tenant-aware data access, role-based authorization, audit and trace records, SQL Server Full-Text Search, Redis caching, Amazon S3-backed file handling, SQL Server Outbox processing, and separate browser and mobile authentication flows.",
+  beforeState:
+    "The project began with separate scope, permission, technical-stack, data-model, API, UI/UX, and implementation documents. My responsibility was to translate those approved baselines into a coherent execution plan and guide implementation without introducing undocumented workflows, permissions, database fields, or API behavior.",
 
-    outcome:
-      "Delivered a working and test-backed web MVP that combines core pharmaceutical serialization and traceability workflows in one tenant-aware platform. The implementation also provides a stable backend foundation for the separate Flutter mobile R&D track and future product phases.",
+  whatChanged:
+    "Planned and directed the AI-assisted implementation of the approved baselines across an Angular web portal, ASP.NET Core REST API, and SQL Server data model. Defined and reviewed application, business, security, and database logic for products, GTINs, lots, partners, locations, serial batches, serial numbers, imports, commissioning, aggregations, shipments, trace events, exports, files, users, roles, permissions, settings, and dashboards. Reviewed generated frontend and backend code, debugged defects, refined workflows, and validated tenant-aware data access, role-based authorization, audit and trace records, SQL Server Full-Text Search, Redis caching, Amazon S3-backed file handling, SQL Server Outbox processing, and separate browser and mobile authentication flows.",
 
-    highlights: [
-      "Developed and reviewed tenant-aware workflows for products, GTINs, lots, partners, locations, serial batches, and serial numbers.",
-      "Implemented serialization workflows covering serial generation, CSV import, duplicate validation, status tracking, commissioning, and controlled lifecycle actions.",
-      "Supported packaging hierarchies through aggregation workflows for items, cases, pallets, and bundles.",
-      "Developed shipment workflows covering item assignment, shipping, receiving, cancellation, exception handling, and trace-history updates.",
-      "Applied granular permissions across frontend routes, user actions, and protected backend endpoints while keeping backend authorization as the final security boundary.",
-      "Implemented separate browser and mobile authentication flows with short-lived access tokens, refresh-token rotation, revocation, reuse detection, browser HttpOnly cookies, and mobile secure storage.",
-      "Added trace events, audit logs, import and export jobs, S3-backed file metadata, full-text search, Redis caching, and SQL Server Outbox processing.",
-      "Reviewed 37 application pages across seven viewport sizes through a responsive audit that produced 259 screenshots.",
-      "Recorded verification checkpoints included 224 passing Playwright end-to-end tests, 99 passing Angular unit tests, and 613 passing backend tests, with no failures in those runs.",
-    ],
+  outcome:
+    "Delivered and validated a working, test-backed web MVP that combines core pharmaceutical serialization and traceability workflows in one tenant-aware platform. The project demonstrates an AI-assisted development model in which I remained responsible for execution planning, system logic, technical direction, code review, debugging, verification, and release acceptance. The resulting backend also provides a stable foundation for the separate Flutter mobile R&D track and future product phases.",
 
-    evidence: [
-      {
-        label: "Web Portal",
-        gallery: [
-          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/login_screen_s1pyac.png",
-          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/Dashboard_light_mode_unfbvw.png",
-          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/Dashboard_dark_mode_yltlga.png",
-          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/product_page_zam32y.png",
-          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/audit_log_ugjvga.png",
-          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504030/roles_and_permission_lo9pq1.png",
-          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/permissions_cpecqr.png",
-          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504030/user_list_qksdj3.png",
-        ],
-      },
-      // {
-      //   label: "Responsive Views",
-      //   gallery: [
-      //     "PASTE_APPROVED_DESKTOP_SCREENSHOT_URL_HERE",
-      //     "PASTE_APPROVED_TABLET_SCREENSHOT_URL_HERE",
-      //     "PASTE_APPROVED_MOBILE_SCREENSHOT_URL_HERE",
-      //   ],
-      // },
-      // {
-      //   label: "Architecture and Authentication",
-      //   gallery: [
-      //     "PASTE_SANITIZED_ARCHITECTURE_DIAGRAM_URL_HERE",
-      //     "PASTE_SANITIZED_AUTH_FLOW_URL_HERE",
-      //   ],
-      // },
-      // {
-      //   label: "Testing and QA",
-      //   gallery: [
-      //     "PASTE_TEST_SUMMARY_URL_HERE",
-      //     "PASTE_RESPONSIVE_QA_SUMMARY_URL_HERE",
-      //   ],
-      // },
-      // {
-      //   label: "Flutter Mobile R&D",
-      //   gallery: [
-      //     "PASTE_APPROVED_MOBILE_SCREENSHOT_URL_1_HERE",
-      //     "PASTE_APPROVED_MOBILE_SCREENSHOT_URL_2_HERE",
-      //   ],
-      // },
-    ],
+  highlights: [
+    "Planned and directed tenant-aware workflows for products, GTINs, lots, partners, locations, serial batches, and serial numbers, then reviewed and validated the resulting implementation.",
 
-    proofNote:
-      "This is a confidential Epazz Tech company project. Only employer-approved, sanitized visuals should be published. I used ChatGPT and Claude as coding assistants for analysis, implementation support, and review, while remaining responsible for interpreting the approved documents, directing tasks, reviewing code and architecture, running verification, identifying defects, and accepting or rejecting changes. This case study presents the completed Angular web MVP and a separate Flutter mobile R&D track. It does not claim full DSCSA or EU FMD network integration, EPCIS certification, GS1 certification, production IoT integration, or a production mobile/offline release. Test numbers represent recorded project checkpoints and may change as development continues.",
+    "Defined and validated serialization logic covering serial generation, CSV import, duplicate validation, status tracking, commissioning, and controlled lifecycle actions.",
 
-    ctaLabel: "View Case Study",
+    "Designed and reviewed packaging-hierarchy workflows for items, cases, pallets, and bundles through aggregation logic.",
 
-    image: "",
-    gallery: [
-      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/login_screen_s1pyac.png",
-      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/Dashboard_light_mode_unfbvw.png",
-      "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/Dashboard_dark_mode_yltlga.png",
-    ],
-  },
+    "Designed and validated shipment workflows covering item assignment, shipping, receiving, cancellation, exception handling, and trace-history updates.",
+
+    "Defined and reviewed granular permission behavior across frontend routes, user actions, and protected backend endpoints while keeping backend authorization as the final security boundary.",
+
+    "Directed and validated separate browser and mobile authentication flows using short-lived access tokens, refresh-token rotation, revocation, reuse detection, browser HttpOnly cookies, and mobile secure storage.",
+
+    "Reviewed and validated trace events, audit logs, import and export jobs, S3-backed file metadata, full-text search, Redis caching, and SQL Server Outbox processing.",
+
+    "Reviewed 37 application pages across seven viewport sizes through a responsive audit that produced 259 screenshots.",
+
+    "Recorded verification checkpoints included 224 passing Playwright end-to-end tests, 99 passing Angular unit tests, and 613 passing backend tests, with no failures in those runs.",
+  ],
+
+  evidence: [
+    {
+      label: "Web Portal",
+      gallery: [
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/login_screen_s1pyac.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/Dashboard_light_mode_unfbvw.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/Dashboard_dark_mode_yltlga.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/product_page_zam32y.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/audit_log_ugjvga.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504030/roles_and_permission_lo9pq1.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/permissions_cpecqr.png",
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504030/user_list_qksdj3.png",
+      ],
+    },
+
+    // Add additional evidence only when sanitized
+    // and approved for public portfolio use.
+
+    // {
+    //   label: "Responsive Views",
+    //   gallery: [
+    //     "PASTE_APPROVED_DESKTOP_SCREENSHOT_URL_HERE",
+    //     "PASTE_APPROVED_TABLET_SCREENSHOT_URL_HERE",
+    //     "PASTE_APPROVED_MOBILE_SCREENSHOT_URL_HERE",
+    //   ],
+    // },
+
+    // {
+    //   label: "Architecture and Authentication",
+    //   gallery: [
+    //     "PASTE_SANITIZED_ARCHITECTURE_DIAGRAM_URL_HERE",
+    //     "PASTE_SANITIZED_AUTH_FLOW_URL_HERE",
+    //   ],
+    // },
+
+    // {
+    //   label: "Testing and QA",
+    //   gallery: [
+    //     "PASTE_TEST_SUMMARY_URL_HERE",
+    //     "PASTE_RESPONSIVE_QA_SUMMARY_URL_HERE",
+    //   ],
+    // },
+
+    // {
+    //   label: "Flutter Mobile R&D",
+    //   gallery: [
+    //     "PASTE_APPROVED_MOBILE_SCREENSHOT_URL_1_HERE",
+    //     "PASTE_APPROVED_MOBILE_SCREENSHOT_URL_2_HERE",
+    //   ],
+    // },
+  ],
+
+  proofNote:
+    "This is a confidential Epazz Tech company project. Only employer-approved, sanitized visuals are published. I used ChatGPT and Claude as AI development assistants for implementation, analysis, and review. I remained responsible for project execution planning, interpreting the approved requirements, defining application, business, security, and database logic, shaping design direction, directing implementation tasks, reviewing generated code and architecture, debugging defects, running verification, and accepting or rejecting changes. This case study presents the completed Angular web MVP and a separate Flutter mobile R&D track. It does not claim full DSCSA or EU FMD network integration, EPCIS certification, GS1 certification, production IoT integration, or a production mobile/offline release. Test numbers represent recorded project checkpoints and may change as development continues.",
+
+  ctaLabel: "View Case Study",
+
+  image:
+    "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/login_screen_s1pyac.png",
+
+  gallery: [
+    "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/login_screen_s1pyac.png",
+    "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/Dashboard_light_mode_unfbvw.png",
+    "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/Dashboard_dark_mode_yltlga.png",
+  ],
+},
 
   //===================================================================//
 
@@ -319,9 +337,11 @@ export const projects: Project[] = [
       {
         label: "Sanitized Technical Evidence",
         gallery: [
+          "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774872955/ChatGPT_Image_Mar_30_2026_05_10_59_PM_cjmili.png",
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369184/pace_gw6mnj.png",
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369184/pace1_qrf5kq.png",
           "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774514183/Screenshot_2026-03-26_133550_gmpsa7.png",
+          
         ],
       },
     ],

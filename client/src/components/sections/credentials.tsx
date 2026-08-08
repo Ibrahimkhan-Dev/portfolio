@@ -29,10 +29,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Reveal } from "@/components/ui/site-animations";
-import {
-  certifications,
-  education,
-} from "@/data/portfolio";
+import { certifications } from "@/data/certifications";
+import { education } from "@/data/education";
 
 export default function Credentials() {
   const prefersReducedMotion =

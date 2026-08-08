@@ -13,9 +13,7 @@ import {
 } from "wouter";
 
 import { ErrorBoundary } from "@/components/error-boundary";
-import { TooltipProvider } from "@/components/ui/tooltip";
-
-const Home = lazy(() => import("@/pages/home"));
+import Home from "@/pages/home";
 
 const ProjectDetail = lazy(
   () => import("@/pages/project-detail"),
@@ -117,23 +115,21 @@ export default function App() {
         <Router>
           <RouteFocusManager />
 
-          <TooltipProvider>
-            <Suspense fallback={<RouteLoading />}>
-              <Switch>
-                <Route
-                  path="/"
-                  component={Home}
-                />
+          <Suspense fallback={<RouteLoading />}>
+            <Switch>
+              <Route
+                path="/"
+                component={Home}
+              />
 
-                <Route
-                  path="/project/:id"
-                  component={ProjectDetail}
-                />
+              <Route
+                path="/project/:id"
+                component={ProjectDetail}
+              />
 
-                <Route component={NotFound} />
-              </Switch>
-            </Suspense>
-          </TooltipProvider>
+              <Route component={NotFound} />
+            </Switch>
+          </Suspense>
         </Router>
       </ErrorBoundary>
     </MotionConfig>

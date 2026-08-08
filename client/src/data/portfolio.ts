@@ -1,6 +1,9 @@
 export type { Project } from "./projects";
 export { projects } from "./projects";
 
+export type { ProjectCard } from "./project-cards";
+export { projectCards } from "./project-cards";
+
 export type { Experience } from "./experiences";
 export { experiences } from "./experiences";
 

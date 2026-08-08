@@ -14,6 +14,7 @@ import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
 
 import { cn } from "@/lib/utils";
+import { scrollToElementWhenReady } from "@/lib/scroll-to";
 
 const navLinks = [
   { name: "Work", href: "#experience" },
@@ -23,7 +24,8 @@ const navLinks = [
   { name: "Contact", href: "#contact" },
 ];
 
-const resumeUrl = "/Muhammad-Ibrahim-Khan-Resume.pdf";
+const resumeUrl =
+  "/Muhammad-Ibrahim-Khan-Resume.pdf";
 
 const focusableSelector = [
   "a[href]",
@@ -36,19 +38,30 @@ const focusableSelector = [
 
 export default function Navbar() {
   const [location, setLocation] = useLocation();
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion =
+    useReducedMotion();
 
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] =
+  const [isScrolled, setIsScrolled] =
     useState(false);
 
-  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
-  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
-  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const [
+    isMobileMenuOpen,
+    setIsMobileMenuOpen,
+  ] = useState(false);
 
-  const scrollBehavior: ScrollBehavior = prefersReducedMotion
-    ? "auto"
-    : "smooth";
+  const menuButtonRef =
+    useRef<HTMLButtonElement | null>(null);
+
+  const mobileMenuRef =
+    useRef<HTMLDivElement | null>(null);
+
+  const closeButtonRef =
+    useRef<HTMLButtonElement | null>(null);
+
+  const scrollBehavior: ScrollBehavior =
+    prefersReducedMotion
+      ? "auto"
+      : "smooth";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,19 +70,27 @@ export default function Navbar() {
 
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+      {
+        passive: true,
+      },
+    );
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener(
+        "scroll",
+        handleScroll,
+      );
     };
   }, []);
 
   useEffect(() => {
-    const desktopMediaQuery = window.matchMedia(
-      "(min-width: 1024px)",
-    );
+    const desktopMediaQuery =
+      window.matchMedia(
+        "(min-width: 1024px)",
+      );
 
     const handleDesktopChange = (
       event: MediaQueryListEvent,
@@ -97,25 +118,47 @@ export default function Navbar() {
       return;
     }
 
-    const rootElement = document.getElementById("root");
-    const previousBodyOverflow = document.body.style.overflow;
-    const rootWasInert =
-      rootElement?.hasAttribute("inert") ?? false;
-    const previousAriaHidden =
-      rootElement?.getAttribute("aria-hidden") ?? null;
+    const rootElement =
+      document.getElementById("root");
 
-    document.body.style.overflow = "hidden";
+    const menuButton =
+      menuButtonRef.current;
+
+    const previousBodyOverflow =
+      document.body.style.overflow;
+
+    const rootWasInert =
+      rootElement?.hasAttribute("inert") ??
+      false;
+
+    const previousAriaHidden =
+      rootElement?.getAttribute(
+        "aria-hidden",
+      ) ?? null;
+
+    document.body.style.overflow =
+      "hidden";
 
     if (rootElement) {
-      rootElement.setAttribute("inert", "");
-      rootElement.setAttribute("aria-hidden", "true");
+      rootElement.setAttribute(
+        "inert",
+        "",
+      );
+
+      rootElement.setAttribute(
+        "aria-hidden",
+        "true",
+      );
     }
 
-    const focusFrame = window.requestAnimationFrame(() => {
-      closeButtonRef.current?.focus();
-    });
+    const focusFrame =
+      window.requestAnimationFrame(() => {
+        closeButtonRef.current?.focus();
+      });
 
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleKeyDown = (
+      event: KeyboardEvent,
+    ) => {
       if (event.key === "Escape") {
         event.preventDefault();
         setIsMobileMenuOpen(false);
@@ -126,36 +169,52 @@ export default function Navbar() {
         return;
       }
 
-      const menuElement = mobileMenuRef.current;
+      const menuElement =
+        mobileMenuRef.current;
 
       if (!menuElement) {
         return;
       }
 
-      const focusableElements = Array.from(
-        menuElement.querySelectorAll<HTMLElement>(
-          focusableSelector,
-        ),
-      ).filter(
-        (element) =>
-          !element.hasAttribute("disabled") &&
-          element.getAttribute("aria-hidden") !== "true",
-      );
+      const focusableElements =
+        Array.from(
+          menuElement.querySelectorAll<HTMLElement>(
+            focusableSelector,
+          ),
+        ).filter(
+          (element) =>
+            !element.hasAttribute(
+              "disabled",
+            ) &&
+            element.getAttribute(
+              "aria-hidden",
+            ) !== "true",
+        );
 
-      if (focusableElements.length === 0) {
+      if (
+        focusableElements.length === 0
+      ) {
         event.preventDefault();
         return;
       }
 
-      const firstElement = focusableElements[0];
+      const firstElement =
+        focusableElements[0];
+
       const lastElement =
-        focusableElements[focusableElements.length - 1];
-      const activeElement = document.activeElement;
+        focusableElements[
+          focusableElements.length - 1
+        ];
+
+      const activeElement =
+        document.activeElement;
 
       if (
         event.shiftKey &&
         (activeElement === firstElement ||
-          !menuElement.contains(activeElement))
+          !menuElement.contains(
+            activeElement,
+          ))
       ) {
         event.preventDefault();
         lastElement.focus();
@@ -171,26 +230,42 @@ export default function Navbar() {
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener(
+      "keydown",
+      handleKeyDown,
+    );
 
     return () => {
-      window.cancelAnimationFrame(focusFrame);
+      window.cancelAnimationFrame(
+        focusFrame,
+      );
+
       document.removeEventListener(
         "keydown",
         handleKeyDown,
       );
 
-      document.body.style.overflow = previousBodyOverflow;
+      document.body.style.overflow =
+        previousBodyOverflow;
 
       if (rootElement) {
         if (rootWasInert) {
-          rootElement.setAttribute("inert", "");
+          rootElement.setAttribute(
+            "inert",
+            "",
+          );
         } else {
-          rootElement.removeAttribute("inert");
+          rootElement.removeAttribute(
+            "inert",
+          );
         }
 
-        if (previousAriaHidden === null) {
-          rootElement.removeAttribute("aria-hidden");
+        if (
+          previousAriaHidden === null
+        ) {
+          rootElement.removeAttribute(
+            "aria-hidden",
+          );
         } else {
           rootElement.setAttribute(
             "aria-hidden",
@@ -199,9 +274,13 @@ export default function Navbar() {
         }
       }
 
-      window.requestAnimationFrame(() => {
-        menuButtonRef.current?.focus();
-      });
+      window.requestAnimationFrame(
+        () => {
+          if (menuButton?.isConnected) {
+            menuButton.focus();
+          }
+        },
+      );
     };
   }, [isMobileMenuOpen]);
 
@@ -210,28 +289,30 @@ export default function Navbar() {
     sectionId: string,
   ) => {
     event.preventDefault();
+
     setIsMobileMenuOpen(false);
 
-    const id = sectionId.replace("#", "");
+    const id =
+      sectionId.replace("#", "");
 
     if (location !== "/") {
       sessionStorage.setItem(
         "portfolio_scroll_to_section",
         id,
       );
+
       setLocation("/");
       return;
     }
 
-    document.getElementById(id)?.scrollIntoView({
-      behavior: scrollBehavior,
-    });
+    scrollToElementWhenReady(id, scrollBehavior);
   };
 
   const handleLogoClick = (
     event: ReactMouseEvent<HTMLAnchorElement>,
   ) => {
     event.preventDefault();
+
     setIsMobileMenuOpen(false);
 
     if (location !== "/") {
@@ -245,19 +326,20 @@ export default function Navbar() {
     });
   };
 
-  const handleMobileLogoClick = () => {
-    setIsMobileMenuOpen(false);
+  const handleMobileLogoClick =
+    () => {
+      setIsMobileMenuOpen(false);
 
-    if (location !== "/") {
-      setLocation("/");
-      return;
-    }
+      if (location !== "/") {
+        setLocation("/");
+        return;
+      }
 
-    window.scrollTo({
-      top: 0,
-      behavior: scrollBehavior,
-    });
-  };
+      window.scrollTo({
+        top: 0,
+        behavior: scrollBehavior,
+      });
+    };
 
   return (
     <>
@@ -298,7 +380,10 @@ export default function Navbar() {
                 key={link.name}
                 type="button"
                 onClick={(event) =>
-                  scrollToSection(event, link.href)
+                  scrollToSection(
+                    event,
+                    link.href,
+                  )
                 }
                 className="group relative cursor-pointer border-0 bg-transparent py-2 text-xs font-black uppercase tracking-[0.15em] text-white/70 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background xl:tracking-[0.2em]"
               >
@@ -329,7 +414,10 @@ export default function Navbar() {
             <button
               type="button"
               onClick={(event) =>
-                scrollToSection(event, "#contact")
+                scrollToSection(
+                  event,
+                  "#contact",
+                )
               }
               className="cursor-pointer border-0 bg-primary px-6 py-3 text-xs font-black uppercase tracking-widest text-black shadow-[0_0_15px_rgba(255,87,34,0.3)] transition-all hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-background xl:px-8"
             >
@@ -344,7 +432,8 @@ export default function Navbar() {
             className="p-1 text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background lg:hidden"
             onClick={() =>
               setIsMobileMenuOpen(
-                (currentValue) => !currentValue,
+                (currentValue) =>
+                  !currentValue,
               )
             }
             aria-label={
@@ -352,14 +441,22 @@ export default function Navbar() {
                 ? "Close menu"
                 : "Open menu"
             }
-            aria-expanded={isMobileMenuOpen}
+            aria-expanded={
+              isMobileMenuOpen
+            }
             aria-controls="mobile-navigation"
             aria-haspopup="dialog"
           >
             {isMobileMenuOpen ? (
-              <X size={32} aria-hidden="true" />
+              <X
+                size={32}
+                aria-hidden="true"
+              />
             ) : (
-              <Menu size={32} aria-hidden="true" />
+              <Menu
+                size={32}
+                aria-hidden="true"
+              />
             )}
           </button>
         </div>
@@ -380,7 +477,12 @@ export default function Navbar() {
               transition={{
                 type: "tween",
                 duration: 0.3,
-                ease: [0.32, 0.72, 0, 1],
+                ease: [
+                  0.32,
+                  0.72,
+                  0,
+                  1,
+                ],
               }}
               className="fixed inset-0 z-9999 flex flex-col overflow-y-auto bg-[#050505] lg:hidden"
             >
@@ -395,12 +497,16 @@ export default function Navbar() {
               <div className="flex shrink-0 items-center justify-between border-b border-white/5 px-6 py-5">
                 <button
                   type="button"
-                  onClick={handleMobileLogoClick}
+                  onClick={
+                    handleMobileLogoClick
+                  }
                   className="border-0 bg-transparent text-xl font-black uppercase italic tracking-tighter text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background"
                   aria-label="Return to the top of the portfolio"
                 >
                   IBRAHIM
-                  <span className="text-primary">.</span>
+                  <span className="text-primary">
+                    .
+                  </span>
                 </button>
 
                 <button
@@ -408,39 +514,51 @@ export default function Navbar() {
                   type="button"
                   className="p-1 text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background"
                   onClick={() =>
-                    setIsMobileMenuOpen(false)
+                    setIsMobileMenuOpen(
+                      false,
+                    )
                   }
                   aria-label="Close menu"
                 >
-                  <X size={32} aria-hidden="true" />
+                  <X
+                    size={32}
+                    aria-hidden="true"
+                  />
                 </button>
               </div>
 
               {/* Mobile navigation links */}
               <div className="flex grow flex-col gap-1 px-6 py-8">
-                {navLinks.map((link, index) => (
-                  <button
-                    key={link.name}
-                    type="button"
-                    onClick={(event) =>
-                      scrollToSection(event, link.href)
-                    }
-                    className="w-full cursor-pointer border-x-0 border-b border-t-0 border-white/5 bg-transparent py-3 text-left text-2xl font-black uppercase tracking-tighter text-white transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset sm:py-4 sm:text-4xl"
-                  >
-                    <span className="mr-3 text-sm font-black tabular-nums text-primary/30">
-                      0{index + 1}
-                    </span>
+                {navLinks.map(
+                  (link, index) => (
+                    <button
+                      key={link.name}
+                      type="button"
+                      onClick={(event) =>
+                        scrollToSection(
+                          event,
+                          link.href,
+                        )
+                      }
+                      className="w-full cursor-pointer border-x-0 border-b border-t-0 border-white/5 bg-transparent py-3 text-left text-2xl font-black uppercase tracking-tighter text-white transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset sm:py-4 sm:text-4xl"
+                    >
+                      <span className="mr-3 text-sm font-black tabular-nums text-primary/30">
+                        0{index + 1}
+                      </span>
 
-                    {link.name}
-                  </button>
-                ))}
+                      {link.name}
+                    </button>
+                  ),
+                )}
 
                 <a
                   href={resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() =>
-                    setIsMobileMenuOpen(false)
+                    setIsMobileMenuOpen(
+                      false,
+                    )
                   }
                   aria-label="View Muhammad Ibrahim Khan's resume in a new tab"
                   className="w-full border-b border-white/5 py-3 text-left text-2xl font-black uppercase tracking-tighter text-white transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset sm:py-4 sm:text-4xl"
@@ -458,7 +576,10 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={(event) =>
-                    scrollToSection(event, "#contact")
+                    scrollToSection(
+                      event,
+                      "#contact",
+                    )
                   }
                   className="w-full cursor-pointer border-0 bg-primary py-5 text-center text-base font-black uppercase tracking-widest text-black transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-background"
                 >

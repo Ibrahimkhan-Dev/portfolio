@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { experiences } from "@/data/portfolio";
+import { experiences } from "@/data/experiences";
 import { Reveal } from "@/components/ui/site-animations";
 
 export default function Experience() {

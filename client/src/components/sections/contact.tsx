@@ -815,7 +815,7 @@ export default function Contact() {
         </div>
 
         <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 sm:mt-40 sm:gap-6 sm:pt-10 md:flex-row">
-          <p className="text-center text-xs font-black uppercase tracking-[0.2em] text-white/30 sm:tracking-[0.3em] md:text-left">
+          <p className="text-center text-xs font-black uppercase tracking-[0.2em] text-white/50 sm:tracking-[0.3em] md:text-left">
             &copy; {new Date().getFullYear()}{" "}
             Muhammad Ibrahim Khan
           </p>
@@ -825,7 +825,7 @@ export default function Contact() {
               href={linkedInUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-black uppercase tracking-[0.2em] text-white/30 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-xs font-black uppercase tracking-[0.2em] text-white/50 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               aria-label="View Muhammad Ibrahim Khan's LinkedIn profile in a new tab"
             >
               LinkedIn
@@ -835,7 +835,7 @@ export default function Contact() {
               href={resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-black uppercase tracking-[0.2em] text-white/30 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-xs font-black uppercase tracking-[0.2em] text-white/50 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               aria-label="View Muhammad Ibrahim Khan's resume in a new tab"
             >
               Resume

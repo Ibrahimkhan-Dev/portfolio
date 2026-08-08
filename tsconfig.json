@@ -3,7 +3,6 @@
     "client/src/**/*",
     "functions/**/*.ts",
     "vite.config.ts",
-    "vite-plugin-meta-images.ts"
   ],
   "exclude": [
     "node_modules",
