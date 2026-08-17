@@ -1,0 +1,1053 @@
+<title>Ibrahim · Career Roadmap 2026–2029</title>
+
+<style>
+/* ── DESIGN TOKENS ── */
+:root {
+  --bg:            #F0F4FA;
+  --bg-alt:        #E4EBF7;
+  --surface:       #FFFFFF;
+  --surface-mid:   #F7F9FD;
+  --border:        #CDD8EF;
+  --text:          #0F1828;
+  --muted:         #4D5E80;
+  --faint:         #8A9DBF;
+  --amber:         #A87215;
+  --amber-bg:      #FDF5E3;
+  --amber-bd:      #DDB96A;
+  --blue:          #2D5999;
+  --blue-bg:       #EBF1FB;
+  --blue-bd:       #90AFDF;
+  --green:         #2B6B48;
+  --green-bg:      #E6F4ED;
+  --green-bd:      #7EC29A;
+  --red-bg:        #FBF0EE;
+  --red-bd:        #E0B0A8;
+  --track:         #A87215;
+  --serif:         Georgia, "Palatino Linotype", "Book Antiqua", serif;
+  --sans:          system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --mono:          "SF Mono", "Cascadia Code", "Fira Mono", Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:            #0C1422;
+    --bg-alt:        #121C30;
+    --surface:       #172038;
+    --surface-mid:   #1D2844;
+    --border:        #253556;
+    --text:          #DCE6FA;
+    --muted:         #8696C0;
+    --faint:         #526080;
+    --amber:         #D4A040;
+    --amber-bg:      #1D1500;
+    --amber-bd:      #5A3C00;
+    --blue:          #6B92D8;
+    --blue-bg:       #0F1D36;
+    --blue-bd:       #284070;
+    --green:         #5AA87A;
+    --green-bg:      #0C1F16;
+    --green-bd:      #1E4830;
+    --red-bg:        #1F0C0A;
+    --red-bd:        #502820;
+    --track:         #D4A040;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg:            #0C1422;
+  --bg-alt:        #121C30;
+  --surface:       #172038;
+  --surface-mid:   #1D2844;
+  --border:        #253556;
+  --text:          #DCE6FA;
+  --muted:         #8696C0;
+  --faint:         #526080;
+  --amber:         #D4A040;
+  --amber-bg:      #1D1500;
+  --amber-bd:      #5A3C00;
+  --blue:          #6B92D8;
+  --blue-bg:       #0F1D36;
+  --blue-bd:       #284070;
+  --green:         #5AA87A;
+  --green-bg:      #0C1F16;
+  --green-bd:      #1E4830;
+  --red-bg:        #1F0C0A;
+  --red-bd:        #502820;
+  --track:         #D4A040;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* ── TYPE ── */
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: normal;
+  text-wrap: balance;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.label {
+  font-family: var(--sans);
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* ── SHARED CHIPS & TAGS ── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.chip-amber  { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-bd); }
+.chip-blue   { background: var(--blue-bg);  color: var(--blue);  border: 1px solid var(--blue-bd);  }
+.chip-muted  { background: var(--bg-alt);   color: var(--muted); border: 1px solid var(--border);   }
+
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-family: var(--mono);
+  background: var(--bg-alt);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.tag-amber { background: var(--amber-bg); color: var(--amber); border-color: var(--amber-bd); }
+.tag-blue  { background: var(--blue-bg);  color: var(--blue);  border-color: var(--blue-bd);  }
+
+/* ── LAYOUT ── */
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section { border-bottom: 1px solid var(--border); padding: 56px 0; }
+section:last-child { border-bottom: none; }
+
+/* ── TOPBAR ── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.topbar-name { font-weight: 700; font-size: 0.85rem; }
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ── HERO ── */
+.hero { padding: 60px 0 48px; border-bottom: 1px solid var(--border); }
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--amber);
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 20px;
+}
+
+.hero-strategy {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-style: italic;
+  max-width: 560px;
+  line-height: 1.75;
+  margin-bottom: 40px;
+}
+
+.hero-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 24px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.meta-item .label { display: block; margin-bottom: 4px; }
+.meta-item strong { font-size: 0.9rem; font-weight: 600; }
+
+/* ── PIPELINE TIMELINE ── */
+.phases-section { padding: 56px 0; }
+.section-lead { margin-bottom: 40px; }
+.section-lead h2 { font-size: 1.5rem; margin-top: 6px; }
+
+.phase-timeline {
+  position: relative;
+  padding-left: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Amber pipeline track */
+.phase-timeline::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  bottom: 15px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--track) 70%, var(--border));
+  border-radius: 2px;
+  transform-origin: top;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .phase-timeline::before {
+    animation: growDown 1.4s cubic-bezier(.4,0,.2,1) forwards;
+  }
+}
+
+@keyframes growDown {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+.phase-item {
+  position: relative;
+  padding-bottom: 32px;
+}
+.phase-item:last-child { padding-bottom: 0; }
+
+.phase-node {
+  position: absolute;
+  left: -50px;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  font-family: var(--mono);
+  z-index: 1;
+}
+
+.node-active  { background: var(--track); color: #fff; box-shadow: 0 0 0 3px var(--amber-bg); }
+.node-next    { background: var(--surface); color: var(--amber); border: 2px solid var(--track); }
+.node-future  { background: var(--surface); color: var(--muted); border: 2px solid var(--border); }
+
+.phase-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 22px;
+}
+
+.phase-card-active {
+  border-color: var(--amber-bd);
+  background: var(--amber-bg);
+}
+
+.phase-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.phase-meta { flex: 1; }
+
+.phase-dates {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--faint);
+  margin-bottom: 3px;
+}
+
+.phase-title {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: normal;
+}
+
+.phase-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* ── MISSIONS ── */
+.missions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.mission-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+
+.mission-num {
+  font-family: var(--mono);
+  font-size: 0.67rem;
+  color: var(--amber);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.mission-title {
+  font-family: var(--serif);
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.mission-body {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.mission-note {
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--amber);
+}
+
+/* ── TECH TIERS ── */
+.tech-tier { margin-bottom: 28px; }
+.tech-tier:last-of-type { margin-bottom: 0; }
+
+.tier-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.tier-bar {
+  width: 3px;
+  height: 18px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.tier-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.tier-crit  .tier-bar { background: var(--amber); }
+.tier-high  .tier-bar { background: var(--blue); }
+.tier-maint .tier-bar { background: var(--green); }
+.tier-later .tier-bar { background: var(--border); }
+
+.tier-crit  .tier-label { color: var(--amber); }
+.tier-high  .tier-label { color: var(--blue);  }
+.tier-maint .tier-label { color: var(--green); }
+.tier-later .tier-label { color: var(--muted); }
+
+.tier-tags { display: flex; flex-wrap: wrap; gap: 7px; padding-left: 13px; }
+
+.tech-tag {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+}
+
+.tier-crit  .tech-tag { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-bd); }
+.tier-high  .tech-tag { background: var(--blue-bg);  color: var(--blue);  border: 1px solid var(--blue-bd);  }
+.tier-maint .tech-tag { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-bd); }
+.tier-later .tech-tag { background: var(--bg-alt);   color: var(--muted); border: 1px solid var(--border);   }
+
+.forbidden-block {
+  margin-top: 24px;
+  padding: 14px 18px;
+  background: var(--red-bg);
+  border: 1px solid var(--red-bd);
+  border-radius: 6px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.forbidden-block strong { color: var(--text); }
+
+/* ── WEEKLY SCHEDULE ── */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-top: 32px;
+}
+
+@media (max-width: 600px) {
+  .schedule-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.sched-day {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 8px;
+  text-align: center;
+}
+
+.sched-day.rest { background: var(--bg-alt); opacity: 0.75; }
+
+.day-name {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 8px;
+}
+
+.day-focus {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--amber);
+  line-height: 1.4;
+}
+
+.day-hours { font-size: 0.64rem; color: var(--muted); margin-top: 6px; }
+
+/* ── AI RULE ── */
+.ai-flow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.ai-step {
+  flex: 1;
+  min-width: 170px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px 20px;
+}
+
+.ai-step-num { font-family: var(--mono); font-size: 0.65rem; color: var(--faint); margin-bottom: 6px; }
+.ai-step-name { font-family: var(--serif); font-size: 1.1rem; color: var(--amber); margin-bottom: 8px; }
+.ai-step-body { font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
+
+.ai-sep {
+  color: var(--amber);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+@media (max-width: 700px) { .ai-sep { display: none; } }
+
+.ai-note {
+  margin-top: 18px;
+  padding: 14px 18px;
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-bd);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.ai-note strong { color: var(--amber); }
+
+/* ── PRINCIPLES ── */
+.principles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.principle {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.p-num { font-family: var(--mono); font-size: 0.72rem; font-weight: 700; color: var(--amber); }
+.p-text { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+.p-text strong { color: var(--text); }
+
+/* ── VISION ── */
+.vision-section { padding: 64px 0; border-bottom: none; }
+
+.vision-quote {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  line-height: 1.8;
+  font-style: italic;
+  color: var(--text);
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.vision-quote em { font-style: normal; color: var(--amber); }
+
+.vision-footer {
+  text-align: center;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.vision-footer .label { display: block; margin-bottom: 12px; }
+
+.career-chain {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.career-chain span { color: var(--amber); margin: 0 4px; }
+</style>
+
+<!-- ─────────────── TOPBAR ─────────────── -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="topbar-name">Ibrahim Nawaz</span>
+    <div class="topbar-right">
+      <span class="chip chip-amber">Phase 1 Active</span>
+      <span>Aug – Oct 2026</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────── HERO ─────────────── -->
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">Software Engineer → Data Engineer → Cloud / AI Data Infrastructure</div>
+    <h1>Career Roadmap<br>2026–2029</h1>
+    <p class="hero-strategy">Build value first → increase income → gain specialized experience → build savings → secure an international opportunity → relocate from a position of strength.</p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="label">Baseline</span>
+        <strong>August 2026</strong>
+      </div>
+      <div class="meta-item">
+        <span class="label">Age</span>
+        <strong>24</strong>
+      </div>
+      <div class="meta-item">
+        <span class="label">Location</span>
+        <strong>Lahore, Pakistan</strong>
+      </div>
+      <div class="meta-item">
+        <span class="label">Current Role</span>
+        <strong>.NET Developer</strong>
+      </div>
+      <div class="meta-item">
+        <span class="label">Company</span>
+        <strong>Zena Tech</strong>
+      </div>
+      <div class="meta-item">
+        <span class="label">Employed Since</span>
+        <strong>December 2025</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────── PHASES ─────────────── -->
+<section class="phases-section">
+  <div class="wrap">
+    <div class="section-lead">
+      <div class="label">Career Phases</div>
+      <h2>Six-Phase Development Pipeline</h2>
+    </div>
+
+    <div class="phase-timeline">
+
+      <!-- P1 -->
+      <div class="phase-item">
+        <div class="phase-node node-active">01</div>
+        <div class="phase-card phase-card-active">
+          <div class="phase-row">
+            <div class="phase-meta">
+              <div class="phase-dates">Aug 2026 — Oct 2026</div>
+              <div class="phase-title">Engineering Recovery</div>
+            </div>
+            <span class="chip chip-amber">Current</span>
+          </div>
+          <div class="phase-tags">
+            <span class="tag tag-amber">SQL</span>
+            <span class="tag tag-amber">Database Design</span>
+            <span class="tag tag-amber">Python Recovery</span>
+            <span class="tag tag-amber">AI Independence</span>
+            <span class="tag tag-amber">E-Commerce DB Project</span>
+            <span class="tag tag-amber">GitHub Portfolio</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- P2 -->
+      <div class="phase-item">
+        <div class="phase-node node-next">02</div>
+        <div class="phase-card">
+          <div class="phase-row">
+            <div class="phase-meta">
+              <div class="phase-dates">Oct 2026 — Dec 2026</div>
+              <div class="phase-title">Data Engineering Foundations</div>
+            </div>
+            <span class="chip chip-blue">Next</span>
+          </div>
+          <div class="phase-tags">
+            <span class="tag">Data Modeling</span>
+            <span class="tag">ETL / ELT</span>
+            <span class="tag">Star Schema</span>
+            <span class="tag">SCD Type 2</span>
+            <span class="tag">Orchestration</span>
+            <span class="tag">Pipeline Reliability</span>
+            <span class="tag">Airflow Concepts</span>
+            <span class="tag">Portfolio Project #1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- P3 -->
+      <div class="phase-item">
+        <div class="phase-node node-future">03</div>
+        <div class="phase-card">
+          <div class="phase-row">
+            <div class="phase-meta">
+              <div class="phase-dates">Jan 2027 — Mar 2027</div>
+              <div class="phase-title">Distributed and Cloud Data Engineering</div>
+            </div>
+            <span class="chip chip-muted">Upcoming</span>
+          </div>
+          <div class="phase-tags">
+            <span class="tag">Apache Spark</span>
+            <span class="tag">PySpark</span>
+            <span class="tag">Microsoft Fabric</span>
+            <span class="tag">Azure Data Ecosystem</span>
+            <span class="tag">Delta Lake</span>
+            <span class="tag">Medallion Architecture</span>
+            <span class="tag">Portfolio Project #2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- P4 -->
+      <div class="phase-item">
+        <div class="phase-node node-future">04</div>
+        <div class="phase-card">
+          <div class="phase-row">
+            <div class="phase-meta">
+              <div class="phase-dates">Apr 2027 — Jun 2027</div>
+              <div class="phase-title">Professional Readiness</div>
+            </div>
+            <span class="chip chip-muted">Upcoming</span>
+          </div>
+          <div class="phase-tags">
+            <span class="tag">SQL Interviews</span>
+            <span class="tag">Python Interviews</span>
+            <span class="tag">DE System Design</span>
+            <span class="tag">Job Applications</span>
+            <span class="tag">DP-700 Prep</span>
+            <span class="tag">Flagship Cloud Project</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- P5 -->
+      <div class="phase-item">
+        <div class="phase-node node-future">05</div>
+        <div class="phase-card">
+          <div class="phase-row">
+            <div class="phase-meta">
+              <div class="phase-dates">2027 onward</div>
+              <div class="phase-title">Commercial Data Engineering</div>
+            </div>
+            <span class="chip chip-muted">Later</span>
+          </div>
+          <div class="phase-tags">
+            <span class="tag">Data Engineer Role</span>
+            <span class="tag">Fabric / Azure Production</span>
+            <span class="tag">DP-700 Certified</span>
+            <span class="tag">Commercial Experience</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- P6 -->
+      <div class="phase-item">
+        <div class="phase-node node-future">06</div>
+        <div class="phase-card">
+          <div class="phase-row">
+            <div class="phase-meta">
+              <div class="phase-dates">2028 onward</div>
+              <div class="phase-title">International Career</div>
+            </div>
+            <span class="chip chip-muted">Later</span>
+          </div>
+          <div class="phase-tags">
+            <span class="tag">International Remote</span>
+            <span class="tag">Gulf Opportunities</span>
+            <span class="tag">European Opportunities</span>
+            <span class="tag">Sponsored Relocation</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── MISSIONS ─────────────── -->
+<section>
+  <div class="wrap">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+      <span class="chip chip-amber">Phase 1</span>
+      <span class="label">Aug 18 – Sep 17, 2026 · First Month</span>
+    </div>
+    <h2 style="font-size:1.5rem; margin-bottom:8px;">Current Missions</h2>
+    <p style="font-size:0.82rem; color:var(--muted); max-width:500px;">Do not progress to Phase 2 because October arrives. Progress when exit criteria are met.</p>
+
+    <div class="missions-grid">
+
+      <div class="mission-card">
+        <div class="mission-num">Mission 01</div>
+        <div class="mission-title">SQL Foundation</div>
+        <div class="mission-body">SELECT, filtering, all join types, aggregation, GROUP BY, HAVING, subqueries, CTEs, window functions. Practice on real data, not toy examples.</div>
+      </div>
+
+      <div class="mission-card">
+        <div class="mission-num">Mission 02</div>
+        <div class="mission-title">Database Design</div>
+        <div class="mission-body">Build the e-commerce database independently: Customers, Products, Orders, Payments, Shipments, Returns. Decide keys, relationships, normalization, constraints yourself.</div>
+        <div class="mission-note">→ Design first. Get reviewed after.</div>
+      </div>
+
+      <div class="mission-card">
+        <div class="mission-num">Mission 03</div>
+        <div class="mission-title">Python Recovery</div>
+        <div class="mission-body">Write Python manually. Functions, data structures, file I/O, CSV, JSON, APIs, classes, exceptions, logging, SQL connections, virtual environments.</div>
+      </div>
+
+      <div class="mission-card">
+        <div class="mission-num">Mission 04</div>
+        <div class="mission-title">AI Independence</div>
+        <div class="mission-body">Follow Attempt → AI → Understand → Rewrite. One AI-free coding session per week (60–90 min). Preserve problem decomposition and independent reasoning.</div>
+        <div class="mission-note">→ 20–30 min solo attempt before AI.</div>
+      </div>
+
+      <div class="mission-card">
+        <div class="mission-num">Mission 05</div>
+        <div class="mission-title">GitHub Portfolio</div>
+        <div class="mission-body">Maintain <span style="font-family:var(--mono); font-size:0.75em;">data-engineering-journey/</span> with sql/, python/, database-design/, projects/, notes/. Commit meaningful work. Don't chase contribution counts.</div>
+      </div>
+
+      <div class="mission-card">
+        <div class="mission-num">Mission 06</div>
+        <div class="mission-title">Zena Tech Bridge</div>
+        <div class="mission-body">Watch for data-adjacent opportunities: schema design, SQL optimization, migrations, event processing, audit trails, integrations. Volunteer when appropriate.</div>
+      </div>
+
+      <div class="mission-card">
+        <div class="mission-num">Mission 07</div>
+        <div class="mission-title">Industry Reality Check</div>
+        <div class="mission-body">Speak with 2–3 working Data Engineers before September 30. Ask what they do, what juniors lack, which skills matter most.</div>
+        <div class="mission-note">→ Deadline: 30 Sep 2026</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── TECH STACK ─────────────── -->
+<section>
+  <div class="wrap">
+    <div class="section-lead">
+      <div class="label">Technology Priorities</div>
+      <h2>What to Learn and When</h2>
+    </div>
+
+    <div class="tech-tier tier-crit">
+      <div class="tier-header">
+        <div class="tier-bar"></div>
+        <span class="tier-label">Critical — Build now, Phase 1</span>
+      </div>
+      <div class="tier-tags">
+        <span class="tech-tag">SQL / T-SQL</span>
+        <span class="tech-tag">Relational DB Design</span>
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">Data Modeling</span>
+        <span class="tech-tag">ETL / ELT</span>
+        <span class="tech-tag">Debugging</span>
+        <span class="tech-tag">Git</span>
+        <span class="tech-tag">Linux / CLI</span>
+      </div>
+    </div>
+
+    <div class="tech-tier tier-high" style="margin-top:24px;">
+      <div class="tier-header">
+        <div class="tier-bar"></div>
+        <span class="tier-label">High Priority — Phase 2–3</span>
+      </div>
+      <div class="tier-tags">
+        <span class="tech-tag">Docker</span>
+        <span class="tech-tag">Airflow</span>
+        <span class="tech-tag">Spark / PySpark</span>
+        <span class="tech-tag">Microsoft Fabric</span>
+        <span class="tech-tag">Azure Data</span>
+        <span class="tech-tag">Warehouses</span>
+        <span class="tech-tag">Lakehouses</span>
+        <span class="tech-tag">Data Quality</span>
+        <span class="tech-tag">Monitoring</span>
+        <span class="tech-tag">Orchestration</span>
+      </div>
+    </div>
+
+    <div class="tech-tier tier-maint" style="margin-top:24px;">
+      <div class="tier-header">
+        <div class="tier-bar"></div>
+        <span class="tier-label">Maintain — Keep active at Zena Tech</span>
+      </div>
+      <div class="tier-tags">
+        <span class="tech-tag">C# / .NET</span>
+        <span class="tech-tag">REST APIs</span>
+        <span class="tech-tag">Backend Fundamentals</span>
+        <span class="tech-tag">Basic DSA</span>
+      </div>
+    </div>
+
+    <div class="tech-tier tier-later" style="margin-top:24px;">
+      <div class="tier-header">
+        <div class="tier-bar"></div>
+        <span class="tier-label">Learn Later — Only when the requirement exists</span>
+      </div>
+      <div class="tier-tags">
+        <span class="tech-tag">Kafka</span>
+        <span class="tech-tag">Advanced Streaming</span>
+        <span class="tech-tag">Kubernetes</span>
+        <span class="tech-tag">Multi-Cloud</span>
+        <span class="tech-tag">Vector Databases</span>
+        <span class="tech-tag">RAG Infrastructure</span>
+        <span class="tech-tag">ML Platform</span>
+      </div>
+    </div>
+
+    <div class="forbidden-block" style="margin-top:24px;">
+      <strong>Forbidden in Phase 1:</strong> Spark · Kafka · Kubernetes · AWS · GCP · DP-700 · ML courses · Deep Learning courses · new certifications · switching direction because of a YouTube video or LinkedIn post.
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── WEEKLY SCHEDULE ─────────────── -->
+<section>
+  <div class="wrap">
+    <div class="section-lead">
+      <div class="label">Operating Rhythm</div>
+      <h2>Weekly Schedule</h2>
+      <p style="font-size:0.82rem; color:var(--muted); margin-top:8px; max-width:500px;">Target: 8–10 focused hours per week. Reduce during demanding work periods. Never sacrifice job performance, health, or consistency.</p>
+    </div>
+
+    <div class="schedule-grid">
+      <div class="sched-day">
+        <div class="day-name">Mon</div>
+        <div class="day-focus">SQL</div>
+        <div class="day-hours">~1 hr</div>
+      </div>
+      <div class="sched-day">
+        <div class="day-name">Tue</div>
+        <div class="day-focus">Python</div>
+        <div class="day-hours">~1 hr</div>
+      </div>
+      <div class="sched-day">
+        <div class="day-name">Wed</div>
+        <div class="day-focus">SQL / DB Design</div>
+        <div class="day-hours">~1 hr</div>
+      </div>
+      <div class="sched-day">
+        <div class="day-name">Thu</div>
+        <div class="day-focus">AI-Free Coding</div>
+        <div class="day-hours">~1 hr</div>
+      </div>
+      <div class="sched-day rest">
+        <div class="day-name">Fri</div>
+        <div class="day-focus" style="color:var(--faint);">Rest</div>
+        <div class="day-hours">—</div>
+      </div>
+      <div class="sched-day">
+        <div class="day-name">Sat</div>
+        <div class="day-focus">Project Work</div>
+        <div class="day-hours">~3 hrs</div>
+      </div>
+      <div class="sched-day">
+        <div class="day-name">Sun</div>
+        <div class="day-focus">Project + Review + Plan</div>
+        <div class="day-hours">~2–3 hrs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── AI RULE ─────────────── -->
+<section>
+  <div class="wrap">
+    <div class="section-lead">
+      <div class="label">Permanent Rule</div>
+      <h2>The AI Development Workflow</h2>
+      <p style="font-size:0.82rem; color:var(--muted); margin-top:8px;">Use AI as leverage. Never allow it to replace technical reasoning.</p>
+    </div>
+
+    <div class="ai-flow">
+      <div class="ai-step">
+        <div class="ai-step-num">Step 1</div>
+        <div class="ai-step-name">Attempt</div>
+        <div class="ai-step-body">20–30 minutes of independent thinking before requesting AI assistance. Decompose the problem yourself first.</div>
+      </div>
+      <div class="ai-sep">→</div>
+      <div class="ai-step">
+        <div class="ai-step-num">Step 2</div>
+        <div class="ai-step-name">AI</div>
+        <div class="ai-step-body">Use for hints, code review, debugging, explanations, alternative approaches. Ask: "Review my solution and give hints" — not "Write the whole thing."</div>
+      </div>
+      <div class="ai-sep">→</div>
+      <div class="ai-step">
+        <div class="ai-step-num">Step 3</div>
+        <div class="ai-step-name">Understand</div>
+        <div class="ai-step-body">Before accepting generated code: what does it do, why does it work, what could fail, is there a simpler solution?</div>
+      </div>
+      <div class="ai-sep">→</div>
+      <div class="ai-step">
+        <div class="ai-step-num">Step 4</div>
+        <div class="ai-step-name">Rewrite</div>
+        <div class="ai-step-body">For learning exercises: implement again from memory without copying. Preserve independent reasoning and debugging ability.</div>
+      </div>
+    </div>
+
+    <div class="ai-note">
+      <strong>Weekly minimum:</strong> At least one 60–90 minute coding session with no AI tools — no Claude, no ChatGPT, no Copilot. The purpose is to preserve technical confidence, not to avoid AI permanently.
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── PRINCIPLES ─────────────── -->
+<section>
+  <div class="wrap">
+    <div class="section-lead">
+      <div class="label">Guiding Principles</div>
+      <h2>Twelve Career Principles</h2>
+    </div>
+    <div class="principles-grid">
+      <div class="principle">
+        <span class="p-num">01</span>
+        <span class="p-text"><strong>Protect income while transitioning.</strong> Family obligations come before career experiments.</span>
+      </div>
+      <div class="principle">
+        <span class="p-num">02</span>
+        <span class="p-text"><strong>Build fundamentals before tools.</strong> SQL and Python before Fabric and Spark.</span>
+      </div>
+      <div class="principle">
+        <span class="p-num">03</span>
+        <span class="p-text"><strong>Build projects before collecting certificates.</strong> Demonstrated capability beats credentials.</span>
+      </div>
+      <div class="principle">
+        <span class="p-num">04</span>
+        <span class="p-text"><strong>One cloud ecosystem, not many.</strong> Azure/Fabric deeply rather than broad and shallow.</span>
+      </div>
+      <div class="principle">
+        <span class="p-num">05</span>
+        <span class="p-text"><strong>Use AI heavily, but never surrender understanding.</strong> Leverage without dependency.</span>
+      </div>
+      <div class="principle">
+        <span class="p-num">06</span>
+        <span class="p-text"><strong>Measure progress by what you can build independently.</strong> Not by how many courses you finished.</span>
+      </div>
+      <div class="principle">
+        <span class="p-num">07</span>
+        <span class="p-text"><strong>Use the current job to create relevant experience.</strong> Zena Tech is a bridge, not a detour.</span>
+      </div>
+      <div class="principle">
+        <span class="p-num">08</span>
+        <span class="p-text"><strong>Talk to real engineers, not only instructors.</strong> Patterns across people beat one person's opinion.</span>
+      </div>
+      <div class="principle">
+        <span class="p-num">09</span>
+        <span class="p-text"><strong>Review the job market quarterly.</strong> Adjust 10–20% when evidence supports it. Do not restart.</span>
+      </div>
+      <div class="principle">
+        <span class="p-num">10</span>
+        <span class="p-text"><strong>Build transferable skills.</strong> No single job title should trap you in a dead end.</span>
+      </div>
+      <div class="principle">
+        <span class="p-num">11</span>
+        <span class="p-text"><strong>Relocate from strength, not desperation.</strong> Secure the opportunity first, then move.</span>
+      </div>
+      <div class="principle">
+        <span class="p-num">12</span>
+        <span class="p-text"><strong>Consistency beats intensity.</strong> 8–10 focused hours weekly beats unsustainable sprints followed by burnout.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── VISION ─────────────── -->
+<section class="vision-section">
+  <div class="wrap">
+    <div class="label" style="text-align:center; margin-bottom:32px;">The Vision</div>
+    <blockquote class="vision-quote">
+      "I am a software engineer specializing in data systems. I can design databases, build and orchestrate data pipelines, model and transform data, work with distributed and cloud data platforms, troubleshoot production data problems, and <em>use AI tools to increase my productivity without depending on them for fundamental engineering reasoning.</em>"
+    </blockquote>
+    <div class="vision-footer">
+      <span class="label">The complete sequence</span>
+      <div class="career-chain">
+        SQL <span>→</span> Python <span>→</span> Database Design <span>→</span> Data Modeling <span>→</span> ETL/ELT <span>→</span> Orchestration
+        <br>
+        Spark/PySpark <span>→</span> Fabric/Azure <span>→</span> Production Projects <span>→</span> DP-700
+        <br>
+        Professional Data Engineering <span>→</span> Data/AI Infrastructure <span>→</span> International Market
+      </div>
+    </div>
+  </div>
+</section>
