@@ -6,6 +6,10 @@ export type ProjectCard = {
   shortDesc: string;
   tech: string[];
   image?: string;
+  featuredMedia?: {
+    primary: string;
+    secondary: string;
+  };
   category?: string;
   icon?: ReactNode;
 };
@@ -27,6 +31,12 @@ export const projectCards: ProjectCard[] = [
       "Flutter",
     ],
     image: "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/login_screen_s1pyac.png",
+    featuredMedia: {
+      primary:
+        "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/Dashboard_light_mode_unfbvw.png",
+      secondary:
+        "/media/images/zenatrace-shipment-sanitized.png",
+    },
     category: "Enterprise Pharmaceutical Traceability",
   },
   {

@@ -17,8 +17,8 @@ import { cn } from "@/lib/utils";
 import { scrollToElementWhenReady } from "@/lib/scroll-to";
 
 const navLinks = [
-  { name: "Work", href: "#experience" },
   { name: "Projects", href: "#projects" },
+  { name: "Work", href: "#experience" },
   { name: "Credentials", href: "#credentials" },
   { name: "Tech Stack", href: "#skills" },
   { name: "Contact", href: "#contact" },

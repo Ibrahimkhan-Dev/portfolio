@@ -7,8 +7,8 @@ import Skills from "@/components/sections/skills";
 export default function HomeBelowFold() {
   return (
     <>
-      <Experience />
       <Projects />
+      <Experience />
       <Credentials />
       <Skills />
       <Contact />

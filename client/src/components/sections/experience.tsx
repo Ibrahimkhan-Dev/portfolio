@@ -20,7 +20,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="relative border-y border-white/5 bg-[#080808] py-12 sm:py-16 md:py-20"
+      className="relative scroll-mt-24 border-y border-white/5 bg-[#080808] py-12 sm:py-16 md:py-20"
     >
       <div className="container mx-auto px-4 sm:px-6">
         <Reveal y={0} className="mb-12 sm:mb-20">
