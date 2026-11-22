@@ -293,7 +293,7 @@ export function GalleryModal({
               : 0.2,
           }}
           role="presentation"
-          className="fixed inset-0 z-100 flex flex-col items-center justify-center bg-black/90 p-4 sm:p-6"
+          className="fixed inset-0 z-100 flex flex-col items-center justify-center bg-[#050709]/94 p-4 backdrop-blur-sm sm:p-6"
           onMouseDown={(event) => {
             if (
               event.target ===
@@ -337,7 +337,7 @@ export function GalleryModal({
                 : 0.25,
               ease: "easeOut",
             }}
-            className="flex w-full max-w-5xl flex-col gap-4 focus:outline-none"
+            className="flex w-full max-w-6xl flex-col gap-4 focus:outline-none"
           >
             <div className="flex items-center justify-between gap-4">
               <div className="flex min-w-0 items-center gap-3">
@@ -348,7 +348,7 @@ export function GalleryModal({
 
                 <h2
                   id={GALLERY_TITLE_ID}
-                  className="truncate text-xl font-black uppercase italic text-white sm:text-2xl"
+                  className="truncate text-xl font-black normal-case tracking-[-0.025em] text-white sm:text-2xl"
                 >
                   {modal.title}
                 </h2>
@@ -366,7 +366,7 @@ export function GalleryModal({
                 ref={galleryCloseButtonRef}
                 type="button"
                 onClick={onClose}
-                className="shrink-0 border border-white/10 p-2 text-white transition-all hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="grid size-11 shrink-0 place-items-center rounded-full border border-[#3A444E] bg-[#10151B] text-white shadow-[0_10px_28px_rgba(0,0,0,0.35),inset_0_1px_rgba(255,255,255,0.04)] transition-[border-color,background-color,color,box-shadow] hover:border-primary hover:bg-primary/10 hover:text-primary hover:shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_18px_rgba(255,118,40,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 aria-label="Close gallery"
               >
                 <X
@@ -376,7 +376,7 @@ export function GalleryModal({
               </button>
             </div>
 
-            <div className="relative aspect-video overflow-hidden border-4 border-white/5 bg-card">
+            <div className="relative aspect-video overflow-hidden rounded-xl border border-[#36414C] bg-card shadow-[0_30px_88px_rgba(0,0,0,0.58),0_0_38px_rgba(255,118,40,0.065),inset_0_1px_rgba(255,255,255,0.04)]">
               {mediaLoading && (
                 <div
                   role="status"
@@ -453,7 +453,7 @@ export function GalleryModal({
                   <button
                     type="button"
                     onClick={galleryPrev}
-                    className="absolute left-3 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center border border-white/10 bg-black/60 text-white transition-all hover:border-primary hover:bg-black/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                    className="absolute left-3 top-1/2 z-30 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-[#46515C] bg-[#080B0E]/85 text-white shadow-[0_10px_28px_rgba(0,0,0,0.42),inset_0_1px_rgba(255,255,255,0.05)] transition-[border-color,background-color,color,box-shadow] hover:border-primary hover:bg-primary/10 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                     aria-label="Show previous gallery item"
                   >
                     <ChevronLeft
@@ -465,7 +465,7 @@ export function GalleryModal({
                   <button
                     type="button"
                     onClick={galleryNext}
-                    className="absolute right-3 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center border border-white/10 bg-black/60 text-white transition-all hover:border-primary hover:bg-black/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                    className="absolute right-3 top-1/2 z-30 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-[#46515C] bg-[#080B0E]/85 text-white shadow-[0_10px_28px_rgba(0,0,0,0.42),inset_0_1px_rgba(255,255,255,0.05)] transition-[border-color,background-color,color,box-shadow] hover:border-primary hover:bg-primary/10 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                     aria-label="Show next gallery item"
                   >
                     <ChevronRight

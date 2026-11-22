@@ -28,6 +28,10 @@ import {
   getOptimizedCloudinaryUrl,
   isCloudinaryImage,
 } from "@/lib/cloudinary";
+import {
+  getCarouselPositions,
+  getClosestCarouselPosition,
+} from "@/lib/carousel";
 import { siteContentContainerClass } from "@/lib/layout";
 import { cn } from "@/lib/utils";
 
@@ -361,6 +365,12 @@ export default function Projects() {
   const [canScrollNext, setCanScrollNext] =
     useState(true);
 
+  const [carouselPositions, setCarouselPositions] =
+    useState([0]);
+
+  const [activeCarouselPosition, setActiveCarouselPosition] =
+    useState(0);
+
   const syncCarouselControls =
     useCallback(() => {
       const track = trackRef.current;
@@ -368,11 +378,56 @@ export default function Projects() {
       if (!track || isExpanded) {
         setCanScrollPrevious(false);
         setCanScrollNext(false);
+        setCarouselPositions([0]);
+        setActiveCarouselPosition(0);
         return;
       }
 
+      const firstCard =
+        track.querySelector<HTMLElement>(
+          "[data-project-card]",
+        );
+
+      if (!firstCard) {
+        return;
+      }
+
+      const styles =
+        window.getComputedStyle(track);
+
+      const gap =
+        Number.parseFloat(styles.columnGap) ||
+        Number.parseFloat(styles.gap) ||
+        0;
+
+      const positions = getCarouselPositions(
+        track.scrollWidth,
+        track.clientWidth,
+        firstCard.offsetWidth,
+        gap,
+      );
+
       const maxScrollLeft =
         track.scrollWidth - track.clientWidth;
+
+      setCarouselPositions((current) =>
+        current.length === positions.length &&
+        current.every(
+          (position, index) =>
+            Math.abs(
+              position - positions[index],
+            ) < 1,
+        )
+          ? current
+          : positions,
+      );
+
+      setActiveCarouselPosition(
+        getClosestCarouselPosition(
+          track.scrollLeft,
+          positions,
+        ),
+      );
 
       setCanScrollPrevious(
         track.scrollLeft > 4,
@@ -407,6 +462,15 @@ export default function Projects() {
       syncCarouselControls,
     );
 
+    const resizeObserver =
+      typeof ResizeObserver === "undefined"
+        ? null
+        : new ResizeObserver(
+            syncCarouselControls,
+          );
+
+    resizeObserver?.observe(track);
+
     return () => {
       window.cancelAnimationFrame(syncFrame);
 
@@ -419,6 +483,8 @@ export default function Projects() {
         "resize",
         syncCarouselControls,
       );
+
+      resizeObserver?.disconnect();
     };
   }, [syncCarouselControls]);
 
@@ -448,6 +514,23 @@ export default function Projects() {
       left:
         direction *
         (firstCard.offsetWidth + gap),
+      behavior: prefersReducedMotion
+        ? "auto"
+        : "smooth",
+    });
+  };
+
+  const goToCarouselPosition = (
+    positionIndex: number,
+  ) => {
+    const track = trackRef.current;
+
+    if (!track) {
+      return;
+    }
+
+    track.scrollTo({
+      left: carouselPositions[positionIndex],
       behavior: prefersReducedMotion
         ? "auto"
         : "smooth",
@@ -612,7 +695,7 @@ export default function Projects() {
           <Reveal
             y={16}
             amount={0.1}
-            className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+            className="relative z-50 mb-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
           >
             <div>
               <div className="flex items-center gap-4">
@@ -631,13 +714,13 @@ export default function Projects() {
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 sm:justify-end">
+            <div className="relative z-10 flex flex-wrap items-center gap-3 sm:justify-end">
               <button
                 type="button"
                 onClick={toggleAllProjects}
                 aria-expanded={isExpanded}
                 aria-controls="other-projects-list"
-                className="group inline-flex min-h-11 items-center gap-2 border-0 bg-transparent px-2 text-sm font-black text-[#FF7628] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7628] focus-visible:ring-offset-4 focus-visible:ring-offset-[#080B0E]"
+                className="group relative z-10 inline-flex min-h-11 cursor-pointer items-center gap-2 border-0 bg-transparent px-2 text-sm font-black text-[#FF7628] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7628] focus-visible:ring-offset-4 focus-visible:ring-offset-[#080B0E]"
               >
                 {isExpanded
                   ? "Return to Carousel"
@@ -655,12 +738,14 @@ export default function Projects() {
             </div>
           </Reveal>
 
-          <div className="relative sm:px-14">
-            {!isExpanded && (
-              <div
-                className="pointer-events-none absolute inset-y-0 left-0 right-0 z-20 hidden sm:block"
-                aria-label="Project carousel controls"
-              >
+          <div>
+            <div
+              className={cn(
+                !isExpanded &&
+                  "sm:grid sm:grid-cols-[3rem_minmax(0,1fr)_3rem] sm:items-center sm:gap-3",
+              )}
+            >
+              {!isExpanded && (
                 <button
                   type="button"
                   onClick={() =>
@@ -668,14 +753,35 @@ export default function Projects() {
                   }
                   disabled={!canScrollPrevious}
                   aria-label="Show previous projects"
-                  className="pointer-events-auto absolute left-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-[#49515A] bg-[#090D11]/95 text-[#B8BEC7] shadow-[0_12px_30px_rgba(0,0,0,0.55)] backdrop-blur-sm transition-[border-color,color,background-color,transform] hover:scale-105 hover:border-[#FF7628] hover:text-[#FF7628] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:scale-100 xl:size-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7628] focus-visible:ring-offset-4 focus-visible:ring-offset-[#080B0E]"
+                  className="hidden size-11 place-items-center justify-self-center rounded-full border border-[#49515A] bg-[#090D11]/95 text-[#B8BEC7] shadow-[0_12px_30px_rgba(0,0,0,0.55)] backdrop-blur-sm transition-[border-color,color,background-color,transform] hover:scale-105 hover:border-[#FF7628] hover:text-[#FF7628] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:scale-100 sm:grid xl:size-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7628] focus-visible:ring-offset-4 focus-visible:ring-offset-[#080B0E]"
                 >
                   <ArrowLeft
                     aria-hidden="true"
                     className="size-5"
                   />
                 </button>
+              )}
 
+              <div
+                ref={trackRef}
+                id="other-projects-list"
+                aria-label="Other portfolio projects"
+                className={cn(
+                  "grid items-stretch gap-5 sm:gap-6",
+                  isExpanded
+                    ? "md:grid-cols-2 xl:grid-cols-3"
+                    : "grid-flow-col auto-cols-[100%] snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] sm:auto-cols-[calc(50%-0.75rem)] xl:auto-cols-[calc(33.333%-1rem)] [&::-webkit-scrollbar]:hidden",
+                )}
+              >
+                {otherProjects.map((project) => (
+                  <OtherProjectCard
+                    key={project.id}
+                    project={project}
+                  />
+                ))}
+              </div>
+
+              {!isExpanded && (
                 <button
                   type="button"
                   onClick={() =>
@@ -683,33 +789,14 @@ export default function Projects() {
                   }
                   disabled={!canScrollNext}
                   aria-label="Show next projects"
-                  className="pointer-events-auto absolute right-1 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-[#FF7628] bg-[#090D11]/95 text-[#FF7628] shadow-[0_12px_30px_rgba(0,0,0,0.55),0_0_18px_rgba(255,118,40,0.08)] backdrop-blur-sm transition-[border-color,color,background-color,transform] hover:scale-105 hover:bg-[#FF7628] hover:text-[#080B0E] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:scale-100 xl:size-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#080B0E]"
+                  className="hidden size-11 place-items-center justify-self-center rounded-full border border-[#FF7628] bg-[#090D11]/95 text-[#FF7628] shadow-[0_12px_30px_rgba(0,0,0,0.55),0_0_18px_rgba(255,118,40,0.08)] backdrop-blur-sm transition-[border-color,color,background-color,transform] hover:scale-105 hover:bg-[#FF7628] hover:text-[#080B0E] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:scale-100 sm:grid xl:size-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#080B0E]"
                 >
                   <ArrowRight
                     aria-hidden="true"
                     className="size-5"
                   />
                 </button>
-              </div>
-            )}
-
-            <div
-              ref={trackRef}
-              id="other-projects-list"
-              aria-label="Other portfolio projects"
-              className={cn(
-                "grid items-stretch gap-5 sm:gap-6",
-                isExpanded
-                  ? "md:grid-cols-2 xl:grid-cols-3"
-                  : "grid-flow-col auto-cols-[100%] snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] sm:auto-cols-[calc(50%-0.75rem)] xl:auto-cols-[calc(33.333%-1rem)] [&::-webkit-scrollbar]:hidden",
               )}
-            >
-              {otherProjects.map((project) => (
-                <OtherProjectCard
-                  key={project.id}
-                  project={project}
-                />
-              ))}
             </div>
 
             {!isExpanded && (
@@ -746,6 +833,51 @@ export default function Projects() {
                     className="size-5"
                   />
                 </button>
+              </div>
+            )}
+
+            {!isExpanded && (
+              <div
+                className="mt-3 flex items-center justify-center"
+                role="group"
+                aria-label="Other projects carousel pagination"
+              >
+                {carouselPositions.map(
+                  (_, positionIndex) => {
+                    const isActive =
+                      positionIndex ===
+                      activeCarouselPosition;
+
+                    return (
+                      <button
+                        key={positionIndex}
+                        type="button"
+                        onClick={() =>
+                          goToCarouselPosition(
+                            positionIndex,
+                          )
+                        }
+                        aria-label={`Go to carousel position ${positionIndex + 1} of ${carouselPositions.length}`}
+                        aria-current={
+                          isActive
+                            ? "true"
+                            : undefined
+                        }
+                        className="group grid size-9 shrink-0 place-items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7628] focus-visible:ring-offset-2 focus-visible:ring-offset-[#080B0E]"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={cn(
+                            "block rounded-full transition-[width,height,background-color,box-shadow] duration-300 motion-reduce:transition-none",
+                            isActive
+                              ? "size-2.5 bg-[#FF7628] shadow-[0_0_10px_rgba(255,118,40,0.42)]"
+                              : "size-2 bg-[#555D66] group-hover:bg-[#7A838D]",
+                          )}
+                        />
+                      </button>
+                    );
+                  },
+                )}
               </div>
             )}
           </div>

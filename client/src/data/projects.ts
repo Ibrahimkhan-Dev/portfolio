@@ -1,14 +1,66 @@
 import type { ReactNode } from "react";
 
+export type ProjectContributionIcon =
+  | "direction"
+  | "logic"
+  | "debugging"
+  | "verification";
+
+export type ProjectContribution = {
+  title: string;
+  description: string;
+  icon?: ProjectContributionIcon;
+};
+
+export type ProjectFeatureHighlightIcon =
+  | "master-data"
+  | "serialization"
+  | "packaging"
+  | "shipment"
+  | "security"
+  | "data-services";
+
+export type ProjectFeatureHighlight = {
+  title: string;
+  description: string;
+  icon: ProjectFeatureHighlightIcon;
+};
+
+export type ProjectOutcomePresentation = {
+  title: string;
+  summary: string;
+  highlights?: {
+    title: string;
+    description: string;
+  }[];
+};
+
+export type ProjectEvidencePresentation = {
+  galleryTitle: string;
+  galleryDescription: string;
+  confidentialityNote: string;
+};
+
+export type ProjectArchitectureNote = {
+  title: string;
+  status: string;
+  description: string;
+  technologies: string[];
+};
+
 export type Project = {
   id: string;
 
   title: string;
+  detailTitle?: string;
+  subtitle?: string;
   shortDesc: string;
   tech: string[];
 
   description: string;
   role?: string;
+  officialRole?: string;
+  functionalFocus?: string;
   company?: string;
   duration?: string;
 
@@ -22,9 +74,17 @@ export type Project = {
   beforeState?: string;
   whatChanged?: string;
   outcome?: string;
+  outcomePresentation?: ProjectOutcomePresentation;
+  developmentApproach?: string;
+  contributions?: ProjectContribution[];
 
   highlights?: string[];
+  featureHighlights?: ProjectFeatureHighlight[];
   evidence?: { label: string; url?: string; gallery?: string[] }[];
+  evidencePresentation?: ProjectEvidencePresentation;
+  architectureDescriptions?: Record<string, string>;
+  architectureNotes?: ProjectArchitectureNote[];
+  architectureExcludedTechnologies?: string[];
 
   proofNote?: string;
   ctaLabel?: string;
@@ -42,6 +102,8 @@ export const projects: Project[] = [
   {
   id: "zenatrace",
   title: "ZenaTrace Pharmaceutical Traceability Platform",
+  detailTitle: "ZenaTrace",
+  subtitle: "Pharmaceutical Traceability Platform",
 
   shortDesc:
     "Planned, directed, reviewed, debugged, and validated the AI-assisted delivery of a multi-tenant web platform for pharmaceutical serialization and supply-chain traceability, with a separate Flutter mobile R&D track.",
@@ -69,7 +131,34 @@ export const projects: Project[] = [
     "Playwright",
   ],
 
+  architectureDescriptions: {
+    "Interface Layer":
+      "Web interface for operational workflows.",
+    "Application & API Layer":
+      "ASP.NET Core REST APIs supporting business logic, application workflows, authentication, tenant-aware authorization, and permission-controlled access.",
+    "Data & Services":
+      "SQL Server persistence and documented supporting services for search, caching, reliable messaging, and file operations.",
+  },
+
+  architectureExcludedTechnologies: [
+    "JWT Authentication",
+    "Refresh Token Rotation",
+    "Playwright",
+  ],
+
+  architectureNotes: [
+    {
+      title: "Flutter Mobile R&D",
+      status: "In Development",
+      description:
+        "A separate Flutter and Dart track is under development for mobile R&D and is not presented as a completed production mobile application.",
+      technologies: ["Flutter", "Dart"],
+    },
+  ],
+
   role: "Full-Stack Developer",
+  officialRole: "DotNet Developer",
+  functionalFocus: "Full-Stack Development",
   company: "Epazz Tech",
   duration: "2026 - Present",
   category: "Enterprise Pharmaceutical Traceability",
@@ -93,6 +182,54 @@ export const projects: Project[] = [
   outcome:
     "Delivered and validated a working, test-backed web MVP that combines core pharmaceutical serialization and traceability workflows in one tenant-aware platform. The project demonstrates an AI-assisted development model in which I remained responsible for execution planning, system logic, technical direction, code review, debugging, verification, and release acceptance. The resulting backend also provides a stable foundation for the separate Flutter mobile R&D track and future product phases.",
 
+  outcomePresentation: {
+    title: "Working Web MVP",
+    summary:
+      "Delivered and validated a working web MVP combining pharmaceutical serialization and traceability workflows within a tenant-aware enterprise application.",
+    highlights: [
+      {
+        title: "Integrated Workflows",
+        description:
+          "Serialization, shipment operations, and traceability functionality.",
+      },
+      {
+        title: "Tenant-Aware Application",
+        description:
+          "Access-controlled workflows and documented verification.",
+      },
+    ],
+  },
+
+  developmentApproach:
+    "ChatGPT and Claude supported implementation activities. My responsibilities included interpreting approved requirements, directing technical implementation, reviewing generated code, identifying and resolving defects, validating application behavior, and making acceptance decisions.",
+
+  contributions: [
+    {
+      title: "Planning & Technical Direction",
+      description:
+        "Interpreted approved technical requirements, translated project documentation into implementation tasks, and reviewed delivery direction to maintain alignment with documented workflows and specifications.",
+      icon: "direction",
+    },
+    {
+      title: "Application & Database Logic",
+      description:
+        "Defined and reviewed Angular workflows, ASP.NET Core REST API behavior, and SQL Server logic for tenant-aware master data, serialization, aggregation, shipments, files, users, roles, permissions, settings, and dashboards.",
+      icon: "logic",
+    },
+    {
+      title: "Code Review & Debugging",
+      description:
+        "Reviewed frontend and backend implementation, identified and debugged defects, refined workflow behavior, and checked SQL Server Full-Text Search, Redis caching, Amazon S3-backed file handling, and SQL Server Outbox processing for correctness.",
+      icon: "debugging",
+    },
+    {
+      title: "Testing & Verification",
+      description:
+        "Validated tenant-aware data access, role-based authorization, audit and trace records, and separate browser and mobile authentication flows, including Playwright-based browser verification, while supporting quality assurance and acceptance decisions against approved requirements.",
+      icon: "verification",
+    },
+  ],
+
   highlights: [
     "Planned and directed tenant-aware workflows for products, GTINs, lots, partners, locations, serial batches, and serial numbers, then reviewed and validated the resulting implementation.",
 
@@ -111,6 +248,45 @@ export const projects: Project[] = [
     "Reviewed 37 application pages across seven viewport sizes through a responsive audit that produced 259 screenshots.",
 
     "Recorded verification checkpoints included 224 passing Playwright end-to-end tests, 99 passing Angular unit tests, and 613 passing backend tests, with no failures in those runs.",
+  ],
+
+  featureHighlights: [
+    {
+      title: "Master Data & Tenant Workflows",
+      description:
+        "Planned and directed tenant-aware workflows for product information, GTINs, lots and batches, partners, and locations, then reviewed and validated the resulting implementation.",
+      icon: "master-data",
+    },
+    {
+      title: "Serialization Lifecycle",
+      description:
+        "Defined and validated serialization logic for serial batches and numbers, including generation, CSV import, duplicate validation, status tracking, commissioning, and controlled lifecycle actions.",
+      icon: "serialization",
+    },
+    {
+      title: "Packaging & Aggregation",
+      description:
+        "Designed and reviewed packaging-hierarchy workflows for items, cases, pallets, and bundles through aggregation logic.",
+      icon: "packaging",
+    },
+    {
+      title: "Shipment & Traceability",
+      description:
+        "Designed and validated shipment and item-assignment workflows covering shipping, receiving, cancellation, exception handling, and trace-history updates.",
+      icon: "shipment",
+    },
+    {
+      title: "Security & Authorization",
+      description:
+        "Defined and reviewed granular permission behavior across frontend routes, user actions, and protected backend endpoints, with backend authorization as the final boundary. Directed and validated separate browser and mobile authentication flows using short-lived access tokens, refresh-token rotation, revocation, reuse detection, browser HttpOnly cookies, and mobile secure storage.",
+      icon: "security",
+    },
+    {
+      title: "Audit, Search & Data Services",
+      description:
+        "Reviewed and validated trace events, audit logs, import and export jobs, Amazon S3-backed file metadata, SQL Server Full-Text Search, Redis caching, and SQL Server Outbox processing.",
+      icon: "data-services",
+    },
   ],
 
   evidence: [
@@ -164,6 +340,14 @@ export const projects: Project[] = [
     //   ],
     // },
   ],
+
+  evidencePresentation: {
+    galleryTitle: "Application Gallery",
+    galleryDescription:
+      "Sanitized application screenshots from the documented web MVP.",
+    confidentialityNote:
+      "Showcase visuals are sanitized or illustrative. Employer information and technical materials should be displayed only where public use has been approved.",
+  },
 
   proofNote:
     "This is a confidential Epazz Tech company project. Only employer-approved, sanitized visuals are published. I used ChatGPT and Claude as AI development assistants for implementation, analysis, and review. I remained responsible for project execution planning, interpreting the approved requirements, defining application, business, security, and database logic, shaping design direction, directing implementation tasks, reviewing generated code and architecture, debugging defects, running verification, and accepting or rejecting changes. This case study presents the completed Angular web MVP and a separate Flutter mobile R&D track. It does not claim full DSCSA or EU FMD network integration, EPCIS certification, GS1 certification, production IoT integration, or a production mobile/offline release. Test numbers represent recorded project checkpoints and may change as development continues.",
