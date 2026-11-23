@@ -9,6 +9,8 @@ import {
   getArchitectureGroups,
   getProjectDetailSectionNumbers,
   getProjectNavigation,
+  hasAccessibleProjectEvidence,
+  isAccessibleEvidenceSource,
 } from "@/lib/project-detail";
 
 describe("shared project-detail utilities", () => {
@@ -96,9 +98,12 @@ describe("shared project-detail utilities", () => {
           purpose: undefined,
           whatChanged: undefined,
           developmentApproach: undefined,
+          contributions: undefined,
           highlights: undefined,
           outcome: undefined,
           evidence: undefined,
+          evidencePresentation: undefined,
+          gallery: undefined,
           liveUrl: undefined,
           sourceUrl: undefined,
           proofNote: undefined,
@@ -115,5 +120,37 @@ describe("shared project-detail utilities", () => {
       evidence: undefined,
       architecture: 2,
     });
+  });
+
+  it("distinguishes accessible evidence from notes and placeholders", () => {
+    const ehrProject = projects.find(
+      (project) => project.id === "ehr-system",
+    );
+    const seleniumProject = projects.find(
+      (project) => project.id === "selenium-bot",
+    );
+    const openStackProject = projects.find(
+      (project) => project.id === "private-cloud",
+    );
+
+    expect(
+      hasAccessibleProjectEvidence(ehrProject!),
+    ).toBe(true);
+    expect(
+      hasAccessibleProjectEvidence(seleniumProject!),
+    ).toBe(false);
+    expect(
+      hasAccessibleProjectEvidence(openStackProject!),
+    ).toBe(false);
+    expect(
+      isAccessibleEvidenceSource(
+        "https://example.cloudflare.com/delayed-image.png",
+      ),
+    ).toBe(true);
+    expect(
+      isAccessibleEvidenceSource(
+        "PASTE_APPROVED_SCREENSHOT_URL_HERE",
+      ),
+    ).toBe(false);
   });
 });

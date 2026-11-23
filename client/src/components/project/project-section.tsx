@@ -26,10 +26,10 @@ export function ProjectSection({
   return (
     <section
       aria-labelledby={headingId}
-      className={`scroll-mt-20 ${compactBottom ? "pb-6" : "pb-11 sm:pb-14 lg:pb-16 xl:pb-[4.5rem]"} ${compactTop ? "pt-8" : "pt-11 sm:pt-14 lg:pt-16 xl:pt-[4.5rem]"} ${className}`}
+      className={`project-detail-section scroll-mt-20 ${compactBottom ? "pb-6" : "pb-11 sm:pb-14 lg:pb-16 xl:pb-[4.5rem]"} ${compactTop ? "pt-8" : "pt-11 sm:pt-14 lg:pt-16 xl:pt-[4.5rem]"} ${className}`}
     >
       <header
-        className={`mb-7 sm:mb-9 lg:mb-10 ${fullWidthHeader ? "max-w-none" : "max-w-4xl"}`}
+        className={`project-detail-section__header mb-7 sm:mb-9 lg:mb-10 ${fullWidthHeader ? "max-w-none" : "max-w-4xl"}`}
       >
         {eyebrow && (
           <div className="mb-3.5 flex items-center gap-3">
@@ -45,7 +45,7 @@ export function ProjectSection({
 
         <h2
           id={headingId}
-          className={`${fluidTitle ? "max-w-none" : "max-w-[22ch]"} normal-case text-[clamp(1.85rem,3.4vw,2.85rem)] font-black leading-[1.02] tracking-[-0.04em] text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.28)]`}
+          className={`project-detail-section__title ${fluidTitle ? "max-w-none" : "max-w-[22ch]"} normal-case text-[clamp(1.85rem,3.4vw,2.85rem)] font-black leading-[1.02] tracking-[-0.04em] text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.28)]`}
         >
           {title}
         </h2>

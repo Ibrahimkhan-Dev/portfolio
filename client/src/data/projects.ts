@@ -80,7 +80,12 @@ export type Project = {
 
   highlights?: string[];
   featureHighlights?: ProjectFeatureHighlight[];
-  evidence?: { label: string; url?: string; gallery?: string[] }[];
+  evidence?: {
+    label: string;
+    description?: string;
+    url?: string;
+    gallery?: string[];
+  }[];
   evidencePresentation?: ProjectEvidencePresentation;
   architectureDescriptions?: Record<string, string>;
   architectureNotes?: ProjectArchitectureNote[];

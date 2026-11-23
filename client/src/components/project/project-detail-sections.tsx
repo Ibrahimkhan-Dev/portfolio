@@ -9,14 +9,17 @@ import {
   Compass,
   Database,
   ExternalLink,
+  Flag,
   Images,
   Layers3,
   MonitorSmartphone,
   Search,
   Server,
   ShieldCheck,
+  SlidersHorizontal,
   Smartphone,
   Sparkles,
+  Target,
   Truck,
   Wrench,
 } from "lucide-react";
@@ -29,7 +32,11 @@ import type {
   ProjectContributionIcon,
   ProjectFeatureHighlightIcon,
 } from "@/data/projects";
-import type { ArchitectureGroup } from "@/lib/project-detail";
+import {
+  hasAccessibleProjectEvidence,
+  isAccessibleEvidenceSource,
+  type ArchitectureGroup,
+} from "@/lib/project-detail";
 import { siteContentContainerClass } from "@/lib/layout";
 import { cn } from "@/lib/utils";
 
@@ -103,7 +110,7 @@ export function ProjectDetailHeader({
     project.detailTitle ?? project.title;
 
   return (
-    <header className="sticky top-0 z-30 border-b border-[#2A323B]/90 bg-[linear-gradient(180deg,rgba(16,21,27,0.96),rgba(8,11,14,0.92))] shadow-[0_10px_36px_rgba(0,0,0,0.32),0_1px_0_rgba(255,118,40,0.035)] backdrop-blur-xl">
+    <header className="project-detail-header sticky top-0 z-30 border-b border-[#2A323B]/90 bg-[linear-gradient(180deg,rgba(16,21,27,0.96),rgba(8,11,14,0.92))] shadow-[0_10px_36px_rgba(0,0,0,0.32),0_1px_0_rgba(255,118,40,0.035)] backdrop-blur-xl">
       <nav
         aria-label="Project navigation"
         className={cn(
@@ -171,7 +178,7 @@ export function ProjectDetailHero({
     displayTitle.length > 34;
 
   return (
-    <section className="relative overflow-hidden border-b border-[#252D35] bg-[linear-gradient(180deg,#080B0E_0%,#090D11_58%,#080B0E_100%)] pb-3 pt-10 sm:pt-12 lg:pt-12 xl:pt-14">
+    <section className="project-detail-hero relative overflow-hidden border-b border-[#252D35] bg-[linear-gradient(180deg,#080B0E_0%,#090D11_58%,#080B0E_100%)] pb-3 pt-10 sm:pt-12 lg:pt-12 xl:pt-14">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_27%,rgba(255,118,40,0.15),transparent_30%),radial-gradient(circle_at_72%_35%,rgba(255,118,40,0.045),transparent_46%),radial-gradient(circle_at_18%_14%,rgba(255,118,40,0.06),transparent_24%)]"
@@ -219,7 +226,7 @@ export function ProjectDetailHero({
             {project.tech.slice(0, 8).map((technology) => (
               <li
                 key={technology}
-                className="rounded-full border border-[#343E48] bg-[linear-gradient(145deg,rgba(255,255,255,0.045),rgba(13,18,23,0.96))] px-3 py-1.5 text-[0.68rem] font-bold leading-none text-[#E1E5E9] shadow-[inset_0_1px_rgba(255,255,255,0.045),0_5px_14px_rgba(0,0,0,0.14)] transition-[border-color,background-color] duration-200 hover:border-[#FF7628]/40 hover:bg-[#121920]"
+                className="project-tech-badge project-tech-badge--hero rounded-full border border-[#343E48] bg-[linear-gradient(145deg,rgba(255,255,255,0.045),rgba(13,18,23,0.96))] px-3 py-1.5 text-[0.68rem] font-bold leading-none text-[#E1E5E9] shadow-[inset_0_1px_rgba(255,255,255,0.045),0_5px_14px_rgba(0,0,0,0.14)] transition-[border-color,background-color] duration-200 hover:border-[#FF7628]/40 hover:bg-[#121920]"
               >
                 {technology}
               </li>
@@ -300,7 +307,7 @@ export function ProjectMetadata({
       <div className={cn(siteContentContainerClass, "py-5 sm:py-6")}>
         <dl
           className={cn(
-            "grid overflow-hidden rounded-xl border border-[#2C3540] bg-[#111820] shadow-[0_20px_55px_rgba(0,0,0,0.28),inset_0_1px_rgba(255,255,255,0.035)] sm:grid-cols-2",
+            "project-metadata-panel grid overflow-hidden rounded-xl border border-[#2C3540] bg-[#111820] shadow-[0_20px_55px_rgba(0,0,0,0.28),inset_0_1px_rgba(255,255,255,0.035)] sm:grid-cols-2",
             desktopGridClass,
           )}
         >
@@ -326,29 +333,41 @@ export function ProjectMetadata({
 function ContentCard({
   title,
   children,
-  prominent = false,
+  wideContent = false,
+  variant = "challenge",
+  icon: Icon,
 }: {
-  title: string;
+  title?: string;
   children: ReactNode;
-  prominent?: boolean;
+  wideContent?: boolean;
+  variant?: "challenge" | "contribution" | "highlight" | "architecture";
+  icon: typeof Compass;
 }) {
   return (
     <article
+      data-content-width={wideContent ? "balanced-wide" : "standard"}
       className={cn(
-        "relative h-full overflow-hidden rounded-xl border bg-[linear-gradient(145deg,#121820_0%,#0C1116_68%)] p-5 shadow-[0_18px_45px_rgba(0,0,0,0.22),inset_0_1px_rgba(255,255,255,0.028)] transition-[border-color,transform,background-color,box-shadow] duration-300 motion-reduce:transition-none sm:p-6 lg:p-7",
-        prominent
-          ? "border-[#FF7628]/40 bg-[linear-gradient(135deg,rgba(255,118,40,0.09),rgba(18,24,32,0.96)_35%,rgba(12,17,22,0.99)_72%)] shadow-[0_22px_55px_rgba(0,0,0,0.25),0_0_28px_rgba(255,118,40,0.045),inset_0_1px_rgba(255,255,255,0.035)]"
-          : "border-[#2D3640] hover:-translate-y-0.5 hover:border-[#FF7628]/40 hover:shadow-[0_22px_52px_rgba(0,0,0,0.3),0_0_24px_rgba(255,118,40,0.04),inset_0_1px_rgba(255,255,255,0.035)]",
+        "project-detail-card project-content-card relative h-full overflow-hidden rounded-xl border p-5 motion-reduce:transition-none sm:p-6 lg:p-7",
+        `project-detail-card--${variant}`,
       )}
     >
-      <span
-        aria-hidden="true"
-        className="absolute inset-y-0 left-0 w-px bg-gradient-to-b from-[#FF7628] via-[#FF7628]/65 to-[#FF7628]/15 shadow-[0_0_12px_rgba(255,118,40,0.16)]"
-      />
-      <h3 className="normal-case text-lg font-black tracking-[-0.025em] text-white sm:text-xl">
-        {title}
-      </h3>
-      <div className="mt-3 max-w-[72ch] text-sm font-medium leading-6 text-[#B8BEC7] sm:text-[0.98rem] sm:leading-7">
+      <span aria-hidden="true" className="absolute start-0 top-0 w-px" />
+      <div className="project-content-card-heading">
+        <span className="project-content-card-icon" aria-hidden="true">
+          <Icon />
+        </span>
+        {title && (
+          <h3 className="normal-case text-lg font-black tracking-[-0.025em] text-white sm:text-xl">
+            {title}
+          </h3>
+        )}
+      </div>
+      <div
+        className={cn(
+          "mt-3 text-sm font-medium sm:text-[0.98rem]",
+          wideContent ? "max-w-[96ch]" : "max-w-[72ch]",
+        )}
+      >
         {children}
       </div>
     </article>
@@ -365,24 +384,29 @@ export function ProjectOverview({
   const challengeCards = [
     project.beforeState && {
       title: "Starting Point",
+      icon: Target,
       content: project.beforeState,
     },
     project.context && {
       title: "Project Context",
+      icon: Compass,
       content: project.context,
     },
     project.constraints && {
       title: "Constraints",
+      icon: SlidersHorizontal,
       content: project.constraints,
     },
     project.purpose && {
       title: "Purpose",
+      icon: Flag,
       content: project.purpose,
     },
   ].filter(
     (card): card is {
       title: string;
       content: string;
+      icon: typeof Compass;
     } => Boolean(card),
   );
 
@@ -408,16 +432,17 @@ export function ProjectOverview({
         challengesSectionNumber && (
         <ProjectSection
           title="Problem & Technical Challenges"
-          className="border-t border-white/[0.07]"
+          className="project-detail-section--curves border-t border-white/[0.07]"
           compactTop
           compactBottom
           fluidTitle
         >
           <div className="grid items-stretch gap-4 md:grid-cols-2 lg:gap-5">
-            {challengeCards.map((card, index) => (
+            {challengeCards.map((card) => (
               <ContentCard
                 key={card.title}
-                title={`${String(index + 1).padStart(2, "0")} · ${card.title}`}
+                title={card.title}
+                icon={card.icon}
               >
                 <p>{card.content}</p>
               </ContentCard>
@@ -451,13 +476,19 @@ export function ProjectContributions({
   return (
     <ProjectSection
       title="My Role & Contributions"
-      className="border-t border-white/[0.07]"
+      className="project-detail-section--curves border-t border-white/[0.07]"
       compactTop
       compactBottom
       fluidTitle
     >
       {contributionCards.length > 0 ? (
-        <ul className="grid items-stretch gap-4 md:grid-cols-2 lg:gap-5">
+        <ul
+          className={cn(
+            "grid items-stretch gap-4 lg:gap-5",
+            contributionCards.length > 1 &&
+              "md:grid-cols-2",
+          )}
+        >
           {contributionCards.map((contribution) => {
             const Icon = contribution.icon
               ? contributionIcons[contribution.icon]
@@ -465,20 +496,14 @@ export function ProjectContributions({
 
             return (
               <li key={contribution.title}>
-                <article className="group h-full rounded-xl border border-[#2E3741] bg-[linear-gradient(145deg,#131A22_0%,#0E141A_72%)] p-5 shadow-[0_18px_45px_rgba(0,0,0,0.22),inset_0_1px_rgba(255,255,255,0.03)] transition-[border-color,transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-[#FF7628]/45 hover:shadow-[0_24px_56px_rgba(0,0,0,0.3),0_0_26px_rgba(255,118,40,0.045),inset_0_1px_rgba(255,255,255,0.04)] motion-reduce:transition-none sm:p-6 lg:p-7">
-                  <span className="grid size-10 place-items-center rounded-lg border border-[#FF7628]/30 bg-[linear-gradient(145deg,rgba(255,118,40,0.13),rgba(255,118,40,0.035))] shadow-[0_8px_24px_rgba(255,118,40,0.075),inset_0_1px_rgba(255,255,255,0.06)]">
-                    <Icon
-                      aria-hidden="true"
-                      className="size-5 text-[#FF7628]"
-                    />
-                  </span>
-                  <h3 className="mt-5 normal-case text-lg font-black tracking-[-0.025em] text-white sm:text-xl">
-                    {contribution.title}
-                  </h3>
-                  <p className="mt-3 text-sm font-medium leading-6 text-[#B8BEC7] sm:text-[0.96rem] sm:leading-7">
-                    {contribution.description}
-                  </p>
-                </article>
+                <ContentCard
+                  title={contribution.title}
+                  icon={Icon}
+                  variant="contribution"
+                  wideContent={contributionCards.length === 1}
+                >
+                  <p>{contribution.description}</p>
+                </ContentCard>
               </li>
             );
           })}
@@ -487,7 +512,9 @@ export function ProjectContributions({
         project.whatChanged && (
           <ContentCard
             title="Implementation Contribution"
-            prominent
+            icon={Code2}
+            wideContent
+            variant="contribution"
           >
             <p>{project.whatChanged}</p>
           </ContentCard>
@@ -495,19 +522,14 @@ export function ProjectContributions({
       )}
 
       {project.developmentApproach && (
-        <aside className="relative mt-5 overflow-hidden rounded-xl border border-[#FF7628]/30 bg-[linear-gradient(135deg,rgba(255,118,40,0.07),rgba(15,21,28,0.98)_34%,rgba(10,15,20,0.99))] p-5 shadow-[0_18px_48px_rgba(0,0,0,0.24),inset_0_1px_rgba(255,255,255,0.028)] sm:p-6 lg:p-7">
-          <div className="flex items-center gap-3">
-            <span className="grid size-9 shrink-0 place-items-center rounded-lg border border-[#FF7628]/35 bg-[linear-gradient(145deg,rgba(255,118,40,0.14),rgba(255,118,40,0.035))] shadow-[0_8px_22px_rgba(255,118,40,0.08),inset_0_1px_rgba(255,255,255,0.06)]">
-              <Sparkles
-                aria-hidden="true"
-                className="size-4 text-[#FF7628]"
-              />
-            </span>
-            <h3 className="normal-case text-base font-black tracking-[-0.02em] text-white sm:text-lg">
-              Development Approach
-            </h3>
-          </div>
-          <p className="mt-3 max-w-[90rem] text-sm font-medium leading-6 text-[#B8BEC7] sm:text-[0.96rem] sm:leading-7">
+        <aside className="project-development-panel mt-5 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 gap-y-2 rounded-xl border p-5 sm:p-6">
+          <span className="project-content-card-icon sm:row-span-2 sm:self-start" aria-hidden="true">
+            <Sparkles />
+          </span>
+          <h3 className="normal-case text-base font-bold tracking-[-0.02em] text-white sm:text-lg">
+            Development Approach
+          </h3>
+          <p className="col-span-2 max-w-[90rem] text-sm font-medium leading-[1.75] text-[#CFD3DC] sm:col-span-1 sm:text-[0.98rem]">
             {project.developmentApproach}
           </p>
         </aside>
@@ -532,8 +554,7 @@ export function ProjectArchitecture({
   return (
     <ProjectSection
       title="System Architecture"
-      description="A data-driven view of the documented technologies used across this project."
-      className="border-t border-white/[0.07]"
+      className="project-detail-section--curves border-t border-white/[0.07]"
       compactTop
       compactBottom
     >
@@ -541,46 +562,29 @@ export function ProjectArchitecture({
         aria-label="Documented project technology layers"
         className="grid items-stretch gap-4 md:grid-cols-2 lg:gap-5 xl:grid-cols-3"
       >
-        {groups.map((group, index) => {
+        {groups.map((group) => {
           const Icon =
             architectureIcons[group.title] ?? Layers3;
 
           return (
-            <li
-              key={group.title}
-              className="relative flex h-full flex-col overflow-hidden rounded-xl border border-[#2E3741] bg-[linear-gradient(145deg,#131A22_0%,#0E141A_72%)] p-5 shadow-[0_18px_45px_rgba(0,0,0,0.22),inset_0_1px_rgba(255,255,255,0.03)] transition-[border-color,background-color,box-shadow] duration-300 hover:border-[#FF7628]/45 hover:shadow-[0_24px_56px_rgba(0,0,0,0.3),0_0_26px_rgba(255,118,40,0.045),inset_0_1px_rgba(255,255,255,0.04)] motion-reduce:transition-none sm:p-6 lg:p-7"
-            >
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-[#FF7628] via-[#FF7628]/30 to-transparent shadow-[0_1px_12px_rgba(255,118,40,0.1)]"
-              />
-              <div className="flex items-center justify-between gap-4">
-                <span className="grid size-10 place-items-center rounded-lg border border-[#FF7628]/30 bg-[linear-gradient(145deg,rgba(255,118,40,0.13),rgba(255,118,40,0.035))] shadow-[0_8px_24px_rgba(255,118,40,0.075),inset_0_1px_rgba(255,255,255,0.06)]">
-                  <Icon
-                    aria-hidden="true"
-                    className="size-5 text-[#FF7628]"
-                  />
-                </span>
-                <span className="text-[0.65rem] font-black tracking-[0.18em] text-[#69737D]">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </div>
-              <h3 className="mt-5 normal-case text-lg font-black leading-tight tracking-[-0.025em] text-white sm:text-xl">
-                {group.title}
-              </h3>
-              <p className="mt-2.5 text-sm font-medium leading-6 text-[#AEB6BF] sm:text-[0.95rem] sm:leading-7">
-                {group.description}
-              </p>
-              <ul className="mt-auto flex flex-wrap gap-2 border-t border-white/[0.07] pt-5">
-                {group.technologies.map((technology) => (
-                  <li
-                    key={technology}
-                    className="rounded-full border border-[#39444F] bg-[linear-gradient(145deg,rgba(255,255,255,0.055),rgba(255,255,255,0.018))] px-3 py-1.5 text-[0.68rem] font-bold leading-none text-[#E0E4E8] shadow-[inset_0_1px_rgba(255,255,255,0.035)] sm:text-xs"
-                  >
-                    {technology}
-                  </li>
-                ))}
-              </ul>
+            <li key={group.title}>
+              <ContentCard
+                title={group.title}
+                icon={Icon}
+                variant="architecture"
+              >
+                <p>{group.description}</p>
+                <ul className="mt-5 flex flex-wrap gap-2 border-t border-white/[0.07] pt-5">
+                  {group.technologies.map((technology) => (
+                    <li
+                      key={technology}
+                      className="project-tech-badge rounded-full border border-[#39444F] bg-[linear-gradient(145deg,rgba(255,255,255,0.055),rgba(255,255,255,0.018))] px-3 py-1.5 text-[0.68rem] font-bold leading-none text-[#E0E4E8] shadow-[inset_0_1px_rgba(255,255,255,0.035)] sm:text-xs"
+                    >
+                      {technology}
+                    </li>
+                  ))}
+                </ul>
+              </ContentCard>
             </li>
           );
         })}
@@ -590,12 +594,11 @@ export function ProjectArchitecture({
         <aside
           key={`${note.title}-${note.status}`}
           aria-label={`${note.title} — ${note.status}`}
-          className="mt-4 flex flex-col gap-4 rounded-xl border border-[#303943] bg-[linear-gradient(135deg,rgba(255,118,40,0.045),rgba(13,18,23,0.98)_30%)] p-4 shadow-[0_16px_42px_rgba(0,0,0,0.2),inset_0_1px_rgba(255,255,255,0.025)] sm:flex-row sm:items-center sm:p-5"
+          className="project-architecture-note mt-4 flex flex-col gap-4 rounded-xl border border-[#303943] bg-[linear-gradient(135deg,rgba(255,118,40,0.045),rgba(13,18,23,0.98)_30%)] p-4 shadow-[0_16px_42px_rgba(0,0,0,0.2),inset_0_1px_rgba(255,255,255,0.025)] sm:flex-row sm:items-center sm:p-5"
         >
-          <span className="grid size-10 shrink-0 place-items-center rounded-lg border border-[#FF7628]/30 bg-[linear-gradient(145deg,rgba(255,118,40,0.13),rgba(255,118,40,0.035))] shadow-[0_8px_24px_rgba(255,118,40,0.075),inset_0_1px_rgba(255,255,255,0.06)]">
+          <span className="project-content-card-icon shrink-0">
             <Smartphone
               aria-hidden="true"
-              className="size-5 text-[#FF7628]"
             />
           </span>
           <div className="min-w-0 flex-1">
@@ -618,7 +621,7 @@ export function ProjectArchitecture({
             {note.technologies.map((technology) => (
               <li
                 key={technology}
-                className="rounded-full border border-[#39444F] bg-[linear-gradient(145deg,rgba(255,255,255,0.055),rgba(255,255,255,0.018))] px-3 py-1.5 text-[0.68rem] font-bold leading-none text-[#E0E4E8] shadow-[inset_0_1px_rgba(255,255,255,0.035)] sm:text-xs"
+                className="project-tech-badge rounded-full border border-[#39444F] bg-[linear-gradient(145deg,rgba(255,255,255,0.055),rgba(255,255,255,0.018))] px-3 py-1.5 text-[0.68rem] font-bold leading-none text-[#E0E4E8] shadow-[inset_0_1px_rgba(255,255,255,0.035)] sm:text-xs"
               >
                 {technology}
               </li>
@@ -654,7 +657,7 @@ export function ProjectHighlights({
   return (
     <ProjectSection
       title="Key Features & Engineering Highlights"
-      className="border-t border-white/[0.07]"
+      className="project-detail-section--curves border-t border-white/[0.07]"
       compactTop
       compactBottom
       fluidTitle
@@ -670,26 +673,13 @@ export function ProjectHighlights({
 
           return (
             <li key={key} className="h-full">
-              <article className="group h-full rounded-xl border border-[#2E3741] bg-[linear-gradient(145deg,#131A22_0%,#0E141A_72%)] p-5 shadow-[0_18px_45px_rgba(0,0,0,0.22),inset_0_1px_rgba(255,255,255,0.03)] transition-[border-color,transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-[#FF7628]/45 hover:shadow-[0_24px_56px_rgba(0,0,0,0.3),0_0_26px_rgba(255,118,40,0.045),inset_0_1px_rgba(255,255,255,0.04)] motion-reduce:transition-none sm:p-6 lg:p-7">
-                <span className="grid size-10 place-items-center rounded-lg border border-[#FF7628]/30 bg-[linear-gradient(145deg,rgba(255,118,40,0.13),rgba(255,118,40,0.035))] shadow-[0_8px_24px_rgba(255,118,40,0.075),inset_0_1px_rgba(255,255,255,0.06)]">
-                  <Icon
-                    aria-hidden="true"
-                    className="size-5 text-[#FF7628]"
-                  />
-                </span>
-
-                {highlight.title && (
-                  <h3 className="mt-5 normal-case text-lg font-black leading-tight tracking-[-0.025em] text-white sm:text-xl">
-                    {highlight.title}
-                  </h3>
-                )}
-
-                <p
-                  className={`${highlight.title ? "mt-3" : "mt-5"} text-sm font-medium leading-6 text-[#B8BEC7] sm:text-[0.96rem] sm:leading-7`}
-                >
-                  {highlight.description}
-                </p>
-              </article>
+              <ContentCard
+                title={highlight.title}
+                icon={Icon}
+                variant="highlight"
+              >
+                <p>{highlight.description}</p>
+              </ContentCard>
             </li>
           );
         })}
@@ -716,6 +706,11 @@ export function ProjectResults({
     presentation?.summary ?? project.outcome;
   const outcomeHighlights =
     presentation?.highlights ?? [];
+  const standaloneDisclosure =
+    !hasAccessibleProjectEvidence(project)
+      ? (project.evidencePresentation
+          ?.confidentialityNote ?? project.proofNote)
+      : undefined;
 
   return (
     <ProjectSection
@@ -724,28 +719,23 @@ export function ProjectResults({
       compactTop
       compactBottom
     >
-      <article className="relative overflow-hidden rounded-2xl border border-[#FF7628]/35 bg-[radial-gradient(circle_at_8%_12%,rgba(255,118,40,0.14),transparent_30%),linear-gradient(135deg,rgba(255,118,40,0.075),rgba(19,26,34,0.98)_38%,rgba(12,17,22,0.99))] p-6 shadow-[0_28px_78px_rgba(0,0,0,0.3),0_0_34px_rgba(255,118,40,0.05),inset_0_1px_rgba(255,255,255,0.04)] sm:p-8 lg:p-10">
+      <article className="project-detail-card project-content-card project-results-panel relative overflow-hidden rounded-xl border p-5 motion-reduce:transition-none sm:p-6 lg:p-7">
         <span
           aria-hidden="true"
-          className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#FF9A62] via-[#FF7628] to-[#C94E0B] shadow-[0_0_18px_rgba(255,118,40,0.3)]"
+          className="absolute start-0 top-0 w-px"
         />
 
-        <div className="flex items-start gap-4 sm:gap-5">
-          <span className="grid size-11 shrink-0 place-items-center rounded-xl border border-[#FF7628]/35 bg-[linear-gradient(145deg,rgba(255,118,40,0.16),rgba(255,118,40,0.04))] shadow-[0_10px_28px_rgba(255,118,40,0.1),inset_0_1px_rgba(255,255,255,0.07)] sm:size-12">
-            <CheckCircle2
-              aria-hidden="true"
-              className="size-5 text-[#FF7628] sm:size-6"
-            />
+        <div className="project-content-card-heading">
+          <span className="project-content-card-icon" aria-hidden="true">
+            <CheckCircle2 />
           </span>
-          <div className="min-w-0">
-            <h3 className="normal-case text-2xl font-black leading-tight tracking-[-0.035em] text-white sm:text-3xl">
-              {outcomeTitle}
-            </h3>
-            <p className="mt-3 text-base font-medium leading-7 text-[#D4D8DD] sm:text-lg sm:leading-8">
-              {outcomeSummary}
-            </p>
-          </div>
+          <h3 className="normal-case text-lg font-black tracking-[-0.025em] text-white sm:text-xl">
+            {outcomeTitle}
+          </h3>
         </div>
+        <p className="mt-3 text-sm font-medium leading-[1.75] text-[#CFD3DC] sm:text-[0.98rem]">
+          {outcomeSummary}
+        </p>
 
         {outcomeHighlights.length > 0 && (
           <ul className="mt-7 grid gap-4 border-t border-white/[0.08] pt-6 sm:grid-cols-2 sm:gap-6 lg:mt-8 lg:pt-7">
@@ -754,12 +744,27 @@ export function ProjectResults({
                 <h4 className="normal-case text-sm font-black tracking-[-0.01em] text-white sm:text-base">
                   {highlight.title}
                 </h4>
-                <p className="mt-1.5 text-sm font-medium leading-6 text-[#AEB6BF] sm:text-[0.95rem] sm:leading-7">
+                <p className="mt-1.5 text-sm font-medium leading-[1.75] text-[#CFD3DC] sm:text-[0.98rem]">
                   {highlight.description}
                 </p>
               </li>
             ))}
           </ul>
+        )}
+
+        {standaloneDisclosure && (
+          <aside
+            aria-label="Project evidence disclosure"
+            className="mt-7 flex items-start gap-3 border-t border-white/[0.08] pt-6 sm:gap-4 lg:mt-8 lg:pt-7"
+          >
+            <ShieldCheck
+              aria-hidden="true"
+              className="mt-0.5 size-5 shrink-0 text-[#FF7628]"
+            />
+            <p className="text-sm font-medium leading-[1.75] text-[#CFD3DC] sm:text-[0.98rem]">
+              {standaloneDisclosure}
+            </p>
+          </aside>
         )}
       </article>
     </ProjectSection>
@@ -778,73 +783,96 @@ export function ProjectEvidence({
   ) => void;
   sectionNumber?: number;
 }) {
-  const hasEvidence = Boolean(
-    project.evidence?.length,
-  );
-  const hasLinks = Boolean(
-    project.liveUrl || project.sourceUrl,
-  );
+  const liveUrl = isAccessibleEvidenceSource(
+    project.liveUrl,
+  )
+    ? project.liveUrl
+    : undefined;
+  const sourceUrl = isAccessibleEvidenceSource(
+    project.sourceUrl,
+  )
+    ? project.sourceUrl
+    : undefined;
+  const hasLinks = Boolean(liveUrl || sourceUrl);
+  const primaryGalleryItems = (
+    project.gallery ?? []
+  ).filter(isAccessibleEvidenceSource);
   const primaryGallery =
     project.evidencePresentation &&
-    project.gallery?.length
+    primaryGalleryItems.length > 0
       ? {
           ...project.evidencePresentation,
-          count: project.gallery.length,
+          count: primaryGalleryItems.length,
         }
       : null;
-  const supplementalEvidence =
-    project.evidence?.filter(
+  const accessibleEvidence =
+    project.evidence
+      ?.map((evidence) => ({
+        ...evidence,
+        url: isAccessibleEvidenceSource(evidence.url)
+          ? evidence.url
+          : undefined,
+        gallery: evidence.gallery?.filter(
+          isAccessibleEvidenceSource,
+        ),
+      }))
+      .filter(
+        (evidence) =>
+          Boolean(evidence.url) ||
+          Boolean(evidence.gallery?.length),
+      ) ?? [];
+  const supplementalEvidence = accessibleEvidence.filter(
       (evidence) =>
         !primaryGallery || !evidence.gallery?.length,
-    ) ?? [];
+    );
   const confidentialityNote =
     project.evidencePresentation
       ?.confidentialityNote ?? project.proofNote;
+  const hasEvidence = Boolean(
+    primaryGallery ||
+      supplementalEvidence.length > 0 ||
+      hasLinks,
+  );
 
-  if (
-    (!hasEvidence &&
-      !hasLinks &&
-      !confidentialityNote &&
-      !primaryGallery) ||
-    !sectionNumber
-  ) {
+  if (!hasEvidence || !sectionNumber) {
     return null;
   }
 
   return (
     <ProjectSection
       title="Project Evidence"
-      className="border-t border-white/[0.07]"
+      className="project-detail-section--curves border-t border-white/[0.07]"
       compactTop
       compactBottom
     >
       {(primaryGallery ||
         supplementalEvidence.length > 0) && (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-3">
           {primaryGallery && (
             <a
               href="#project-gallery"
               aria-label={`${primaryGallery.galleryTitle}, ${primaryGallery.count} visuals`}
-              className="group grid gap-5 rounded-xl border border-[#303A44] bg-[linear-gradient(145deg,#131A22_0%,#0E141A_72%)] p-5 shadow-[0_18px_48px_rgba(0,0,0,0.24),inset_0_1px_rgba(255,255,255,0.03)] transition-[border-color,transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-[#FF7628]/60 hover:shadow-[0_24px_58px_rgba(0,0,0,0.32),0_0_28px_rgba(255,118,40,0.055),inset_0_1px_rgba(255,255,255,0.04)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7628] motion-reduce:transition-none sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-6 md:col-span-2 xl:col-span-3"
+              className="project-evidence-card project-content-card group relative grid overflow-hidden rounded-xl border p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7628] motion-reduce:transition-none sm:p-6 lg:p-7 gap-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center md:col-span-2 xl:col-span-3"
             >
-              <span className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3 gap-y-2 sm:gap-x-4">
-                <span className="grid size-11 shrink-0 place-items-center rounded-xl border border-[#FF7628]/35 bg-[linear-gradient(145deg,rgba(255,118,40,0.15),rgba(255,118,40,0.04))] shadow-[0_9px_26px_rgba(255,118,40,0.09),inset_0_1px_rgba(255,255,255,0.065)]">
+              <span aria-hidden="true" className="absolute start-0 top-0 w-px" />
+              <span className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 gap-y-3">
+                <span className="project-content-card-icon shrink-0">
                   <Images
                     aria-hidden="true"
                     className="size-5 text-[#FF7628]"
                   />
                 </span>
-                <span className="text-lg font-black tracking-[-0.025em] text-white sm:text-xl">
+                <span className="text-lg font-black leading-[1.3] tracking-[-0.025em] text-white sm:text-xl">
                   {primaryGallery.galleryTitle}
                 </span>
 
-                <span className="col-start-2 block max-w-3xl text-sm font-medium leading-6 text-[#AEB6BF] sm:text-[0.95rem] sm:leading-7">
+                <span className="col-span-2 block max-w-3xl text-sm font-medium leading-[1.75] text-[#CFD3DC] sm:text-[0.98rem]">
                   {primaryGallery.galleryDescription}
                 </span>
               </span>
 
               <span className="flex items-center justify-between gap-5 sm:justify-end">
-                <span className="text-xs font-black uppercase tracking-[0.16em] text-[#FF7628]">
+                <span className="project-evidence-count text-xs font-black uppercase tracking-[0.16em] text-[#FF7628]">
                   {primaryGallery.count}{" "}
                   {primaryGallery.count === 1
                     ? "visual"
@@ -869,25 +897,36 @@ export function ProjectEvidence({
                         evidence.gallery ?? [],
                       )
                     }
-                    className="group flex min-h-44 w-full flex-col items-start justify-between rounded-xl border border-[#303A44] bg-[linear-gradient(145deg,#131A22_0%,#0E141A_72%)] p-5 text-left shadow-[0_18px_48px_rgba(0,0,0,0.24),inset_0_1px_rgba(255,255,255,0.03)] transition-[border-color,transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-[#FF7628]/60 hover:shadow-[0_24px_58px_rgba(0,0,0,0.32),0_0_28px_rgba(255,118,40,0.055),inset_0_1px_rgba(255,255,255,0.04)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7628] motion-reduce:transition-none sm:p-6"
+                    className="project-evidence-card project-content-card group relative grid overflow-hidden rounded-xl border p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7628] motion-reduce:transition-none sm:p-6 lg:p-7 w-full grid-cols-[auto_minmax(0,1fr)] items-center gap-4 sm:grid-cols-[auto_minmax(0,1fr)_auto]"
                   >
-                    <span className="flex w-full items-start justify-between gap-5">
+                    <span aria-hidden="true" className="absolute start-0 top-0 w-px" />
+                    <span className="project-content-card-icon shrink-0">
                       <Images
                         aria-hidden="true"
-                        className="size-6 text-[#FF7628]"
-                      />
-                      <ArrowRight
-                        aria-hidden="true"
-                        className="size-5 text-[#FF7628] transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+                        className="size-5 text-[#FF7628]"
                       />
                     </span>
-                    <span className="mt-8">
-                      <span className="block text-base font-black text-white">
+                    <span className="min-w-0">
+                      <span className="block text-lg font-black leading-[1.3] tracking-[-0.025em] text-white sm:text-xl">
                         {evidence.label}
                       </span>
-                      <span className="mt-1 block text-xs font-bold uppercase tracking-[0.14em] text-[#7F8994]">
-                        {evidence.gallery.length} visuals
+                      {evidence.description && (
+                        <span className="mt-3 block text-sm font-medium leading-[1.75] text-[#CFD3DC] sm:text-[0.98rem]">
+                          {evidence.description}
+                        </span>
+                      )}
+                    </span>
+                    <span className="col-span-2 flex shrink-0 items-center justify-between gap-3 sm:col-span-1 sm:justify-end">
+                      <span className="project-evidence-count text-[0.68rem] font-black uppercase tracking-[0.14em] text-[#FF7628] sm:text-xs">
+                        {evidence.gallery.length}{" "}
+                        {evidence.gallery.length === 1
+                          ? "visual"
+                          : "visuals"}
                       </span>
+                      <ArrowRight
+                        aria-hidden="true"
+                        className="size-5 shrink-0 text-[#FF7628] transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+                      />
                     </span>
                   </button>
                 ) : evidence.url ? (
@@ -895,15 +934,29 @@ export function ProjectEvidence({
                     href={evidence.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex min-h-44 flex-col items-start justify-between rounded-xl border border-[#303A44] bg-[linear-gradient(145deg,#131A22_0%,#0E141A_72%)] p-5 shadow-[0_18px_48px_rgba(0,0,0,0.24),inset_0_1px_rgba(255,255,255,0.03)] transition-[border-color,transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-[#FF7628]/60 hover:shadow-[0_24px_58px_rgba(0,0,0,0.32),0_0_28px_rgba(255,118,40,0.055),inset_0_1px_rgba(255,255,255,0.04)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7628] motion-reduce:transition-none sm:p-6"
+                    className="project-evidence-card project-content-card group relative grid overflow-hidden rounded-xl border p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7628] motion-reduce:transition-none sm:p-6 lg:p-7 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4"
                   >
-                    <ExternalLink
-                      aria-hidden="true"
-                      className="size-6 text-[#FF7628]"
-                    />
-                    <span className="mt-8 text-base font-black text-white">
-                      {evidence.label}
+                    <span aria-hidden="true" className="absolute start-0 top-0 w-px" />
+                    <span className="project-content-card-icon shrink-0">
+                      <ExternalLink
+                        aria-hidden="true"
+                        className="size-5 text-[#FF7628]"
+                      />
                     </span>
+                    <span className="min-w-0">
+                      <span className="block text-lg font-black leading-[1.3] tracking-[-0.025em] text-white sm:text-xl">
+                        {evidence.label}
+                      </span>
+                      {evidence.description && (
+                        <span className="mt-3 block text-sm font-medium leading-[1.75] text-[#CFD3DC] sm:text-[0.98rem]">
+                          {evidence.description}
+                        </span>
+                      )}
+                    </span>
+                    <ArrowRight
+                      aria-hidden="true"
+                      className="size-5 shrink-0 text-[#FF7628] transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+                    />
                   </a>
               ) : null}
             </div>
@@ -913,9 +966,9 @@ export function ProjectEvidence({
 
       {hasLinks && (
         <div className="mt-5 flex flex-wrap gap-3">
-          {project.liveUrl && (
+          {liveUrl && (
             <a
-              href={project.liveUrl}
+              href={liveUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-12 items-center gap-3 rounded-md bg-[#FF7628] px-5 py-3 text-sm font-black text-[#080B0E] transition-colors hover:bg-[#FF8B4A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
@@ -928,9 +981,9 @@ export function ProjectEvidence({
             </a>
           )}
 
-          {project.sourceUrl && (
+          {sourceUrl && (
             <a
-              href={project.sourceUrl}
+              href={sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-12 items-center gap-3 rounded-md border border-white/15 px-5 py-3 text-sm font-black text-white transition-colors hover:border-[#FF7628] hover:text-[#FF7628] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7628]"

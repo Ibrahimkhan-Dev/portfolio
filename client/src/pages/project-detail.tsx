@@ -307,7 +307,7 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="min-h-screen overflow-x-clip bg-[#080B0E] text-white selection:bg-[#FF7628] selection:text-[#080B0E]">
+    <div className="project-detail-shell min-h-screen overflow-x-clip bg-[#080B0E] text-white selection:bg-[#FF7628] selection:text-[#080B0E]">
       <div ref={pageContentRef}>
         <ProjectDetailHeader
           project={project}
@@ -317,6 +317,7 @@ export default function ProjectDetail() {
         <motion.main
           id="main-content"
           tabIndex={-1}
+          className="project-detail-main"
           initial={
             prefersReducedMotion
               ? false

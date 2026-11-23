@@ -21,6 +21,61 @@ export type ProjectDetailSectionNumbers = {
   architecture?: number;
 };
 
+const nonEvidenceSourcePattern =
+  /(?:paste[_\s-]|placeholder|\btodo\b|\btbd\b)/i;
+
+export function isAccessibleEvidenceSource(
+  source?: string,
+): boolean {
+  const candidate = source?.trim();
+
+  if (
+    !candidate ||
+    nonEvidenceSourcePattern.test(candidate)
+  ) {
+    return false;
+  }
+
+  if (candidate.startsWith("/")) {
+    return !candidate.startsWith("//");
+  }
+
+  try {
+    const url = new URL(candidate);
+
+    return url.protocol === "https:" || url.protocol === "http:";
+  } catch {
+    return false;
+  }
+}
+
+export function hasAccessibleProjectEvidence(
+  project: Project,
+): boolean {
+  const hasPresentedGallery = Boolean(
+    project.evidencePresentation &&
+      project.gallery?.some(isAccessibleEvidenceSource),
+  );
+  const hasEvidenceItem = Boolean(
+    project.evidence?.some(
+      (evidence) =>
+        isAccessibleEvidenceSource(evidence.url) ||
+        evidence.gallery?.some(
+          isAccessibleEvidenceSource,
+        ),
+    ),
+  );
+  const hasSupportingLink =
+    isAccessibleEvidenceSource(project.liveUrl) ||
+    isAccessibleEvidenceSource(project.sourceUrl);
+
+  return (
+    hasPresentedGallery ||
+    hasEvidenceItem ||
+    hasSupportingLink
+  );
+}
+
 const architectureRules: Array<{
   title: string;
   description: string;
@@ -163,13 +218,8 @@ export function getProjectDetailSectionNumbers(
   );
   const hasContributions = Boolean(
     project.whatChanged ||
-      project.developmentApproach,
-  );
-  const hasEvidence = Boolean(
-    project.evidence?.length ||
-      project.liveUrl ||
-      project.sourceUrl ||
-      project.proofNote,
+      project.developmentApproach ||
+      project.contributions?.length,
   );
 
   return {
@@ -180,7 +230,9 @@ export function getProjectDetailSectionNumbers(
       Boolean(project.highlights?.length),
     ),
     results: takeNumber(Boolean(project.outcome)),
-    evidence: takeNumber(hasEvidence),
+    evidence: takeNumber(
+      hasAccessibleProjectEvidence(project),
+    ),
     architecture: takeNumber(hasArchitecture),
   };
 }

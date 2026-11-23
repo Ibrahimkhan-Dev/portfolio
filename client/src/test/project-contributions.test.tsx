@@ -80,11 +80,20 @@ describe("ProjectContributions", () => {
       />,
     );
 
+    const contributionText = screen.getByText(
+      project?.whatChanged ?? "",
+    );
+
+    expect(contributionText).toBeInTheDocument();
     expect(
-      screen.getByText(
-        project?.whatChanged ?? "",
-      ),
-    ).toBeInTheDocument();
+      contributionText.closest("article"),
+    ).toHaveAttribute(
+      "data-content-width",
+      "balanced-wide",
+    );
+    expect(contributionText.parentElement).toHaveClass(
+      "max-w-[96ch]",
+    );
     expect(project?.role).toBe(
       "Full-Stack Developer",
     );

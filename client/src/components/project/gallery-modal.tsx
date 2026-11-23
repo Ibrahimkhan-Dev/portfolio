@@ -3,6 +3,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 import {
+  addGalleryRetryVersion,
+  GalleryMediaFeedback,
+  useGalleryMediaState,
+} from "@/components/project/gallery-media-state";
+import {
   getOptimizedCloudinaryUrl,
   isVideoSource,
 } from "@/lib/cloudinary";
@@ -36,7 +41,14 @@ export function GalleryModal({
   prefersReducedMotion,
 }: GalleryModalProps) {
   const [galleryIndex, setGalleryIndex] = useState(0);
-  const [mediaLoading, setMediaLoading] = useState(true);
+  const activeSource = modal?.items[galleryIndex];
+  const {
+    status: mediaStatus,
+    retryVersion,
+    markLoaded,
+    markFailed,
+    retry,
+  } = useGalleryMediaState(activeSource);
 
   const galleryDialogRef = useRef<HTMLDivElement | null>(
     null,
@@ -56,8 +68,6 @@ export function GalleryModal({
       return;
     }
 
-    setMediaLoading(true);
-
     setGalleryIndex((index) =>
       index === 0 ? itemCount - 1 : index - 1,
     );
@@ -70,8 +80,6 @@ export function GalleryModal({
       return;
     }
 
-    setMediaLoading(true);
-
     setGalleryIndex((index) =>
       index === itemCount - 1 ? 0 : index + 1,
     );
@@ -79,7 +87,6 @@ export function GalleryModal({
 
   const selectGalleryItem = useCallback(
     (index: number) => {
-      setMediaLoading(true);
       setGalleryIndex(index);
     },
     [],
@@ -103,7 +110,6 @@ export function GalleryModal({
         : null;
 
     setGalleryIndex(0);
-    setMediaLoading(true);
   }, [modal]);
 
   /*
@@ -376,56 +382,55 @@ export function GalleryModal({
               </button>
             </div>
 
-            <div className="relative aspect-video overflow-hidden rounded-xl border border-[#36414C] bg-card shadow-[0_30px_88px_rgba(0,0,0,0.58),0_0_38px_rgba(255,118,40,0.065),inset_0_1px_rgba(255,255,255,0.04)]">
-              {mediaLoading && (
-                <div
-                  role="status"
-                  aria-live="polite"
-                  className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-card"
-                >
-                  <div
-                    aria-hidden="true"
-                    className={`h-10 w-10 rounded-full border-2 border-white/10 border-t-primary ${
-                      prefersReducedMotion
-                        ? ""
-                        : "animate-spin"
-                    }`}
-                  />
-
-                  <p className="text-xs font-black uppercase tracking-widest text-white/30">
-                    Loading…
-                  </p>
-                </div>
-              )}
+            <div className="project-gallery-frame relative aspect-video overflow-hidden rounded-xl border border-[#36414C] bg-card shadow-[0_30px_88px_rgba(0,0,0,0.58),0_0_38px_rgba(255,118,40,0.065),inset_0_1px_rgba(255,255,255,0.04)]">
+              <GalleryMediaFeedback
+                status={mediaStatus}
+                label={`${modal.title} visual ${galleryIndex + 1} of ${modal.items.length}`}
+                onRetry={retry}
+                prefersReducedMotion={prefersReducedMotion}
+              />
 
               {(() => {
                 const source =
                   modal.items[galleryIndex];
 
-                const safeSource =
-                  encodeURI(source);
+                const retryableSource =
+                  addGalleryRetryVersion(
+                    source,
+                    retryVersion,
+                  );
+                const safeSource = encodeURI(
+                  retryableSource,
+                );
 
                 return isVideoSource(source) ? (
                   <video
-                    key={source}
+                    key={`${source}-${retryVersion}`}
                     src={safeSource}
                     controls
                     preload="metadata"
                     onLoadedData={() =>
-                      setMediaLoading(false)
+                      markLoaded(source)
                     }
                     onError={() =>
-                      setMediaLoading(false)
+                      markFailed(source)
                     }
-                    className="h-full w-full bg-black object-contain"
+                    className={`h-full w-full bg-black object-contain transition-opacity duration-300 motion-reduce:transition-none ${
+                      mediaStatus === "loaded"
+                        ? "opacity-100"
+                        : "opacity-0"
+                    }`}
                   />
                 ) : (
                   <img
-                    key={source}
-                    src={getOptimizedCloudinaryUrl(
-                      source,
-                      1600,
-                      "good",
+                    key={`${source}-${retryVersion}`}
+                    src={addGalleryRetryVersion(
+                      getOptimizedCloudinaryUrl(
+                        source,
+                        1600,
+                        "good",
+                      ),
+                      retryVersion,
                     )}
                     alt={`${modal.title} visual ${
                       galleryIndex + 1
@@ -434,15 +439,15 @@ export function GalleryModal({
                     height={900}
                     decoding="async"
                     onLoad={() =>
-                      setMediaLoading(false)
+                      markLoaded(source)
                     }
                     onError={() =>
-                      setMediaLoading(false)
+                      markFailed(source)
                     }
-                    className={`h-full w-full bg-card object-contain transition-opacity duration-300 ${
-                      mediaLoading
-                        ? "opacity-0"
-                        : "opacity-100"
+                    className={`h-full w-full bg-card object-contain transition-opacity duration-300 motion-reduce:transition-none ${
+                      mediaStatus === "loaded"
+                        ? "opacity-100"
+                        : "opacity-0"
                     }`}
                   />
                 );

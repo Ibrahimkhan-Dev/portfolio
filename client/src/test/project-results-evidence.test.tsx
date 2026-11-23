@@ -91,6 +91,25 @@ describe("ProjectResults", () => {
       }),
     ).not.toBeInTheDocument();
   });
+
+  it("keeps a no-evidence disclosure inside the existing results section", () => {
+    const project = projects.find(
+      (item) => item.id === "private-cloud",
+    );
+
+    render(
+      <ProjectResults
+        project={project!}
+        sectionNumber={5}
+      />,
+    );
+
+    expect(
+      screen.getByLabelText(
+        "Project evidence disclosure",
+      ),
+    ).toHaveTextContent("reconstructed visuals");
+  });
 });
 
 describe("ProjectEvidence", () => {
@@ -165,5 +184,34 @@ describe("ProjectEvidence", () => {
       "Legacy EHR",
       project?.evidence?.[0].gallery,
     );
+    expect(
+      screen.getByRole("button", {
+        name: /Legacy EHR/i,
+      }),
+    ).not.toHaveClass("min-h-44");
+    expect(
+      screen.getAllByText("4 visuals"),
+    ).toHaveLength(2);
+  });
+
+  it("hides the evidence section when only a disclosure remains", () => {
+    const project = projects.find(
+      (item) => item.id === "private-cloud",
+    );
+
+    const { container } = render(
+      <ProjectEvidence
+        project={project!}
+        onOpenGallery={vi.fn()}
+        sectionNumber={6}
+      />,
+    );
+
+    expect(container).toBeEmptyDOMElement();
+    expect(
+      screen.queryByRole("heading", {
+        name: "Project Evidence",
+      }),
+    ).not.toBeInTheDocument();
   });
 });
