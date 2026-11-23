@@ -371,24 +371,92 @@
   .project-detail-section__title::before { left: -1rem; }
 }
 
-/* Continuous project atmosphere with three independently composed accents.
-   Stroke gradients fade path endpoints; elliptical masks fade every layer edge.
-   The mask core stays opaque so visible strokes are not faded twice. */
+/* Anchor the artwork to the real gallery and copy as each project reflows. */
 .project-detail-main {
-  background:
-    radial-gradient(ellipse 900px 620px at 5% 260px, rgba(28, 49, 69, 0.28), transparent 80%),
-    linear-gradient(110deg, #080b0e, #0b1118 48%, #080b0e);
+  isolation: isolate;
+  background: var(--project-bg);
 }
-.project-detail-hero,
 .project-detail-section {
   position: relative;
   isolation: isolate;
 }
-.project-detail-hero,
 .project-detail-main > section[aria-label="Project metadata"] {
   background: transparent;
 }
-.project-detail-hero::before,
+.project-detail-hero #project-gallery,
+.project-hero-copy {
+  position: relative;
+}
+.project-detail-hero #project-gallery::before,
+.project-detail-hero #project-gallery::after,
+.project-detail-hero:has(#project-gallery) .project-hero-copy::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* The two rings share a center and keep their circular shape at every size. */
+.project-detail-hero #project-gallery::before {
+  top: 50%;
+  left: 61%;
+  height: calc(100% + 3rem);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 118, 40, 0.78);
+  border-radius: 50%;
+  background-image:
+    radial-gradient(closest-side, transparent calc(100% - 1.4rem - 1px), rgba(255, 118, 40, 0.42) calc(100% - 1.4rem), transparent calc(100% - 1.4rem + 1px)),
+    radial-gradient(closest-side, rgba(255, 118, 40, 0.13) 48%, rgba(255, 118, 40, 0.045) 88%, transparent);
+}
+
+/* The second half of the sweep emerges from behind the image into the gutter. */
+.project-detail-hero #project-gallery::after {
+  top: -1.75rem;
+  left: calc(100% - 5rem);
+  width: calc(5rem + clamp(2rem, 3vw, 4rem));
+  height: calc(100% + 26rem);
+  background-image: url("./assets/project-margin-curves.svg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.project-detail-hero:has(#project-gallery)::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  right: max(1.25rem, calc((100% - 110rem) / 2));
+  width: 3.5rem;
+  height: 1.5rem;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 118, 40, 0.55) 1px, transparent 1.4px) 0 0 / 8px 8px;
+}
+@media (min-width: 64rem) {
+  .project-detail-hero:has(#project-gallery) .project-hero-copy::after {
+    right: -5rem;
+    bottom: -2.75rem;
+    width: calc(100% + 3rem);
+    height: clamp(10rem, 15vw, 16rem);
+    background: url("./assets/project-hero-curves.svg") center / 100% 100% no-repeat;
+  }
+}
+@media (max-width: 63.999rem) {
+  .project-detail-hero #project-gallery::before {
+    height: auto;
+    width: min(85%, 30rem);
+    top: -1rem;
+    transform: translateX(-50%);
+  }
+  .project-detail-hero #project-gallery::after {
+    top: 15%;
+    left: calc(100% - 2rem);
+    width: 3.15rem;
+    height: 105%;
+  }
+  .project-detail-hero:has(#project-gallery)::before {
+    display: none;
+  }
+}
+
 .project-detail-section--curves::before,
 .project-detail-section:has(> .project-results-panel)::before {
   position: absolute;
@@ -398,13 +466,6 @@
   pointer-events: none;
   background-repeat: no-repeat;
   mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 48%, transparent 100%);
-}
-.project-detail-hero::before {
-  background-image:
-    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201400%20560%22%20fill%3D%22none%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22light%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221400%22%20y2%3D%220%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%3Cstop%20stop-color%3D%22%23FF7628%22%20stop-opacity%3D%220%22%2F%3E%3Cstop%20offset%3D%22.2%22%20stop-color%3D%22%23FF7628%22%2F%3E%3Cstop%20offset%3D%22.68%22%20stop-color%3D%22%23FF8A40%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23FF7628%22%20stop-opacity%3D%220%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cg%20stroke%3D%22url(%23light)%22%20stroke-width%3D%221.15%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M%20-80%20490%20C%20340%20530%2C%20490%20100%2C%20810%20240%20S%201220%20130%2C%201480%20-80%22%20stroke-opacity%3D%22.36%22%2F%3E%3Cpath%20d%3D%22M%20-80%20499%20C%20340%20523%2C%20490%20118%2C%20810%20247%20S%201220%20139%2C%201480%20-60%22%20stroke-opacity%3D%22.36%22%2F%3E%3Cpath%20d%3D%22M%20-80%20508%20C%20340%20516%2C%20490%20136%2C%20810%20254%20S%201220%20148%2C%201480%20-40%22%20stroke-opacity%3D%22.36%22%2F%3E%3Cpath%20d%3D%22M%20-80%20517%20C%20340%20509%2C%20490%20154%2C%20810%20261%20S%201220%20157%2C%201480%20-20%22%20stroke-opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M%20-80%20526%20C%20340%20502%2C%20490%20172%2C%20810%20268%20S%201220%20166%2C%201480%200%22%20stroke-opacity%3D%22.36%22%2F%3E%3Cpath%20d%3D%22M%20-80%20535%20C%20340%20495%2C%20490%20190%2C%20810%20275%20S%201220%20175%2C%201480%2020%22%20stroke-opacity%3D%22.36%22%2F%3E%3Cpath%20d%3D%22M%20-80%20544%20C%20340%20488%2C%20490%20208%2C%20810%20282%20S%201220%20184%2C%201480%2040%22%20stroke-opacity%3D%22.36%22%2F%3E%3Cpath%20d%3D%22M%20-80%20553%20C%20340%20481%2C%20490%20226%2C%20810%20289%20S%201220%20193%2C%201480%2060%22%20stroke-opacity%3D%22.36%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),
-    radial-gradient(ellipse 420px 240px at 64% 42%, rgba(255, 118, 40, 0.23) 0%, rgba(255, 118, 40, 0.09) 32%, transparent 78%);
-  background-position: center, center;
-  background-size: min(100%, 1500px) 560px, 100% 100%;
 }
 .project-detail-section--curves::before {
   inset: -150px 0 auto;
@@ -425,10 +486,6 @@
   background-size: min(100%, 1100px) 560px, 100% 100%;
 }
 @media (max-width: 767px) {
-  .project-detail-hero::before {
-    background-position: center 72%, center;
-    background-size: 760px 420px, 100% 100%;
-  }
   .project-detail-section--curves::before {
     inset-block-start: -100px;
     height: 400px;

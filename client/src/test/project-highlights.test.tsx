@@ -82,34 +82,24 @@ describe("ProjectHighlights", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("keeps other projects on their original highlight content and item count", () => {
-    const project = projects.find(
-      (item) => item.id === "ehr-system",
-    );
+  it.each(projects.filter(({ id }) => id !== "zenatrace"))(
+    "renders a titled, illustrated card for each original $id highlight in order",
+    (project) => {
+      render(<ProjectHighlights project={project} sectionNumber={4} />);
 
-    expect(project).toBeDefined();
-
-    render(
-      <ProjectHighlights
-        project={project!}
-        sectionNumber={4}
-      />,
-    );
-
-    const section = screen
-      .getByRole("heading", {
+      const section = screen.getByRole("region", {
         name: "Key Features & Engineering Highlights",
-      })
-      .closest("section");
-
-    expect(section).not.toBeNull();
-    expect(
-      within(section!).getAllByRole("listitem"),
-    ).toHaveLength(project?.highlights?.length ?? 0);
-    expect(
-      within(section!).getByText(
-        project?.highlights?.[0] ?? "",
-      ),
-    ).toBeInTheDocument();
-  });
+      });
+      const cards = within(section).getAllByRole("listitem");
+      expect(cards).toHaveLength(project.highlights!.length);
+      const titles = cards.map((card, index) => {
+        const heading = within(card).getByRole("heading", { level: 3 });
+        expect(heading).toHaveAccessibleName(/\S/);
+        expect(heading.parentElement?.querySelector("svg")).toBeInTheDocument();
+        expect(within(card).getByText(project.highlights![index])).toBeVisible();
+        return heading.textContent;
+      });
+      expect(new Set(titles).size).toBe(cards.length);
+    },
+  );
 });

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 900" preserveAspectRatio="none" fill="none">
+  <defs>
+    <linearGradient id="copper" x2="0" y2="1">
+      <stop stop-color="#d2632a" stop-opacity="0"/>
+      <stop offset=".18" stop-color="#ff7628"/>
+      <stop offset=".60" stop-color="#de6829"/>
+      <stop offset="1" stop-color="#ff7628" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g stroke="url(#copper)" stroke-linecap="round">
+    <path vector-effect="non-scaling-stroke" opacity=".34" d="M0 136 C100 158 155 279 144 422 S94 652 161 891"/>
+    <path vector-effect="non-scaling-stroke" opacity=".56" d="M0 149 C104 171 157 290 146 424 S100 653 161 878"/>
+    <path vector-effect="non-scaling-stroke" stroke-width="1.45" d="M0 160 C111 187 159 302 148 426 S106 653 161 861"/>
+    <path vector-effect="non-scaling-stroke" opacity=".46" d="M0 172 C114 201 160 315 150 428 S112 652 161 846"/>
+    <path vector-effect="non-scaling-stroke" opacity=".28" d="M0 184 C120 215 161 326 152 430 S118 652 161 827"/>
+  </g>
+</svg>

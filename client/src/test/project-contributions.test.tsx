@@ -89,10 +89,10 @@ describe("ProjectContributions", () => {
       contributionText.closest("article"),
     ).toHaveAttribute(
       "data-content-width",
-      "balanced-wide",
+      "full",
     );
     expect(contributionText.parentElement).toHaveClass(
-      "max-w-[96ch]",
+      "w-full",
     );
     expect(project?.role).toBe(
       "Full-Stack Developer",

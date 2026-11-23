@@ -1,18 +1,27 @@
 import type { ReactNode } from "react";
 import { Link } from "wouter";
 import {
+  AppWindow,
   ArrowLeft,
   ArrowRight,
+  BookOpen,
   Bug,
+  CalendarClock,
   CheckCircle2,
+  Cloud,
   Code2,
   Compass,
+  Cpu,
   Database,
   ExternalLink,
+  FileOutput,
   Flag,
   Images,
   Layers3,
+  ListChecks,
+  MapPin,
   MonitorSmartphone,
+  Network,
   Search,
   Server,
   ShieldCheck,
@@ -20,7 +29,10 @@ import {
   Smartphone,
   Sparkles,
   Target,
+  Terminal,
   Truck,
+  Users,
+  Workflow,
   Wrench,
 } from "lucide-react";
 
@@ -62,6 +74,24 @@ const featureHighlightIcons = {
   shipment: Truck,
   security: ShieldCheck,
   "data-services": Search,
+  debugging: Bug,
+  workflow: Workflow,
+  development: Code2,
+  maintenance: Wrench,
+  collaboration: Users,
+  export: FileOutput,
+  tracking: ListChecks,
+  controls: SlidersHorizontal,
+  cloud: Cloud,
+  browser: AppWindow,
+  location: MapPin,
+  mobile: Smartphone,
+  hardware: Cpu,
+  network: Network,
+  schedule: CalendarClock,
+  documentation: BookOpen,
+  infrastructure: Server,
+  terminal: Terminal,
 } satisfies Record<
   ProjectFeatureHighlightIcon,
   typeof Database
@@ -178,14 +208,9 @@ export function ProjectDetailHero({
     displayTitle.length > 34;
 
   return (
-    <section className="project-detail-hero relative overflow-hidden border-b border-[#252D35] bg-[linear-gradient(180deg,#080B0E_0%,#090D11_58%,#080B0E_100%)] pb-3 pt-10 sm:pt-12 lg:pt-12 xl:pt-14">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_27%,rgba(255,118,40,0.15),transparent_30%),radial-gradient(circle_at_72%_35%,rgba(255,118,40,0.045),transparent_46%),radial-gradient(circle_at_18%_14%,rgba(255,118,40,0.06),transparent_24%)]"
-      />
-
+    <section className="project-detail-hero relative border-b border-[#252D35] pb-3 pt-10 sm:pt-12 lg:pt-12 xl:pt-14">
       <div className={cn(siteContentContainerClass, "relative grid items-start gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:gap-10 xl:gap-16")}>
-        <div className="min-w-0">
+        <div className="project-hero-copy min-w-0">
           {project.category && (
             <div className="mb-4 flex items-center gap-3 sm:mb-5">
               <span
@@ -345,7 +370,7 @@ function ContentCard({
 }) {
   return (
     <article
-      data-content-width={wideContent ? "balanced-wide" : "standard"}
+      data-content-width={wideContent ? "full" : "standard"}
       className={cn(
         "project-detail-card project-content-card relative h-full overflow-hidden rounded-xl border p-5 motion-reduce:transition-none sm:p-6 lg:p-7",
         `project-detail-card--${variant}`,
@@ -365,7 +390,7 @@ function ContentCard({
       <div
         className={cn(
           "mt-3 text-sm font-medium sm:text-[0.98rem]",
-          wideContent ? "max-w-[96ch]" : "max-w-[72ch]",
+          wideContent ? "w-full" : "max-w-[72ch]",
         )}
       >
         {children}
@@ -414,6 +439,7 @@ export function ProjectOverview({
     <>
       <ProjectSection
         title="Project Overview"
+        className="project-detail-section--curves"
         compactTop
         compactBottom
       >

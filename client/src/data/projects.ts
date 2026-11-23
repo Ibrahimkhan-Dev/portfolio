@@ -18,7 +18,25 @@ export type ProjectFeatureHighlightIcon =
   | "packaging"
   | "shipment"
   | "security"
-  | "data-services";
+  | "data-services"
+  | "debugging"
+  | "workflow"
+  | "development"
+  | "maintenance"
+  | "collaboration"
+  | "export"
+  | "tracking"
+  | "controls"
+  | "cloud"
+  | "browser"
+  | "location"
+  | "mobile"
+  | "hardware"
+  | "network"
+  | "schedule"
+  | "documentation"
+  | "infrastructure"
+  | "terminal";
 
 export type ProjectFeatureHighlight = {
   title: string;
@@ -102,6 +120,13 @@ export type Project = {
 
   icon?: ReactNode;
 };
+
+function projectHighlights(featureHighlights: ProjectFeatureHighlight[]) {
+  return {
+    featureHighlights,
+    highlights: featureHighlights.map(({ description }) => description),
+  };
+}
 
 export const projects: Project[] = [
   {
@@ -419,14 +444,44 @@ export const projects: Project[] = [
     outcome:
       "Helped maintain continuity for active healthcare workflows while supporting the platform's move toward a more maintainable and API-driven architecture.",
 
-    highlights: [
-      "Investigated and resolved defects and support tickets across a long-running EHR codebase.",
-      "Worked with multi-tenant healthcare workflows involving referrals, intake, providers, service plans, notes, and reporting.",
-      "Contributed to Angular frontend development and ASP.NET Core/.NET 8 backend services.",
-      "Supported SQL-backed APIs, authenticated functionality, and tenant-aware healthcare workflows.",
-      "Balanced live-system maintenance with modernization work in the same product environment.",
-      "Collaborated within a three-developer Agile team and coordinated with international management and cross-functional stakeholders.",
-    ],
+    ...projectHighlights([
+      {
+        title: "Legacy EHR Defect Resolution",
+        icon: "debugging",
+        description:
+          "Investigated and resolved defects and support tickets across a long-running EHR codebase.",
+      },
+      {
+        title: "Multi-Tenant Care Workflows",
+        icon: "workflow",
+        description:
+          "Worked with multi-tenant healthcare workflows involving referrals, intake, providers, service plans, notes, and reporting.",
+      },
+      {
+        title: "Angular & .NET Services",
+        icon: "development",
+        description:
+          "Contributed to Angular frontend development and ASP.NET Core/.NET 8 backend services.",
+      },
+      {
+        title: "Tenant-Aware API Access",
+        icon: "security",
+        description:
+          "Supported SQL-backed APIs, authenticated functionality, and tenant-aware healthcare workflows.",
+      },
+      {
+        title: "Live System Modernization",
+        icon: "maintenance",
+        description:
+          "Balanced live-system maintenance with modernization work in the same product environment.",
+      },
+      {
+        title: "Agile Team Coordination",
+        icon: "collaboration",
+        description:
+          "Collaborated within a three-developer Agile team and coordinated with international management and cross-functional stakeholders.",
+      },
+    ]),
 
     evidence: [
       {
@@ -512,15 +567,50 @@ export const projects: Project[] = [
     outcome:
       "Helped create a clearer and more auditable EHI export capability with structured artifacts, protected access, traceable execution history, and evidence that technical and compliance reviewers could assess during certification preparation.",
 
-    highlights: [
-      "Individually developed key backend functionality supporting ONC 170.315(b)(10) within a team-based EHR project.",
-      "Implemented public export-format documentation and protected individual-patient and population export workflows.",
-      "Generated ZIP artifacts containing manifest metadata and dataset-level JSON output.",
-      "Added export tracking with started, completed, and failed states, artifact hashes, and per-dataset record counts.",
-      "Implemented filters, limits, timeouts, and other safeguards for larger export operations.",
-      "Supported authenticated access, authorization policies, and patient-context enforcement for protected routes.",
-      "Maintained a clear separation between FHIR interoperability APIs and the ONC-specific EHI export workflow.",
-    ],
+    ...projectHighlights([
+      {
+        title: "EHI Export Backend",
+        icon: "development",
+        description:
+          "Individually developed key backend functionality supporting ONC 170.315(b)(10) within a team-based EHR project.",
+      },
+      {
+        title: "Patient & Population Exports",
+        icon: "export",
+        description:
+          "Implemented public export-format documentation and protected individual-patient and population export workflows.",
+      },
+      {
+        title: "ZIP Manifests & JSON Datasets",
+        icon: "packaging",
+        description:
+          "Generated ZIP artifacts containing manifest metadata and dataset-level JSON output.",
+      },
+      {
+        title: "Export History & Integrity",
+        icon: "tracking",
+        description:
+          "Added export tracking with started, completed, and failed states, artifact hashes, and per-dataset record counts.",
+      },
+      {
+        title: "Large Export Safeguards",
+        icon: "controls",
+        description:
+          "Implemented filters, limits, timeouts, and other safeguards for larger export operations.",
+      },
+      {
+        title: "Patient-Scoped Access",
+        icon: "security",
+        description:
+          "Supported authenticated access, authorization policies, and patient-context enforcement for protected routes.",
+      },
+      {
+        title: "FHIR & EHI API Boundaries",
+        icon: "workflow",
+        description:
+          "Maintained a clear separation between FHIR interoperability APIs and the ONC-specific EHI export workflow.",
+      },
+    ]),
 
     evidence: [
       {
@@ -600,16 +690,56 @@ export const projects: Project[] = [
     outcome:
       "Helped sustain business-critical ERP operations while improving workflow reliability, database performance, backend maintainability, and modernization progress across major automotive supply-chain functions.",
 
-    highlights: [
-      "Independently designed and developed major business modules covering inventory, warehouse operations, logistics, and export-related processes.",
-      "Maintained and enhanced ERP functionality built with ASP.NET MVC, C#, Entity Framework, and SQL Server.",
-      "Contributed to modernization through .NET 8 APIs and Angular-integrated workflows.",
-      "Implemented business rules, backend services, validation logic, and database integrations for operational modules.",
-      "Developed and optimized SQL Server queries, stored procedures, database structures, and data-access workflows.",
-      "Investigated production issues and resolved defects affecting important ERP operations.",
-      "Worked directly with the CEO and product owner to translate UAE and US business processes into software functionality.",
-      "Gained practical experience deploying and maintaining .NET applications in Microsoft Azure environments.",
-    ],
+    ...projectHighlights([
+      {
+        title: "Inventory, Warehouse & Logistics",
+        icon: "workflow",
+        description:
+          "Independently designed and developed major business modules covering inventory, warehouse operations, logistics, and export-related processes.",
+      },
+      {
+        title: "Legacy ERP Maintenance",
+        icon: "maintenance",
+        description:
+          "Maintained and enhanced ERP functionality built with ASP.NET MVC, C#, Entity Framework, and SQL Server.",
+      },
+      {
+        title: "Angular & .NET 8 Modernization",
+        icon: "development",
+        description:
+          "Contributed to modernization through .NET 8 APIs and Angular-integrated workflows.",
+      },
+      {
+        title: "Business Rules & Validation",
+        icon: "controls",
+        description:
+          "Implemented business rules, backend services, validation logic, and database integrations for operational modules.",
+      },
+      {
+        title: "SQL Server Optimization",
+        icon: "master-data",
+        description:
+          "Developed and optimized SQL Server queries, stored procedures, database structures, and data-access workflows.",
+      },
+      {
+        title: "Production Defect Resolution",
+        icon: "debugging",
+        description:
+          "Investigated production issues and resolved defects affecting important ERP operations.",
+      },
+      {
+        title: "Business Requirements",
+        icon: "collaboration",
+        description:
+          "Worked directly with the CEO and product owner to translate UAE and US business processes into software functionality.",
+      },
+      {
+        title: "Azure Deployment & Maintenance",
+        icon: "cloud",
+        description:
+          "Gained practical experience deploying and maintaining .NET applications in Microsoft Azure environments.",
+      },
+    ]),
 
     evidence: [
       {
@@ -696,13 +826,38 @@ export const projects: Project[] = [
     outcome:
       "Converted repetitive browser activities into a more structured and repeatable workflow with improved handling of dynamic content, timing differences, validation states, and recoverable failures.",
 
-    highlights: [
-      "Automated browser navigation, form completion, validation, and submission workflows.",
-      "Extracted structured data from dynamic web pages using Python and Selenium.",
-      "Supported location-sensitive execution according to project requirements.",
-      "Improved stability through explicit waits, exception handling, and recoverable workflow behavior.",
-      "Collaborated with one teammate to develop and maintain the confidential automation solution.",
-    ],
+    ...projectHighlights([
+      {
+        title: "Browser & Form Automation",
+        icon: "browser",
+        description:
+          "Automated browser navigation, form completion, validation, and submission workflows.",
+      },
+      {
+        title: "Dynamic Page Extraction",
+        icon: "data-services",
+        description:
+          "Extracted structured data from dynamic web pages using Python and Selenium.",
+      },
+      {
+        title: "Location-Sensitive Execution",
+        icon: "location",
+        description:
+          "Supported location-sensitive execution according to project requirements.",
+      },
+      {
+        title: "Workflow Recovery",
+        icon: "maintenance",
+        description:
+          "Improved stability through explicit waits, exception handling, and recoverable workflow behavior.",
+      },
+      {
+        title: "Automation Teamwork",
+        icon: "collaboration",
+        description:
+          "Collaborated with one teammate to develop and maintain the confidential automation solution.",
+      },
+    ]),
 
     proofNote:
       "This project was completed as confidential company-associated work at Spacedome. Source code, target-system access, private workflow logic, and production data are not publicly available. The displayed visuals should remain conceptual or sanitized and must not reveal the target websites or private operating details.",
@@ -766,14 +921,44 @@ export const projects: Project[] = [
     outcome:
       "Delivered a working end-to-end prototype demonstrating mobile-controlled appliances, backend-mediated device communication, sensor interaction, scheduled actions, and integrated hardware-software behavior.",
 
-    highlights: [
-      "Built the Flutter application for monitoring and controlling connected household devices.",
-      "Developed Django/Python REST APIs connecting the mobile application with the IoT hardware layer.",
-      "Programmed ESP8266 and Arduino-based logic for appliance switching and sensor-driven behavior.",
-      "Integrated mobile software, backend services, database communication, networking, and physical hardware.",
-      "Implemented device control, monitoring, scheduling, and automated-response use cases.",
-      "Documented the project through system diagrams, application screenshots, hardware photographs, demonstration videos, and a formal thesis.",
-    ],
+    ...projectHighlights([
+      {
+        title: "Mobile Device Control",
+        icon: "mobile",
+        description:
+          "Built the Flutter application for monitoring and controlling connected household devices.",
+      },
+      {
+        title: "Mobile-to-Hardware APIs",
+        icon: "development",
+        description:
+          "Developed Django/Python REST APIs connecting the mobile application with the IoT hardware layer.",
+      },
+      {
+        title: "Appliance & Sensor Logic",
+        icon: "hardware",
+        description:
+          "Programmed ESP8266 and Arduino-based logic for appliance switching and sensor-driven behavior.",
+      },
+      {
+        title: "Hardware & Software Integration",
+        icon: "network",
+        description:
+          "Integrated mobile software, backend services, database communication, networking, and physical hardware.",
+      },
+      {
+        title: "Schedules & Automated Responses",
+        icon: "schedule",
+        description:
+          "Implemented device control, monitoring, scheduling, and automated-response use cases.",
+      },
+      {
+        title: "System Documentation",
+        icon: "documentation",
+        description:
+          "Documented the project through system diagrams, application screenshots, hardware photographs, demonstration videos, and a formal thesis.",
+      },
+    ]),
 
     evidence: [
       {
@@ -887,14 +1072,44 @@ export const projects: Project[] = [
     outcome:
       "Delivered a functioning educational private-cloud lab that demonstrated identity management, image management, compute provisioning, virtual networking, multi-node communication, and tenant isolation on real hardware.",
 
-    highlights: [
-      "Contributed to a five-node topology with defined controller and compute responsibilities.",
-      "Configured static IP addressing and validated inter-node network connectivity.",
-      "Helped deploy and configure Nova, Neutron, Glance, and Keystone services.",
-      "Provisioned virtual machines and managed resources through the OpenStack dashboard.",
-      "Created users, projects, and isolated tenant environments.",
-      "Gained practical Linux, networking, virtualization, and cloud-infrastructure experience beyond classroom theory.",
-    ],
+    ...projectHighlights([
+      {
+        title: "Five-Node Cloud Topology",
+        icon: "network",
+        description:
+          "Contributed to a five-node topology with defined controller and compute responsibilities.",
+      },
+      {
+        title: "Inter-Node Connectivity",
+        icon: "controls",
+        description:
+          "Configured static IP addressing and validated inter-node network connectivity.",
+      },
+      {
+        title: "OpenStack Services",
+        icon: "cloud",
+        description:
+          "Helped deploy and configure Nova, Neutron, Glance, and Keystone services.",
+      },
+      {
+        title: "Virtual Machine Provisioning",
+        icon: "infrastructure",
+        description:
+          "Provisioned virtual machines and managed resources through the OpenStack dashboard.",
+      },
+      {
+        title: "Tenant Isolation",
+        icon: "security",
+        description:
+          "Created users, projects, and isolated tenant environments.",
+      },
+      {
+        title: "Linux & Virtualization Lab",
+        icon: "terminal",
+        description:
+          "Gained practical Linux, networking, virtualization, and cloud-infrastructure experience beyond classroom theory.",
+      },
+    ]),
 
     proofNote:
       "The original environment was built as a university laboratory project. Original deployment screenshots are not available, so the supporting topology and architecture diagrams were reconstructed for portfolio presentation and should be labeled as reconstructed visuals.",
