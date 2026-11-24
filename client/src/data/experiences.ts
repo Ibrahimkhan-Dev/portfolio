@@ -3,6 +3,11 @@ export type Experience = {
   title: string;
   company: string;
   location: string;
+  start: string;
+  end: string | null;
+  employment: string;
+  summary: string;
+  cardTech: string[];
   duration: string;
   description: string;
 
@@ -12,31 +17,42 @@ export type Experience = {
   letterUrl?: string;
 };
 
-export const experiences: Experience[] = [
+const fullMonth = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
+const fullDay = new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+const shortMonth = new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
+const shortDay = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+
+export function experienceDate(value: string, compact = false) {
+  const showDay = value.length === 10;
+  const formatter = compact ? (showDay ? shortDay : shortMonth) : (showDay ? fullDay : fullMonth);
+  return formatter.format(new Date(value));
+}
+
+const roles: Omit<Experience, "duration">[] = [
   {
     id: "epazz-fullstack",
-    title: "Full-Stack Developer",
+    title: "ASP.NET Developer",
     company: "Epazz Tech",
     location: "Lahore, Pakistan",
-    duration: "December 2025 - Present",
+    start: "2025-12-02",
+    end: null,
+    employment: "Full-time",
+    summary: "As a Full-Stack Developer, I build features for electronic health records and pharmaceutical traceability.",
+    cardTech: ["ASP.NET Core", "Angular", "C#", "SQL Server", "REST APIs", "Git"],
     description:
-      "I work as a Full-Stack Developer at Epazz Tech, contributing to the development and modernization of multi-tenant healthcare and pharmaceutical traceability platforms. My work spans backend APIs, Angular and Flutter applications, relational databases, authentication, role-based access control, regulatory requirements, automated testing, and production-focused quality assurance.",
+      "My official role is DotNet Developer. My work as a Full-Stack Developer spans Angular interfaces, ASP.NET Core APIs and SQL Server workflows for healthcare and pharmaceutical software.",
     contributions: [
-      "Contributing to the modernization of a multi-tenant Electronic Health Record platform from .NET Framework to .NET 8 by developing REST APIs, implementing Angular interfaces, and supporting secure tenant-isolated healthcare workflows.",
-      "Supporting ONC certification initiatives through work related to healthcare interoperability, regulatory requirements, standardized data exchange, and Electronic Health Information export capabilities.",
-      "Contributing to HIPAA-aligned security improvements involving data privacy, authentication, authorization, access control, auditability, and protection of sensitive healthcare information.",
-      "Developed and validated ZenaTrace, a multi-tenant pharmaceutical supply-chain traceability platform built with Angular, ASP.NET Core, SQL Server, Redis, Amazon S3, and Flutter.",
-      "Worked across ZenaTrace features including master data, serialization, commissioning, aggregations, shipments, traceability, role-based permissions, tenant isolation, secure browser and mobile authentication, and responsive application workflows.",
-      "Used AI-assisted development tools under my direction to accelerate implementation, while personally reviewing architecture, validating requirements, identifying defects, testing security-sensitive workflows, and verifying production readiness.",
-      "Collaborating within a three-developer Agile team and coordinating with international management and cross-functional stakeholders to deliver secure, maintainable, and production-ready software.",
+      "Contribute to EHR modernization by developing REST APIs, implementing Angular interfaces and investigating defects in legacy workflows.",
+      "Develop backend features for Electronic Health Information exports, including export tracking and authorization-aware access.",
+      "Contribute to ZenaTrace planning, application and database logic, implementation direction, code review and validation.",
+      "Debug and test serialization, shipment, traceability and tenant-specific access workflows.",
     ],
     tech: [
       "Multi-Tenant Systems",
       "Healthcare Software",
       "EHR Systems",
       "Pharmaceutical Traceability",
-      "ONC Certification",
-      "HIPAA",
+      "C#",
       ".NET 8",
       "ASP.NET Core",
       "REST APIs",
@@ -57,7 +73,11 @@ export const experiences: Experience[] = [
     title: "ASP.NET Developer",
     company: "Sanwa Systems",
     location: "Islamabad, Pakistan",
-    duration: "November 2023 - November 2025",
+    start: "2024-05",
+    end: "2025-11",
+    employment: "Full-time",
+    summary: "Developed and maintained an enterprise ERP for an automotive spare-parts business.",
+    cardTech: ["ASP.NET MVC", "C#", "SQL Server", "Angular", "ASP.NET Core"],
     description:
       "I worked as an ASP.NET Developer at Sanwa Systems, developing, maintaining, and modernizing enterprise ERP solutions for an automotive spare-parts business operating across the UAE and United States. My work covered backend development, Angular integration, SQL Server database engineering, business-process automation, cloud deployment, and close collaboration with the product owner to translate operational requirements into production software.",
     contributions: [
@@ -92,10 +112,14 @@ export const experiences: Experience[] = [
   },
   {
     id: "spacedome-backend-python",
-    title: "Part-Time Backend Python Developer",
+    title: "Part-Time Python Backend Developer",
     company: "Spacedome (NASTP)",
     location: "Islamabad, Pakistan",
-    duration: "May 2023 - April 2024",
+    start: "2023-05",
+    end: "2024-04",
+    employment: "Part-time",
+    summary: "Built and tested Django and Flask APIs. Automated browser tasks and validated scraped data with Selenium.",
+    cardTech: ["Python", "Django", "Flask", "Selenium"],
     description:
       "I worked part-time as a Backend Python Developer at Spacedome while completing my undergraduate studies. I supported backend development, browser automation, structured data collection, and system-integration initiatives for AI-focused research and hardware-related projects within a fast-moving startup environment.",
     contributions: [
@@ -122,10 +146,14 @@ export const experiences: Experience[] = [
   },
   {
     id: "spacedome-intern",
-    title: "Software Development Intern",
+    title: "Python Intern",
     company: "Spacedome (NASTP)",
     location: "Islamabad, Pakistan",
-    duration: "February 2023 - April 2023",
+    start: "2023-02",
+    end: "2023-04",
+    employment: "Internship",
+    summary: "Connected sensor data to PostgreSQL and helped test APIs for real-time IoT monitoring.",
+    cardTech: ["PostgreSQL", "IoT"],
     description:
       "I joined Spacedome as a Software Development Intern for my first professional industry experience, contributing to an IoT-based automation initiative and gaining practical exposure to backend development, sensor data processing, databases, and hardware-software integration within an AI-focused startup environment.",
     contributions: [
@@ -151,10 +179,14 @@ export const experiences: Experience[] = [
   },
   {
     id: "wp-developer-2021",
-    title: "Freelance WordPress Developer",
+    title: "WordPress Developer",
     company: "Freelance",
     location: "Remote",
-    duration: "September 2021 - December 2021",
+    start: "2021-09",
+    end: "2021-12",
+    employment: "Freelance",
+    summary: "Designed and delivered responsive business websites directly for independent clients.",
+    cardTech: ["WordPress", "Elementor", "HTML", "CSS", "SEO"],
     description:
       "I worked directly with independent clients to design, develop, and deliver responsive business websites for the healthcare, insurance, and digital-marketing sectors. My responsibilities covered requirements gathering, WordPress implementation, visual customization, performance optimization, SEO configuration, and post-delivery revisions.",
     contributions: [
@@ -194,3 +226,16 @@ export const experiences: Experience[] = [
     ],
   },
 ];
+
+export const experiences: Experience[] = roles.map((role) => ({
+  ...role,
+  duration: `${experienceDate(role.start)} – ${role.end ? experienceDate(role.end) : "Present"}`,
+}));
+
+// Keep each appointment independent, including when two roles share an employer.
+export const careerTracks = Array.from(new Set(experiences.map((role) => role.company)),
+  (company) => ({
+    company,
+    roles: experiences.filter((role) => role.company === company),
+  }),
+);

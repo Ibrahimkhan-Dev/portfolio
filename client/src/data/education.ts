@@ -5,12 +5,14 @@ export type Education = {
   period: string;
   desc: string;
 
+  subjects: string[];
   details?: string[];
 };
 
 export const education: Education[] = [
   {
     id: "abasyn-uni",
+    subjects: ["Computer Science", "Software Engineering", "IoT", "Teaching Assistant"],
     institution: "Abasyn University",
     degree: "Bachelor's in Computer Science",
     period: "2020 - 2024",
@@ -25,6 +27,7 @@ export const education: Education[] = [
   },
   {
     id: "kallar-college",
+    subjects: ["Mathematics", "Physics", "Chemistry"],
     institution: "Kallar Kahar Science College",
     degree: "FSc (Pre-Engineering)",
     period: "2017 - 2019",
