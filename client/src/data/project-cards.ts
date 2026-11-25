@@ -35,7 +35,7 @@ export const projectCards: ProjectCard[] = [
       primary:
         "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/Dashboard_light_mode_unfbvw.png",
       secondary:
-        "/media/images/zenatrace-shipment-sanitized.png",
+        "/media/images/zenatrace-shipment-640.webp",
     },
     category: "Enterprise Pharmaceutical Traceability",
   },

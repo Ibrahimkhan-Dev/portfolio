@@ -5,7 +5,8 @@ import {
   useRef,
   useState,
 } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import {  useReducedMotion } from "framer-motion";
+import * as motion from "framer-motion/m";
 import { ArrowLeft } from "lucide-react";
 import { Link, useRoute } from "wouter";
 

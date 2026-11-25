@@ -69,15 +69,16 @@ export default function Credentials() {
     const slider = sliderRef.current;
     if (!slider || showAll) return;
 
+    let pageWidth = 0;
     const syncPage = () => {
-      if (slider.clientWidth) {
-        setActivePage(Math.round(slider.scrollLeft / slider.clientWidth));
-      }
+      if (pageWidth) setActivePage(Math.round(slider.scrollLeft / pageWidth));
     };
-    const observer = new ResizeObserver(syncPage);
+    const observer = new ResizeObserver(([entry]) => {
+      pageWidth = entry.contentRect.width;
+      syncPage();
+    });
     observer.observe(slider);
     slider.addEventListener("scroll", syncPage, { passive: true });
-    syncPage();
     return () => {
       observer.disconnect();
       slider.removeEventListener("scroll", syncPage);
@@ -185,8 +186,7 @@ function EducationCard({ item }: { item: Education }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button type="button" className={styles.school} data-graduate={graduate || undefined}
-          aria-label={`View education details for ${item.degree} at ${item.institution}`}>
+        <button type="button" className={styles.school} data-graduate={graduate || undefined}>
           <span className={styles.schoolTop}><span>{item.period}</span>{graduate && <small><GraduationCap size={14} /> Graduated</small>}</span>
           <span className={styles.schoolBody}>
             <span><strong>{item.institution}</strong><span className={styles.degree}>{item.degree}</span><span className={styles.description}>{item.desc}</span></span>
@@ -261,7 +261,7 @@ function CertificateCard({ certification }: { certification: Certification }) {
     <article className={styles.certificate}>
       <Dialog>
         <DialogTrigger asChild>
-          <button type="button" className={styles.certBody} aria-label={`View ${certification.kind.toLowerCase()} details for ${certification.title}`}>
+          <button type="button" className={styles.certBody}>
             <span className={styles.tile} aria-hidden="true"><Icon /></span>
             <span className={styles.certCopy}>
               <span className={styles.issuer}>{certification.issuer}</span>

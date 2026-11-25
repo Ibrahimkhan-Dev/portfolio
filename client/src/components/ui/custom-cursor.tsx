@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  motion,
   useMotionValue,
   useReducedMotion,
   useSpring,
 } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 function isTouchDevice() {
   return (

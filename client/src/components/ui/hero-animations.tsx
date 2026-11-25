@@ -6,9 +6,9 @@ import React, {
   useState,
 } from "react";
 import {
-  motion,
   useReducedMotion,
 } from "framer-motion";
+import * as motion from "framer-motion/m";
 import { ArrowRight } from "lucide-react";
 
 import {

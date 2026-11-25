@@ -6,9 +6,9 @@ import {
   useState,
 } from "react";
 import {
-  motion,
   useReducedMotion,
 } from "framer-motion";
+import * as motion from "framer-motion/m";
 import {
   ArrowLeft,
   ArrowRight,
@@ -26,7 +26,6 @@ import {
 import {
   getCloudinarySrcSet,
   getOptimizedCloudinaryUrl,
-  isCloudinaryImage,
 } from "@/lib/cloudinary";
 import {
   getCarouselPositions,
@@ -68,7 +67,9 @@ const flagshipDescription =
   "Enterprise traceability workflows for regulated pharmaceutical operations, including serialization, shipment management, and tenant-aware access across supply-chain processes.";
 
 const zenatracePhoneMockup =
-  "/media/images/zenatrace-phone-mockup-sanitized.webp";
+  "/media/images/zenatrace-phone-480.webp";
+
+const shipmentPreview = "/media/images/zenatrace-shipment-640.webp";
 
 const defaultProjectOrder = [
   "ehr-system",
@@ -81,32 +82,36 @@ function OptimizedProjectImage({
   alt,
   sizes,
   className,
+  srcSet,
+  width = 1600,
+  height = 900,
 }: {
   source: string;
   alt: string;
   sizes: string;
   className: string;
+  srcSet?: string;
+  width?: number;
+  height?: number;
 }) {
+  const responsiveSources = srcSet ?? getCloudinarySrcSet(
+    source,
+    [384, 512, 640, 768, 960, 1200, 1400],
+    "eco",
+  );
+
   return (
     <img
       src={getOptimizedCloudinaryUrl(
         source,
         1400,
-        "good",
+        "eco",
       )}
-      srcSet={getCloudinarySrcSet(
-        source,
-        [480, 768, 1100, 1400],
-        "good",
-      )}
-      sizes={
-        isCloudinaryImage(source)
-          ? sizes
-          : undefined
-      }
+      srcSet={responsiveSources}
+      sizes={responsiveSources ? sizes : undefined}
       alt={alt}
-      width={1600}
-      height={900}
+      width={width}
+      height={height}
       loading="lazy"
       decoding="async"
       draggable={false}
@@ -198,8 +203,11 @@ function DeviceComposition({
 
             <OptimizedProjectImage
               source={secondaryImage}
+              srcSet={secondaryImage === shipmentPreview ? `${shipmentPreview} 640w, /media/images/zenatrace-shipment-1280.webp 1280w` : undefined}
+              width={640}
+              height={290}
               alt="Sanitized ZenaTrace shipment-detail workflow preview"
-              sizes="(min-width: 1280px) 500px, 46vw"
+              sizes="auto, (min-width: 1280px) 640px, 60vw"
               className="aspect-[2.2/1] w-full object-cover object-top"
             />
           </div>
@@ -214,6 +222,8 @@ function DeviceComposition({
       <div className="absolute bottom-[3%] left-[1%] z-40 w-[28%] min-w-0 sm:bottom-[9%] sm:left-[-1%] sm:w-[25%] lg:bottom-[7%] lg:left-[-2%] lg:w-[23%] xl:w-[22%]">
         <img
           src={phoneImage}
+          srcSet={`/media/images/zenatrace-phone-256.webp 256w, ${phoneImage} 480w, /media/images/zenatrace-phone-mockup-sanitized.webp 948w`}
+          sizes="auto, (min-width: 1280px) 240px, 28vw"
           alt="Illustrative ZenaTrace login smartphone mockup"
           width={948}
           height={1660}
@@ -247,7 +257,7 @@ function OtherProjectCard({
           <OptimizedProjectImage
             source={project.image}
             alt={`${project.title} project preview`}
-            sizes="(min-width: 1280px) 500px, (min-width: 640px) 50vw, 100vw"
+            sizes="auto, (min-width: 1280px) 500px, (min-width: 640px) 50vw, 100vw"
             className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.025]"
           />
         ) : (
@@ -371,11 +381,25 @@ export default function Projects() {
   const [activeCarouselPosition, setActiveCarouselPosition] =
     useState(0);
 
+  const carouselLayout = useRef({ positions: [0], maxScrollLeft: 0 });
+
+  const syncCarouselScroll = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const { positions, maxScrollLeft } = carouselLayout.current;
+    const scrollLeft = track.scrollLeft;
+    setActiveCarouselPosition(getClosestCarouselPosition(scrollLeft, positions));
+    setCanScrollPrevious(scrollLeft > 4);
+    setCanScrollNext(scrollLeft < maxScrollLeft - 4);
+  }, []);
+
   const syncCarouselControls =
     useCallback(() => {
       const track = trackRef.current;
 
       if (!track || isExpanded) {
+        carouselLayout.current = { positions: [0], maxScrollLeft: 0 };
         setCanScrollPrevious(false);
         setCanScrollNext(false);
         setCarouselPositions([0]);
@@ -400,15 +424,15 @@ export default function Projects() {
         Number.parseFloat(styles.gap) ||
         0;
 
+      const { scrollWidth, clientWidth } = track;
       const positions = getCarouselPositions(
-        track.scrollWidth,
-        track.clientWidth,
+        scrollWidth,
+        clientWidth,
         firstCard.offsetWidth,
         gap,
       );
 
-      const maxScrollLeft =
-        track.scrollWidth - track.clientWidth;
+      carouselLayout.current = { positions, maxScrollLeft: scrollWidth - clientWidth };
 
       setCarouselPositions((current) =>
         current.length === positions.length &&
@@ -422,22 +446,8 @@ export default function Projects() {
           : positions,
       );
 
-      setActiveCarouselPosition(
-        getClosestCarouselPosition(
-          track.scrollLeft,
-          positions,
-        ),
-      );
-
-      setCanScrollPrevious(
-        track.scrollLeft > 4,
-      );
-
-      setCanScrollNext(
-        track.scrollLeft <
-          maxScrollLeft - 4,
-      );
-    }, [isExpanded]);
+      syncCarouselScroll();
+    }, [isExpanded, syncCarouselScroll]);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -453,7 +463,7 @@ export default function Projects() {
 
     track.addEventListener(
       "scroll",
-      syncCarouselControls,
+      syncCarouselScroll,
       { passive: true },
     );
 
@@ -476,7 +486,7 @@ export default function Projects() {
 
       track.removeEventListener(
         "scroll",
-        syncCarouselControls,
+        syncCarouselScroll,
       );
 
       window.removeEventListener(
@@ -486,7 +496,7 @@ export default function Projects() {
 
       resizeObserver?.disconnect();
     };
-  }, [syncCarouselControls]);
+  }, [syncCarouselControls, syncCarouselScroll]);
 
   const scrollCarousel = (
     direction: -1 | 1,

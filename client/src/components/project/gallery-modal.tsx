@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, } from "framer-motion";
+import * as motion from "framer-motion/m";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 import {

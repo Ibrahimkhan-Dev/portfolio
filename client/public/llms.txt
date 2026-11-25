@@ -1,0 +1,11 @@
+# Muhammad Ibrahim Khan — Developer Portfolio
+
+> Portfolio of a full-stack developer working with .NET, Angular, and SQL Server.
+
+## Portfolio
+
+- [Home](https://portfolio-4rr.pages.dev/): Professional profile and selected work.
+- [ZenaTrace](https://portfolio-4rr.pages.dev/project/zenatrace): Pharmaceutical traceability case study.
+- [Electronic Health Records](https://portfolio-4rr.pages.dev/project/ehr-system): Healthcare software case study.
+- [ERP System](https://portfolio-4rr.pages.dev/project/erp-system): Enterprise resource planning case study.
+- [Contact](https://portfolio-4rr.pages.dev/#contact): Professional contact details.

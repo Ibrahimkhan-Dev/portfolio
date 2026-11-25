@@ -7,9 +7,9 @@ import {
 import { createPortal } from "react-dom";
 import {
   AnimatePresence,
-  motion,
   useReducedMotion,
 } from "framer-motion";
+import * as motion from "framer-motion/m";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
 
@@ -421,7 +421,7 @@ export default function Navbar() {
               }
               className="cursor-pointer border-0 bg-primary px-6 py-3 text-xs font-black uppercase tracking-widest text-black shadow-[0_0_15px_rgba(255,87,34,0.3)] transition-all hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-background xl:px-8"
             >
-              Hire Me
+              Contect Me
             </button>
           </div>
 
@@ -583,7 +583,7 @@ export default function Navbar() {
                   }
                   className="w-full cursor-pointer border-0 bg-primary py-5 text-center text-base font-black uppercase tracking-widest text-black transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-background"
                 >
-                  Hire Me
+                  Contect Me
                 </button>
               </div>
             </motion.div>

@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import styles from "./contact.module.css";
 import { Textarea } from "@/components/ui/textarea";
+import { loadTurnstile } from "@/lib/turnstile";
 
 const emailAddress = "ibrahimkhanwork7@gmail.com";
 
@@ -80,6 +81,9 @@ export default function Contact() {
   const [turnstileToken, setTurnstileToken] =
     useState("");
 
+  const [verificationAttempt, setVerificationAttempt] = useState(0);
+  const [verificationFailed, setVerificationFailed] = useState(false);
+
   const nameInputRef =
     useRef<HTMLInputElement | null>(null);
 
@@ -100,80 +104,41 @@ export default function Contact() {
 
   useEffect(() => {
     const siteKey = turnstileSiteKey;
+    const container = turnstileContainerRef.current;
 
-    if (!siteKey) return;
+    if (!siteKey || !container || !verificationAttempt) return;
 
-    let retryTimer: number | undefined;
-    let attempts = 0;
+    let active = true;
+    void loadTurnstile().then((api) => {
+      if (!active) return;
 
-    const renderTurnstileWidget = (): boolean => {
-      if (turnstileWidgetIdRef.current !== null) {
-        return true;
-      }
-
-      if (
-        !turnstileContainerRef.current ||
-        !window.turnstile
-      ) {
-        return false;
-      }
-
-      turnstileWidgetIdRef.current =
-        window.turnstile.render(
-          turnstileContainerRef.current,
-          {
-            sitekey: siteKey,
-            theme: "dark",
-            size: "flexible",
-            appearance: "interaction-only",
-            callback: (token) => {
-              setTurnstileToken(token);
-            },
-            "expired-callback": () => {
-              setTurnstileToken("");
-            },
-            "error-callback": () => {
-              setTurnstileToken("");
-              setFieldError(null);
-              setStatus("error");
-              setStatusMessage(
-                "Security verification failed. Please try again.",
-              );
-            },
-          },
-        );
-
-      return true;
-    };
-
-    if (!renderTurnstileWidget()) {
-      retryTimer = window.setInterval(() => {
-        attempts += 1;
-
-        if (renderTurnstileWidget()) {
-          window.clearInterval(retryTimer);
-          retryTimer = undefined;
-          return;
-        }
-
-        if (attempts >= 50) {
-          window.clearInterval(retryTimer);
-          retryTimer = undefined;
-
-          setFieldError(null);
-          setStatus("error");
-          setStatusMessage(
-            "Security verification could not load. Please refresh the page.",
-          );
-        }
-      }, 100);
-    }
+      turnstileWidgetIdRef.current = api.render(container, {
+        sitekey: siteKey,
+        theme: "dark",
+        size: "flexible",
+        appearance: "interaction-only",
+        callback: (token) => {
+          if (active) {
+            setVerificationFailed(false);
+            setTurnstileToken(token);
+          }
+        },
+        "expired-callback": () => {
+          if (active) setTurnstileToken("");
+        },
+        "error-callback": () => {
+          if (active) {
+            setTurnstileToken("");
+            setVerificationFailed(true);
+          }
+        },
+      });
+    }).catch(() => {
+      if (active) setVerificationFailed(true);
+    });
 
     return () => {
-      if (retryTimer !== undefined) {
-        window.clearInterval(retryTimer);
-      }
-
+      active = false;
       if (
         window.turnstile &&
         turnstileWidgetIdRef.current !== null
@@ -185,7 +150,7 @@ export default function Contact() {
         turnstileWidgetIdRef.current = null;
       }
     };
-  }, []);
+  }, [verificationAttempt]);
 
   useEffect(() => {
     if (
@@ -334,9 +299,16 @@ export default function Contact() {
     }
 
     if (!turnstileToken) {
+      const retrying = verificationFailed;
+      if (retrying || !verificationAttempt) {
+        setVerificationFailed(false);
+        setVerificationAttempt((attempt) => attempt + 1);
+      }
       showValidationError(
         "turnstile",
-        "Please complete the security verification.",
+        retrying
+          ? "Retrying verification. If it keeps failing, please use the email link."
+          : "Complete the security check if prompted, then select Send Message again.",
       );
 
       return;
@@ -453,6 +425,11 @@ export default function Contact() {
             </div>
             <form
               className={styles.form}
+              onFocus={() => {
+                if (turnstileSiteKey && !verificationAttempt) {
+                  setVerificationAttempt(1);
+                }
+              }}
               onSubmit={handleSubmit}
               aria-describedby="contact-form-description"
               aria-busy={isSubmitting}
@@ -613,8 +590,11 @@ export default function Contact() {
                   <p
                     id="contact-turnstile-error"
                     className="text-sm font-semibold text-red-300"
+                    role="status"
                   >
-                    {statusMessage}
+                    {verificationFailed
+                      ? "Security verification could not load. Select Send Message to retry, or use the email link."
+                      : statusMessage}
                   </p>
                 )}
               </div>

@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useMemo, useRef } from "react";
-import { motion, useInView, type Variants } from "framer-motion";
+import {  useInView, type Variants } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 /* ─────────────────────────────────────────────────────────
    Reveal — fade + slide in when element enters viewport

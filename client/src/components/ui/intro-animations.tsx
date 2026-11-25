@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
-  motion,
   useReducedMotion,
 } from "framer-motion";
+import * as motion from "framer-motion/m";
 
 /* ─────────────────────────────────────────────────────────
    Intro-played flag — persists across SPA route changes and
@@ -485,7 +485,7 @@ export function TerminalBoot() {
 
   return (
     <motion.div
-      className="fixed inset-0 z-100 flex items-center justify-center bg-black"
+      className="pointer-events-none fixed bottom-5 right-5 z-100 max-w-[calc(100vw-2.5rem)] rounded-lg border border-primary/30 bg-black/90 p-4 shadow-lg"
       animate={{
         opacity: fading ? 0 : 1,
       }}
@@ -493,12 +493,9 @@ export function TerminalBoot() {
         duration: 0.35,
         ease: "easeOut",
       }}
-      style={{
-        pointerEvents: fading ? "none" : "auto",
-      }}
       aria-hidden="true"
     >
-      <div className="w-full max-w-lg px-6 font-mono text-xs sm:text-sm">
+      <div className="font-mono text-xs">
         <pre className="whitespace-pre-wrap text-primary leading-relaxed">
           {BOOT_TEXT.slice(0, count)}
 

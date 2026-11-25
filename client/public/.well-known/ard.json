@@ -1,0 +1,16 @@
+{
+  "specVersion": "1.0",
+  "entries": [
+    {
+      "identifier": "urn:air:portfolio-4rr.pages.dev:documentation:portfolio",
+      "displayName": "Muhammad Ibrahim Khan Developer Portfolio",
+      "description": "Professional experience, selected software projects, education, skills, and contact details.",
+      "type": "text/html",
+      "url": "https://portfolio-4rr.pages.dev/",
+      "representativeQueries": [
+        "What software projects has Muhammad Ibrahim Khan worked on?",
+        "What is Muhammad Ibrahim Khan's experience with .NET and Angular?"
+      ]
+    }
+  ]
+}

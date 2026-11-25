@@ -178,15 +178,14 @@
       />
     </noscript>
 
-    <!-- Cloudflare Turnstile -->
     <link
-      rel="preconnect"
-      href="https://challenges.cloudflare.com"
+      rel="preload"
+      as="image"
+      imagesrcset="/media/images/ibrahim-hero-cutout-560.webp 560w, /media/images/ibrahim-hero-cutout-768.webp 768w, /media/images/ibrahim-hero-cutout.webp 1122w"
+      imagesizes="(min-width: 3000px) 666px, (min-width: 2200px) max(576px, calc(80svh - 198px)), (min-width: 1536px) max(525px, calc(80svh - 198px)), (min-width: 1024px) min(39vw, max(462px, calc(80svh - 198px))), (min-width: 640px) 474px, min(100vw - 40px, 358px)"
+      fetchpriority="high"
     />
-    <script
-      src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
-      defer
-    ></script>
+    <link rel="ard" href="/.well-known/ard.json" />
   </head>
 
   <body>

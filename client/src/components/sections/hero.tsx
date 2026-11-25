@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "framer-motion";
+import {  useReducedMotion } from "framer-motion";
+import * as motion from "framer-motion/m";
 import {
   ArrowRight,
   BriefcaseBusiness,
@@ -10,7 +11,6 @@ import {
 } from "lucide-react";
 
 import {
-  BOOT_DURATION,
   isIntroPlayed,
 } from "@/components/ui/site-animations";
 import { projectCards } from "@/data/project-cards";
@@ -53,10 +53,6 @@ export default function Hero() {
   const skipEntrance =
     prefersReducedMotion || isIntroPlayed();
 
-  const entranceDelay = skipEntrance
-    ? 0
-    : BOOT_DURATION + 0.08;
-
   const scrollToProjects = () => {
     scrollToElementWhenReady(
       "projects",
@@ -90,12 +86,11 @@ export default function Hero() {
             initial={
               skipEntrance
                 ? false
-                : { opacity: 0, y: 24 }
+                : { y: 18 }
             }
             animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: skipEntrance ? 0 : 0.72,
-              delay: entranceDelay,
               ease: [0.22, 1, 0.36, 1],
             }}
             className="relative z-20 min-w-0 max-w-[56rem] lg:pr-4 xl:pr-6 2xl:pr-8"
@@ -196,19 +191,14 @@ export default function Hero() {
               skipEntrance
                 ? false
                 : {
-                    opacity: 0,
-                    x: 42,
-                    filter: "blur(8px)",
+                    x: 32,
                   }
             }
             animate={{
-              opacity: 1,
               x: 0,
-              filter: "blur(0px)",
             }}
             transition={{
               duration: skipEntrance ? 0 : 0.85,
-              delay: entranceDelay + 0.18,
               ease: [0.22, 1, 0.36, 1],
             }}
             className="relative z-10 mx-auto h-[28rem] w-full min-w-0 max-w-[38rem] sm:h-[37rem] lg:-mr-2 lg:h-full lg:min-h-[33rem] lg:max-w-none xl:-mr-4 xl:min-h-[36rem] 2xl:-mr-6 2xl:min-h-[41rem] [@media(min-width:2200px)]:min-h-[45rem] [@media(min-width:3000px)]:h-[52rem] [@media(min-width:3000px)]:min-h-0 [@media(min-width:3000px)]:self-center"
@@ -258,8 +248,8 @@ export default function Hero() {
 
             <img
               src={portraitUrl}
-              srcSet={`/media/images/ibrahim-hero-cutout-560.webp 560w, ${portraitUrl} 1122w`}
-              sizes="(min-width: 1024px) 45vw, (min-width: 640px) 560px, 100vw"
+              srcSet={`/media/images/ibrahim-hero-cutout-560.webp 560w, /media/images/ibrahim-hero-cutout-768.webp 768w, ${portraitUrl} 1122w`}
+              sizes="(min-width: 3000px) 666px, (min-width: 2200px) max(576px, calc(80svh - 198px)), (min-width: 1536px) max(525px, calc(80svh - 198px)), (min-width: 1024px) min(39vw, max(462px, calc(80svh - 198px))), (min-width: 640px) 474px, min(100vw - 40px, 358px)"
               width={1122}
               height={1402}
               alt="Muhammad Ibrahim Khan, Full-Stack Developer"
@@ -287,7 +277,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{
             duration: skipEntrance ? 0 : 0.6,
-            delay: entranceDelay + 0.38,
+            delay: skipEntrance ? 0 : 0.16,
             ease: "easeOut",
           }}
           className="relative z-20 -ml-5 grid w-[calc(100%+2.5rem)] grid-cols-2 border-t border-[#FF7628]/85 bg-[#080B0E]/95 sm:-mx-8 sm:w-auto md:grid-cols-4 lg:-mx-10 xl:-mx-12 2xl:-mx-14"

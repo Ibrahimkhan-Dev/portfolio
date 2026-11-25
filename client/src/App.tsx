@@ -4,7 +4,7 @@ import {
   useEffect,
   useRef,
 } from "react";
-import { MotionConfig } from "framer-motion";
+import { domAnimation, LazyMotion, MotionConfig } from "framer-motion";
 import {
   Route,
   Router,
@@ -104,34 +104,36 @@ function RouteFocusManager() {
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">
-      <a
-        href="#main-content"
-        className="fixed left-4 top-4 z-10000 -translate-y-24 bg-primary px-5 py-3 text-sm font-black uppercase tracking-widest text-black transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-white"
-      >
-        Skip to main content
-      </a>
+      <LazyMotion features={domAnimation} strict>
+        <a
+          href="#main-content"
+          className="fixed left-4 top-4 z-10000 -translate-y-24 bg-primary px-5 py-3 text-sm font-black uppercase tracking-widest text-black transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-white"
+        >
+          Skip to main content
+        </a>
 
-      <ErrorBoundary>
-        <Router>
-          <RouteFocusManager />
+        <ErrorBoundary>
+          <Router>
+            <RouteFocusManager />
 
-          <Suspense fallback={<RouteLoading />}>
-            <Switch>
-              <Route
-                path="/"
-                component={Home}
-              />
+            <Suspense fallback={<RouteLoading />}>
+              <Switch>
+                <Route
+                  path="/"
+                  component={Home}
+                />
 
-              <Route
-                path="/project/:id"
-                component={ProjectDetail}
-              />
+                <Route
+                  path="/project/:id"
+                  component={ProjectDetail}
+                />
 
-              <Route component={NotFound} />
-            </Switch>
-          </Suspense>
-        </Router>
-      </ErrorBoundary>
+                <Route component={NotFound} />
+              </Switch>
+            </Suspense>
+          </Router>
+        </ErrorBoundary>
+      </LazyMotion>
     </MotionConfig>
   );
 }
