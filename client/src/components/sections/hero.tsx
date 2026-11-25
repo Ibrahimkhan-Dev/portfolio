@@ -1,5 +1,3 @@
-import {  useReducedMotion } from "framer-motion";
-import * as motion from "framer-motion/m";
 import {
   ArrowRight,
   BriefcaseBusiness,
@@ -10,12 +8,8 @@ import {
   MapPin,
 } from "lucide-react";
 
-import {
-  isIntroPlayed,
-} from "@/components/ui/site-animations";
 import { projectCards } from "@/data/project-cards";
 import { siteContentContainerClass } from "@/lib/layout";
-import { scrollToElementWhenReady } from "@/lib/scroll-to";
 
 const resumeUrl =
   "/Muhammad-Ibrahim-Khan-Resume.pdf";
@@ -46,21 +40,9 @@ const stats = [
   },
 ];
 
-export default function Hero() {
-  const prefersReducedMotion =
-    useReducedMotion() ?? false;
-
-  const skipEntrance =
-    prefersReducedMotion || isIntroPlayed();
-
-  const scrollToProjects = () => {
-    scrollToElementWhenReady(
-      "projects",
-      prefersReducedMotion
-        ? "auto"
-        : "smooth",
-    );
-  };
+export default function Hero({ onProjectsNavigate }: {
+  onProjectsNavigate: () => void;
+}) {
 
   return (
     <section
@@ -82,18 +64,8 @@ export default function Hero() {
         className={`relative flex min-h-svh flex-col pt-28 sm:pt-32 lg:pt-24 ${siteContentContainerClass}`}
       >
         <div className="grid grow items-center gap-12 pb-14 md:gap-8 lg:grid-cols-[minmax(0,54fr)_minmax(0,46fr)] lg:gap-5 lg:pb-6 xl:gap-8 2xl:gap-10">
-          <motion.div
-            initial={
-              skipEntrance
-                ? false
-                : { y: 18 }
-            }
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: skipEntrance ? 0 : 0.72,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="relative z-20 min-w-0 max-w-[56rem] lg:pr-4 xl:pr-6 2xl:pr-8"
+          <div
+            className="hero-copy-enter relative z-20 min-w-0 max-w-[56rem] lg:pr-4 xl:pr-6 2xl:pr-8"
           >
             <div className="mb-7 flex items-center gap-4 sm:mb-8">
               <span
@@ -149,7 +121,7 @@ export default function Hero() {
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
               <button
                 type="button"
-                onClick={scrollToProjects}
+                onClick={onProjectsNavigate}
                 className="group inline-flex min-h-14 cursor-pointer items-center justify-center gap-4 rounded-sm border border-[#FF7628] bg-[#FF7628] px-7 py-3.5 text-sm font-black text-[#080B0E] shadow-[0_12px_34px_rgba(255,118,40,0.19)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-[#ff8b4a] hover:shadow-[0_16px_40px_rgba(255,118,40,0.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#080B0E]"
               >
                 Explore My Work
@@ -184,41 +156,14 @@ export default function Hero() {
                 Lahore, Pakistan
               </span>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={
-              skipEntrance
-                ? false
-                : {
-                    x: 32,
-                  }
-            }
-            animate={{
-              x: 0,
-            }}
-            transition={{
-              duration: skipEntrance ? 0 : 0.85,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="relative z-10 mx-auto h-[28rem] w-full min-w-0 max-w-[38rem] sm:h-[37rem] lg:-mr-2 lg:h-full lg:min-h-[33rem] lg:max-w-none xl:-mr-4 xl:min-h-[36rem] 2xl:-mr-6 2xl:min-h-[41rem] [@media(min-width:2200px)]:min-h-[45rem] [@media(min-width:3000px)]:h-[52rem] [@media(min-width:3000px)]:min-h-0 [@media(min-width:3000px)]:self-center"
+          <div
+            className="hero-portrait-enter relative z-10 mx-auto h-[28rem] w-full min-w-0 max-w-[38rem] sm:h-[37rem] lg:-mr-2 lg:h-full lg:min-h-[33rem] lg:max-w-none xl:-mr-4 xl:min-h-[36rem] 2xl:-mr-6 2xl:min-h-[41rem] [@media(min-width:2200px)]:min-h-[45rem] [@media(min-width:3000px)]:h-[52rem] [@media(min-width:3000px)]:min-h-0 [@media(min-width:3000px)]:self-center"
           >
-            <motion.div
+            <div
               aria-hidden="true"
-              animate={
-                prefersReducedMotion
-                  ? undefined
-                  : {
-                      opacity: [0.58, 0.82, 0.58],
-                      scale: [0.985, 1.015, 0.985],
-                    }
-              }
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute inset-x-[7%] bottom-[1%] top-[7%] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,118,40,0.64)_0%,rgba(255,118,40,0.24)_38%,rgba(255,118,40,0.08)_60%,transparent_76%)] blur-3xl"
+              className="hero-portrait-glow absolute inset-x-[7%] bottom-[1%] top-[7%] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,118,40,0.64)_0%,rgba(255,118,40,0.24)_38%,rgba(255,118,40,0.08)_60%,transparent_76%)] blur-3xl"
             />
 
             <div
@@ -264,22 +209,11 @@ export default function Hero() {
             >
               Code · Solve · Build · Impact
             </span>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.ul
+        <ul
           aria-label="Professional highlights"
-          initial={
-            skipEntrance
-              ? false
-              : { opacity: 0, y: 18 }
-          }
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: skipEntrance ? 0 : 0.6,
-            delay: skipEntrance ? 0 : 0.16,
-            ease: "easeOut",
-          }}
           className="relative z-20 -ml-5 grid w-[calc(100%+2.5rem)] grid-cols-2 border-t border-[#FF7628]/85 bg-[#080B0E]/95 sm:-mx-8 sm:w-auto md:grid-cols-4 lg:-mx-10 xl:-mx-12 2xl:-mx-14"
         >
           {stats.map((stat, index) => {
@@ -323,7 +257,7 @@ export default function Hero() {
               </li>
             );
           })}
-        </motion.ul>
+        </ul>
       </div>
     </section>
   );

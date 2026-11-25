@@ -1,0 +1,10 @@
+@import "tailwindcss" source(none);
+@import "./base.css";
+@import "./hero.css";
+
+@source "./App.tsx";
+@source "./pages/home.tsx";
+@source "./components/layout/navbar.tsx";
+@source "./components/sections/hero.tsx";
+@source "./components/ui/intro-animations.tsx";
+@source "./lib/layout.ts";

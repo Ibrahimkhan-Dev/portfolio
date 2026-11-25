@@ -16,6 +16,7 @@ export function getOptimizedCloudinaryUrl(
   source: string,
   width: number,
   quality: "eco" | "good" = "eco",
+  format: "auto" | "webp" = "auto",
 ): string {
   if (!isCloudinaryImage(source)) {
     return source;
@@ -23,7 +24,7 @@ export function getOptimizedCloudinaryUrl(
 
   return source.replace(
     CLOUDINARY_UPLOAD_SEGMENT,
-    `${CLOUDINARY_UPLOAD_SEGMENT}f_auto,q_auto:${quality},c_limit,w_${width}/`,
+    `${CLOUDINARY_UPLOAD_SEGMENT}f_${format},q_auto:${quality},c_limit,w_${width}/`,
   );
 }
 
@@ -31,12 +32,13 @@ export function getCloudinarySrcSet(
   source: string,
   widths: number[],
   quality: "eco" | "good" = "eco",
+  format: "auto" | "webp" = "auto",
 ): string | undefined {
   if (!isCloudinaryImage(source)) {
     return undefined;
   }
 
   return widths
-    .map((w) => `${getOptimizedCloudinaryUrl(source, w, quality)} ${w}w`)
+    .map((w) => `${getOptimizedCloudinaryUrl(source, w, quality, format)} ${w}w`)
     .join(", ");
 }

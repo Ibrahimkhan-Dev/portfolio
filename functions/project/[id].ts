@@ -290,7 +290,7 @@ export async function onRequest(
     return context.next();
   }
 
-  const indexUrl = new URL("/index.html", context.request.url);
+  const indexUrl = new URL("/app-shell.html", context.request.url);
   const assetResponse = await context.env.ASSETS.fetch(
     indexUrl.toString(),
   );

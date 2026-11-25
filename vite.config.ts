@@ -2,6 +2,10 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
+import { prerenderHome } from "./prerender-home";
+
+const root = path.resolve(import.meta.dirname, "client");
+const outDir = path.resolve(import.meta.dirname, "dist");
 
 export default defineConfig({
   base: "/",
@@ -9,6 +13,7 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    prerenderHome(root, outDir),
     {
       name: "validate-turnstile-site-key",
       apply: "build",
@@ -29,13 +34,17 @@ export default defineConfig({
     },
   },
 
-  root: path.resolve(import.meta.dirname, "client"),
+  root,
 
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist"),
+    outDir,
     emptyOutDir: true,
-    // Home is statically bundled so the root route needs no JS waterfall.
-    // Combined gzip (~161 kB) matches the previous home + shared + entry split.
+    rollupOptions: {
+      input: {
+        index: path.join(root, "index.html"),
+        critical: path.join(root, "src/critical.css"),
+      },
+    },
     chunkSizeWarningLimit: 600,
   },
 

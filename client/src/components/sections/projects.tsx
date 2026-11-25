@@ -85,6 +85,7 @@ function OptimizedProjectImage({
   srcSet,
   width = 1600,
   height = 900,
+  format = "auto",
 }: {
   source: string;
   alt: string;
@@ -93,11 +94,13 @@ function OptimizedProjectImage({
   srcSet?: string;
   width?: number;
   height?: number;
+  format?: "auto" | "webp";
 }) {
   const responsiveSources = srcSet ?? getCloudinarySrcSet(
     source,
     [384, 512, 640, 768, 960, 1200, 1400],
     "eco",
+    format,
   );
 
   return (
@@ -106,6 +109,7 @@ function OptimizedProjectImage({
         source,
         1400,
         "eco",
+        format,
       )}
       srcSet={responsiveSources}
       sizes={responsiveSources ? sizes : undefined}
@@ -256,6 +260,7 @@ function OtherProjectCard({
         {project.image ? (
           <OptimizedProjectImage
             source={project.image}
+            format={project.id === "selenium-bot" ? "webp" : "auto"}
             alt={`${project.title} project preview`}
             sizes="auto, (min-width: 1280px) 500px, (min-width: 640px) 50vw, 100vw"
             className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.025]"

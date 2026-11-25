@@ -1,7 +1,9 @@
 import {
   lazy,
   Suspense,
+  useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
 
@@ -33,18 +35,7 @@ const SCROLL_TO_PROJECTS_KEY =
 const SCROLL_TO_SECTION_KEY =
   "portfolio_scroll_to_section";
 
-type IdleWindow = Window & {
-  requestIdleCallback?: (
-    callback: () => void,
-    options?: {
-      timeout?: number;
-    },
-  ) => number;
-
-  cancelIdleCallback?: (
-    handle: number,
-  ) => void;
-};
+const belowFoldSections = ["projects", "experience", "credentials", "skills", "contact"];
 
 export default function Home() {
   const [
@@ -56,6 +47,14 @@ export default function Home() {
     belowFoldEnabled,
     setBelowFoldEnabled,
   ] = useState(false);
+  const [effectsEnabled, setEffectsEnabled] = useState(false);
+  const cancelSectionScroll = useRef<(() => void) | undefined>(undefined);
+
+  const navigateToSection = useCallback((id: string, behavior: ScrollBehavior) => {
+    if (belowFoldSections.includes(id)) setBelowFoldEnabled(true);
+    cancelSectionScroll.current?.();
+    cancelSectionScroll.current = scrollToElementWhenReady(id, behavior);
+  }, []);
 
   /*
    * Load the custom cursor only on devices that
@@ -103,20 +102,9 @@ export default function Home() {
     };
   }, []);
 
-  /*
-   * Restore navigation intent when returning from
-   * another route.
-   *
-   * For a normal homepage visit, keep the
-   * below-the-fold bundle out of the first render
-   * and request it once the browser becomes idle.
-   *
-   * When a specific section was requested, load
-   * the deferred content immediately so the
-   * existing MutationObserver-based scroll helper
-   * can find the section as soon as it mounts.
-   */
   useEffect(() => {
+    // Keep the first render identical to the HTML written at build time.
+    setEffectsEnabled(true);
     let sectionId: string | null = null;
 
     try {
@@ -145,7 +133,7 @@ export default function Home() {
     }
 
     const requestedFragment = window.location.hash.slice(1);
-    if (["about", "projects", "experience", "credentials", "skills", "contact"].includes(requestedFragment)) {
+    if (["about", ...belowFoldSections].includes(requestedFragment)) {
       sectionId = requestedFragment;
     }
 
@@ -159,97 +147,32 @@ export default function Home() {
         ? "auto"
         : "smooth";
 
-    /*
-     * A navigation target exists.
-     *
-     * Load the below-fold content immediately,
-     * then let scrollToElementWhenReady wait for
-     * the requested section to appear.
-     */
     if (sectionId) {
-      setBelowFoldEnabled(true);
-
-      return scrollToElementWhenReady(
-        sectionId,
-        scrollBehavior,
-      );
+      navigateToSection(sectionId, scrollBehavior);
     }
 
-    /*
-     * Normal homepage visit always begins at the
-     * top of the page.
-     */
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "auto",
-    });
+    return () => cancelSectionScroll.current?.();
+  }, [navigateToSection]);
 
-    /*
-     * Keep Experience, Projects, Credentials,
-     * Skills and Contact out of the critical
-     * Navbar + Hero rendering window.
-     */
-    const idleWindow =
-      window as IdleWindow;
+  useEffect(() => {
+    if (belowFoldEnabled) return;
 
-    let idleCallbackId:
-      | number
-      | undefined;
-
-    let timeoutId:
-      | number
-      | undefined;
-
-    const enableBelowFold = () => {
-      setBelowFoldEnabled(true);
+    const loadAfterScroll = () => {
+      if (window.scrollY > 0) setBelowFoldEnabled(true);
     };
+    window.addEventListener("scroll", loadAfterScroll, { passive: true });
+    loadAfterScroll();
+    return () => window.removeEventListener("scroll", loadAfterScroll);
+  }, [belowFoldEnabled]);
 
-    if (
-      idleWindow.requestIdleCallback
-    ) {
-      idleCallbackId =
-        idleWindow.requestIdleCallback(
-          enableBelowFold,
-          {
-            timeout: 1000,
-          },
-        );
-    } else {
-      /*
-       * Safari / browsers without
-       * requestIdleCallback support.
-       */
-      timeoutId = window.setTimeout(
-        enableBelowFold,
-        250,
-      );
-    }
-
-    return () => {
-      if (
-        idleCallbackId !==
-          undefined &&
-        idleWindow.cancelIdleCallback
-      ) {
-        idleWindow.cancelIdleCallback(
-          idleCallbackId,
-        );
-      }
-
-      if (
-        timeoutId !== undefined
-      ) {
-        window.clearTimeout(
-          timeoutId,
-        );
-      }
-    };
-  }, []);
+  const loadProjects = () => navigateToSection(
+    "projects",
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+  );
 
   return (
     <div className="min-h-screen overflow-x-clip bg-background text-foreground selection:bg-primary selection:text-black">
-      <TerminalBoot />
+      {effectsEnabled && <TerminalBoot />}
 
       {cursorEnabled && (
         <Suspense fallback={null}>
@@ -257,9 +180,9 @@ export default function Home() {
         </Suspense>
       )}
 
-      <BackgroundFX />
+      {effectsEnabled && <BackgroundFX />}
 
-      <Navbar />
+      <Navbar onSectionNavigate={navigateToSection} />
 
       <main
         id="main-content"
@@ -267,14 +190,12 @@ export default function Home() {
         tabIndex={-1}
       >
         <div className="home-hero-stage">
-          <Hero />
+          <Hero onProjectsNavigate={loadProjects} />
         </div>
 
-        {belowFoldEnabled && (
-          <Suspense fallback={null}>
-            <LazyBelowFold />
-          </Suspense>
-        )}
+        {belowFoldEnabled
+          ? <Suspense fallback={<div aria-hidden="true" className="h-24" />}><LazyBelowFold /></Suspense>
+          : <div aria-hidden="true" className="h-24" />}
       </main>
     </div>
   );

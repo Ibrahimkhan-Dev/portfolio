@@ -101,7 +101,7 @@ function RouteFocusManager() {
   return null;
 }
 
-export default function App() {
+export default function App({ ssrPath }: { ssrPath?: string } = {}) {
   return (
     <MotionConfig reducedMotion="user">
       <LazyMotion features={domAnimation} strict>
@@ -113,7 +113,7 @@ export default function App() {
         </a>
 
         <ErrorBoundary>
-          <Router>
+          <Router ssrPath={ssrPath}>
             <RouteFocusManager />
 
             <Suspense fallback={<RouteLoading />}>

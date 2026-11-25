@@ -1,0 +1,18 @@
+@keyframes hero-copy-enter {
+  from { transform: translateY(18px); }
+}
+
+@keyframes hero-portrait-enter {
+  from { transform: translateX(32px); }
+}
+
+@keyframes hero-portrait-glow {
+  0%, 100% { opacity: .58; transform: scale(.985); }
+  50% { opacity: .82; transform: scale(1.015); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy-enter { animation: hero-copy-enter .72s cubic-bezier(.22, 1, .36, 1); }
+  .hero-portrait-enter { animation: hero-portrait-enter .85s cubic-bezier(.22, 1, .36, 1); }
+  .hero-portrait-glow { animation: hero-portrait-glow 6s ease-in-out infinite; }
+}

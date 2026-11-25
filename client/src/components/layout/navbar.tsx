@@ -13,7 +13,6 @@ import * as motion from "framer-motion/m";
 import { Menu, X } from "lucide-react";
 import { useLocation } from "wouter";
 
-import { cn } from "@/lib/utils";
 import { scrollToElementWhenReady } from "@/lib/scroll-to";
 
 const navLinks = [
@@ -36,7 +35,9 @@ const focusableSelector = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(",");
 
-export default function Navbar() {
+export default function Navbar({ onSectionNavigate }: {
+  onSectionNavigate?: (id: string, behavior: ScrollBehavior) => void;
+} = {}) {
   const [location, setLocation] = useLocation();
   const prefersReducedMotion =
     useReducedMotion();
@@ -305,7 +306,11 @@ export default function Navbar() {
       return;
     }
 
-    scrollToElementWhenReady(id, scrollBehavior);
+    if (onSectionNavigate) {
+      onSectionNavigate(id, scrollBehavior);
+    } else {
+      scrollToElementWhenReady(id, scrollBehavior);
+    }
   };
 
   const handleLogoClick = (
@@ -344,7 +349,7 @@ export default function Navbar() {
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
+        initial={false}
         animate={{ y: 0 }}
         transition={{
           type: "tween",
@@ -352,12 +357,11 @@ export default function Navbar() {
           ease: "easeOut",
         }}
         aria-label="Primary navigation"
-        className={cn(
-          "fixed left-0 right-0 top-0 z-50 transition-all duration-300",
+        className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
           isScrolled
             ? "border-b-2 border-primary bg-[#050505]/95 py-3 shadow-[0_0_30px_rgba(255,87,34,0.15)] backdrop-blur-md sm:py-4"
-            : "bg-transparent py-4 sm:py-8",
-        )}
+            : "bg-transparent py-4 sm:py-8"
+        }`}
       >
         <div className="flex w-full items-center justify-between px-4 sm:px-6 lg:px-8">
           <a
@@ -462,7 +466,7 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {createPortal(
+      {typeof document !== "undefined" && createPortal(
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
