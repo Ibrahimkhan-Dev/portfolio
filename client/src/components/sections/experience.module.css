@@ -160,12 +160,11 @@
   height: var(--drop);
   overflow: visible;
   fill: none;
-  stroke: #97a5b2;
-  stroke-width: 1.5;
+  stroke: var(--ember);
+  stroke-width: 2;
 }
-.track:last-child .connector { width: calc(100% - var(--inset)); }
+.track:last-child .connector { display: none; }
 .track[data-current] .period { color: #ff9c4d; }
-.track[data-current] .connector { stroke: var(--ember); }
 .track[data-current] .node {
   width: 29px;
   height: 29px;
@@ -182,6 +181,20 @@
   width: 2px;
   background: linear-gradient(#ffb767, var(--ember));
   box-shadow: 0 0 10px #ff822e8c;
+}
+
+.node::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  border: 2px solid #ffac63;
+  background: radial-gradient(circle, #ffd09a 0 34%, #96431d 40%, #402217 70%);
+  box-shadow: 0 0 12px #ff781c94;
+}
+@keyframes light-marker {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 .card {
   display: flex;
@@ -285,7 +298,7 @@
   .tracks { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 26px; }
   .track:nth-child(odd) { --step: 0px; --drop: 24px; }
   .track:nth-child(even) { --step: 24px; --drop: 6px; }
-  .track:nth-child(even) .connector { width: calc(100% - var(--inset)); }
+  .track:nth-child(even) .connector { display: none; }
   .milestone { height: 64px; }
   .landscape { inset-block: clamp(-84px, -7.9vw, -48px) auto; height: clamp(285px, 43vw, 480px); }
   .landscape span { display: none; }
@@ -313,8 +326,7 @@
   .landscape img { object-fit: cover; object-position: right center; }
   .tracks { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .track:nth-child(n) { position: relative; padding: 0 0 20px 23px; }
-  .track::before { content: ""; position: absolute; left: 5px; top: 17px; bottom: -17px; width: 1px; background: #586671; }
-  .track[data-current]::before { background: linear-gradient(var(--ember), #586671); }
+  .track::before { content: ""; position: absolute; left: 5px; top: 13px; bottom: -13px; width: 2px; background: var(--ember); transform-origin: top; }
   .track:last-child::before { display: none; }
   .track:last-child { padding-bottom: 0; }
   .milestone { height: auto; min-height: 39px; padding-left: 3px; display: flex; align-items: flex-start; }
@@ -328,4 +340,34 @@
   .quote > svg { width: 22px; height: 22px; }
   .quote blockquote br { display: none; }
   .strengths { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@supports (animation-timeline: view()) and (animation-range: cover 0% cover 100%) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    .milestone {
+      view-timeline-name: --milestone;
+      view-timeline-inset: 32% 10%;
+    }
+    .track { --start: 0%; }
+    .track:nth-child(2) { --start: 25%; }
+    .track:nth-child(3) { --start: 50%; }
+    .track:nth-child(4) { --start: 75%; }
+    .node::after {
+      animation: light-marker linear both;
+      animation-timeline: --milestone;
+      animation-range: cover var(--start) cover calc(var(--start) + 5%);
+    }
+  }
+  @media screen and (min-width: 640px) and (max-width: 1199px) {
+    .track:nth-child(odd) { --start: 0%; }
+    .track:nth-child(even) { --start: 50%; }
+  }
+  @media screen and (max-width: 639px) and (prefers-reduced-motion: no-preference) {
+    .track:nth-child(n) {
+      --start: 0%;
+      view-timeline-name: --milestone;
+      view-timeline-inset: 60% 40%;
+    }
+    .milestone { view-timeline-name: none; }
+  }
 }

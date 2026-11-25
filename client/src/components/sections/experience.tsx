@@ -77,7 +77,7 @@ function CareerTrack({ track }: { track: (typeof careerTracks)[number] }) {
         <p className={styles.period}>{period}</p>
         <span className={styles.node} aria-hidden="true" />
         <svg className={styles.connector} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0 1 C27 1 49 10 70 18 S91 94 100 99" vectorEffect="non-scaling-stroke" />
+          <path d="M0 0 C50 0 50 100 100 100" vectorEffect="non-scaling-stroke" />
         </svg>
       </div>
       <article className={styles.card} aria-labelledby={`company-${latest.id}`}>
@@ -108,7 +108,7 @@ export default function Experience() {
         <header className={styles.intro}>
           <div>
             <p className={styles.eyebrow}>Work experience</p>
-            <h2 className={styles.title} id="experience-title">A journey of <span>building solutions</span></h2>
+            <h2 className={styles.title} id="experience-title">From Python APIs to <span>enterprise .NET</span></h2>
             <p className={styles.lede}>From WordPress sites to enterprise software, my work spans the interfaces, APIs and databases behind healthcare, pharmaceutical traceability and ERP systems.</p>
           </div>
           <dl className={styles.statistics}>

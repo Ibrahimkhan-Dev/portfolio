@@ -1,51 +1,46 @@
-import { Terminal, Cloud, Settings, ShieldCheck } from "lucide-react";
-import { skillCategories } from "@/data/skills";
-import type React from "react";
-import { Reveal, Stagger } from "@/components/ui/site-animations";
+import { Braces, Layers3, PanelsTopLeft, ShieldCheck, Terminal } from "lucide-react";
 
-const categoryIcons: Record<string, React.ReactNode> = {
-  "Backend & APIs": <Terminal size={24} />,
-  "Frontend & Mobile": <Settings size={24} />,
-  "Data & Infrastructure": <Cloud size={24} />,
-  "Security & Quality": <ShieldCheck size={24} />,
+import { skillCategories, type SkillCategory } from "@/data/skills";
+import styles from "./skills.module.css";
+
+const presentation = {
+  "Backend & APIs": { Icon: Terminal, description: "Build APIs and connect business workflows to the database." },
+  "Frontend & Mobile": { Icon: PanelsTopLeft, description: "Build web and mobile interfaces for enterprise workflows." },
+  "Data & Infrastructure": { Icon: Layers3, description: "Design relational schemas, write SQL queries, and manage cloud storage." },
+  "Security & Quality": { Icon: ShieldCheck, description: "Verify access rules and test critical workflows." },
 };
+
+function CapabilityCard({ category }: { category: SkillCategory }) {
+  const { Icon, description } = presentation[category.title as keyof typeof presentation]
+    ?? { Icon: Braces, description: "" };
+
+  return (
+    <article className={styles.card}>
+      <div className={styles.cardHeading}>
+        <span className={styles.icon}><Icon aria-hidden="true" /></span>
+        <div>
+          <h3>{category.title}</h3>
+          <p>{description}</p>
+        </div>
+      </div>
+      <ul className={styles.tags} aria-label={category.title}>
+        {category.skills.map((skill) => <li key={skill}>{skill}</li>)}
+      </ul>
+    </article>
+  );
+}
+
 export default function Skills() {
   return (
-    <section id="skills" className="py-12 sm:py-16 md:py-20 bg-[#050505] overflow-hidden relative">
-      <div className="container mx-auto px-4 sm:px-6">
-        <Reveal className="mb-12 sm:mb-24 text-center">
-          <h2 className="text-4xl sm:text-5xl md:text-7xl font-black font-display mb-4 uppercase italic">
-            Technical Capabilities
-          </h2>
-          <div className="h-2 w-32 sm:w-40 bg-primary mx-auto" />
-        </Reveal>
-
-        <Stagger className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6" stagger={0.1}>
-          {skillCategories.map((cat) => (
-            <div
-              key={cat.title}
-              className="bg-card border-t-4 border-primary p-4 sm:p-8 hover:bg-[#111] transition-all h-full flex flex-col"
-            >
-              <div className="text-primary mb-4 sm:mb-6 flex items-center justify-between">
-                <span className="font-black uppercase tracking-widest text-[10px] sm:text-xs">
-                  {cat.title}
-                </span>
-                {categoryIcons[cat.title] ?? null}
-              </div>
-
-              <div className="flex flex-wrap gap-1.5 sm:gap-2 flex-grow content-start">
-                {cat.skills.map((skill) => (
-                  <div
-                    key={skill}
-                    className="px-2 sm:px-3 py-1 bg-white/5 text-white/80 text-[10px] sm:text-xs font-bold uppercase tracking-tight"
-                  >
-                    {skill}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </Stagger>
+    <section id="skills" aria-labelledby="skills-heading" className={styles.section}>
+      <div className={styles.shell}>
+        <header className={styles.header}>
+          <p className={styles.eyebrow}>Technical Capabilities</p>
+          <h2 id="skills-heading">How I build <span>enterprise software</span></h2>
+        </header>
+        <div className={styles.cards}>
+          {skillCategories.map((category) => <CapabilityCard key={category.title} category={category} />)}
+        </div>
       </div>
     </section>
   );

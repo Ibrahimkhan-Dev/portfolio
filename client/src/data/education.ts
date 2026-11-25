@@ -22,7 +22,7 @@ export const education: Education[] = [
       "Worked on academic and personal software development projects.",
       "Gained experience with backend development and modern web technologies.",
       "Member of the programming event organizing team at the university.",
-      "Served as a short-term TA (Teacher Assistant) helping students with programming labs.",
+      "Helped students during programming labs as a teaching assistant.",
     ],
   },
   {

@@ -21,13 +21,13 @@ const resumeUrl =
   "/Muhammad-Ibrahim-Khan-Resume.pdf";
 
 const portraitUrl =
-  "/media/images/ibrahim-hero-portrait-transparent.png";
+  "/media/images/ibrahim-hero-cutout.webp";
 
 const stats = [
   {
     icon: BriefcaseBusiness,
     primary: "3+",
-    secondary: "Years Experience",
+    secondary: "Years of experience",
   },
   {
     icon: Layers3,
@@ -120,8 +120,8 @@ export default function Hero() {
               id="hero-heading"
               className="text-[clamp(2.85rem,12.8vw,5.7rem)] font-black leading-[0.82] tracking-[-0.06em] text-white sm:text-[clamp(4.6rem,12vw,7rem)] lg:text-[clamp(3.75rem,6vw,7.5rem)] 2xl:text-[clamp(5rem,6.4vw,8rem)]"
             >
-              <span className="block">Building</span>
-              <span className="block">Systems</span>
+              <span className="block">Building </span>
+              <span className="block">Systems </span>
               <span className="block whitespace-nowrap">
                 That Scale
                 <span className="text-[#FF7628]">
@@ -146,12 +146,9 @@ export default function Hero() {
             </div>
 
             <p className="mt-5 max-w-[47rem] text-sm font-medium leading-6 text-[#B8BEC7] sm:text-base sm:leading-7 lg:text-[1.05rem]">
-              Full-Stack Developer
-              specializing in .NET, Angular, SQL
-              Server, and enterprise application
-              development across healthcare,
-              pharmaceutical traceability, and ERP
-              systems.
+              I build .NET APIs and Angular applications backed by SQL Server.
+              My work includes electronic health records, pharmaceutical
+              traceability, and inventory systems.
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
@@ -190,19 +187,6 @@ export default function Hero() {
                   strokeWidth={2.5}
                 />
                 Lahore, Pakistan
-              </span>
-
-              <span
-                aria-hidden="true"
-                className="hidden h-6 w-px bg-white/25 sm:block"
-              />
-
-              <span className="inline-flex items-center gap-3">
-                <span
-                  aria-hidden="true"
-                  className="size-2.5 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.72)]"
-                />
-                Open to International Opportunities
               </span>
             </div>
           </motion.div>
@@ -274,6 +258,8 @@ export default function Hero() {
 
             <img
               src={portraitUrl}
+              srcSet={`/media/images/ibrahim-hero-cutout-560.webp 560w, ${portraitUrl} 1122w`}
+              sizes="(min-width: 1024px) 45vw, (min-width: 640px) 560px, 100vw"
               width={1122}
               height={1402}
               alt="Muhammad Ibrahim Khan, Full-Stack Developer"

@@ -9,6 +9,17 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    {
+      name: "validate-turnstile-site-key",
+      apply: "build",
+      configResolved(config) {
+        const key = config.env.VITE_TURNSTILE_SITE_KEY?.trim();
+        const isTestKey = /^[123]x0{20}(?:AA|AB|BB|FF)$/.test(key ?? "");
+        if (isTestKey || (!key && process.env.CF_PAGES === "1")) {
+          throw new Error("Set VITE_TURNSTILE_SITE_KEY to a live Turnstile site key before deploying.");
+        }
+      },
+    },
   ],
 
   resolve: {

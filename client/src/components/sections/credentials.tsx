@@ -38,7 +38,7 @@ const profile = [
   { icon: GraduationCap, title: "CS Graduate", detail: "Academic foundation" },
   { icon: CodeXml, title: "Backend Focus", detail: "Building scalable solutions" },
   { icon: BookOpen, title: "Continuous Learner", detail: "Expanding my skills" },
-  { icon: Rocket, title: "Impact Driven", detail: "Applying what I learn" },
+  { icon: Rocket, title: "Project work", detail: "Built a mobile and IoT thesis prototype" },
 ];
 
 export default function Credentials() {
@@ -154,11 +154,11 @@ export default function Credentials() {
             aria-describedby={showAll ? undefined : "certifications-slider-instructions"} tabIndex={showAll ? undefined : 0}
             onKeyDown={showAll ? undefined : handleSliderKeyDown} className={styles.slider} data-expanded={showAll || undefined}>
             {showAll ? sortedCertifications.map(certification => (
-              <CertificateCard key={certification.id} certification={certification} featured={false} />
+              <CertificateCard key={certification.id} certification={certification} />
             )) : pages.map((page, index) => (
               <div className={styles.slide} key={page[0].id} role="group" aria-label={`Page ${index + 1} of ${pages.length}`} inert={index !== activePage}>
-                {page.map((certification, i) => (
-                  <CertificateCard key={certification.id} certification={certification} featured={i === 0} />
+                {page.map((certification) => (
+                  <CertificateCard key={certification.id} certification={certification} />
                 ))}
               </div>
             ))}
@@ -251,17 +251,17 @@ function EducationCard({ item }: { item: Education }) {
   );
 }
 
-function CertificateCard({ certification, featured }: { certification: Certification; featured: boolean }) {
+function CertificateCard({ certification }: { certification: Certification }) {
   const url = certification.credentialUrl;
   const platform = url?.includes("coursera.org/") ? "Coursera" : url?.includes("udemy.com/") ? "Udemy" : undefined;
   const Icon = certification.skills?.includes("Python") ? CodeXml
     : certification.skills?.includes("Linear Algebra") ? Grid2X2
     : certification.skills?.includes("Probability") ? Binary : Award;
   return (
-    <article className={styles.certificate} data-featured={featured || undefined}>
+    <article className={styles.certificate}>
       <Dialog>
         <DialogTrigger asChild>
-          <button type="button" className={styles.certBody} aria-label={`View certification details for ${certification.title}`}>
+          <button type="button" className={styles.certBody} aria-label={`View ${certification.kind.toLowerCase()} details for ${certification.title}`}>
             <span className={styles.tile} aria-hidden="true"><Icon /></span>
             <span className={styles.certCopy}>
               <span className={styles.issuer}>{certification.issuer}</span>
@@ -272,8 +272,9 @@ function CertificateCard({ certification, featured }: { certification: Certifica
         </DialogTrigger>
         <footer className={styles.certFooter}>
           <span><Calendar size={15} aria-hidden="true" />{certification.year}</span>
+          <span>{certification.kind}</span>
           {platform && <span>{platform}</span>}
-          {url && <a href={url} target="_blank" rel="noreferrer" aria-label={`View certificate for ${certification.title} in a new tab`}>View certificate <ExternalLink size={13} /></a>}
+          {url && <a href={url} target="_blank" rel="noreferrer" aria-label={`View document for ${certification.title} in a new tab`}>View document <ExternalLink size={13} /></a>}
         </footer>
       <DialogContent className="max-h-[85vh] w-[92vw] max-w-2xl overflow-y-auto rounded-xl border border-primary/40 bg-[#0b1114] text-white">
         <DialogHeader>

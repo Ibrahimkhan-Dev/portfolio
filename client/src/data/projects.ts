@@ -136,7 +136,7 @@ export const projects: Project[] = [
   subtitle: "Pharmaceutical Traceability Platform",
 
   shortDesc:
-    "Planned, directed, reviewed, debugged, and validated the AI-assisted delivery of a multi-tenant web platform for pharmaceutical serialization and supply-chain traceability, with a separate Flutter mobile R&D track.",
+    "Planned and validated a working web MVP that traces serialized medicines through packaging and shipment, guiding AI-assisted implementation. A separate Flutter mobile R&D track is in progress.",
 
   description:
     "ZenaTrace is a multi-tenant pharmaceutical supply-chain traceability platform developed at Epazz Tech. My contribution centered on project execution planning, application and database logic, workflow design, architecture review, AI-assisted implementation direction, code review, debugging, verification, and quality assurance. I used ChatGPT and Claude as AI development assistants while remaining responsible for interpreting the approved requirements, defining implementation direction, reviewing generated code, identifying defects, and accepting or rejecting changes. The completed Angular web MVP supports master data, serial generation and import, commissioning, aggregation, shipments, trace events, audit logs, search, file handling, imports and exports, dashboards, and administration. A separate Flutter application is being developed as a mobile R&D track and is not presented here as a production mobile release.",
@@ -400,7 +400,7 @@ export const projects: Project[] = [
     id: "ehr-system",
     title: "Multi-Tenant EHR Legacy Support and Modernization",
     shortDesc:
-      "Supported a live multi-tenant EHR while contributing to its transition from .NET Framework and WebForms toward Angular and .NET 8 APIs.",
+        "Helped maintain a live electronic health record (EHR) system while its team moved older WebForms workflows toward Angular and .NET 8 APIs.",
 
     description:
       "A confidential healthcare platform case study completed at Epazz Tech. I worked across a live multi-tenant Electronic Health Record system and its parallel modernization initiative. My responsibilities combined legacy defect investigation and support-ticket resolution with contributions to the newer Angular and ASP.NET Core stack, helping preserve operational stability while the platform moved toward a cleaner API-driven architecture.",
@@ -525,7 +525,7 @@ export const projects: Project[] = [
     id: "onc-ehi-export",
     title: "ONC EHI Export and Supporting Security Controls",
     shortDesc:
-      "Developed key backend functionality for ONC 170.315(b)(10) EHI export, including patient and population exports, structured artifacts, access checks, and audit history.",
+      "Built backend functionality for patient and population health data exports, including structured files, access checks, and audit history for ONC certification preparation.",
 
     description:
       "A confidential healthcare compliance case study completed at Epazz Tech for an EHR platform. The product combined standards-based FHIR APIs under /fhir with a separate non-FHIR EHI export workflow under /ehi. As a team member, I individually developed key backend functionality supporting ONC 170.315(b)(10), including export endpoints, ZIP artifact generation, manifest and dataset files, export tracking, authorization-aware access, and operational safeguards. My contribution supported certification preparation but does not represent independent certification ownership.",
@@ -644,9 +644,9 @@ export const projects: Project[] = [
 
   {
     id: "erp-system",
-    title: "Enterprise ERP Platform Modernization",
+    title: "Automotive ERP Modernization",
     shortDesc:
-      "Designed and developed inventory, warehouse, logistics, order, and export workflows while supporting the move from ASP.NET MVC toward .NET 8 and Angular.",
+      "Built inventory and warehouse workflows for an automotive ERP while helping move its older ASP.NET MVC system toward .NET 8 and Angular.",
 
     description:
       "A confidential enterprise ERP case study completed at Sanwa Systems for an automotive spare-parts business operating across the UAE and United States. I worked across the legacy ASP.NET MVC platform and its modernization initiative. My strongest ownership covered inventory, warehouse, logistics, order-management, and export-related workflows, supported by backend APIs, SQL Server operations, business-rule implementation, production issue resolution, and direct collaboration with the product owner.",
@@ -669,7 +669,7 @@ export const projects: Project[] = [
 
     role: "ASP.NET Developer",
     company: "Sanwa Systems",
-    duration: "November 2023 - November 2025",
+    duration: "May 2024 - November 2025",
     category: "Enterprise ERP Modernization",
 
     context:
@@ -787,7 +787,7 @@ export const projects: Project[] = [
     id: "selenium-bot",
     title: "Selenium Browser Automation System",
     shortDesc:
-      "Built a confidential browser-automation system with one teammate for data extraction, form workflows, location-sensitive execution, and reliable processing on dynamic websites.",
+      "Built browser automation with one teammate. Explicit waits and exception handling helped recover when dynamic pages loaded slowly or changed state.",
 
     description:
       "A confidential automation project completed at Spacedome by a two-member team. We developed a Selenium-based system to automate repetitive browser workflows involving web scraping, form completion, submissions, and location-sensitive execution. My work focused on Python automation logic, browser interaction, structured data extraction, exception handling, wait strategies, and reliable execution across changing webpage conditions.",
@@ -879,7 +879,7 @@ export const projects: Project[] = [
     id: "home-automation",
     title: "IoT Home Automation System",
     shortDesc:
-      "Built a Flutter application, Django APIs, and ESP8266/Arduino device logic for a supervised home-automation thesis combining mobile software and physical hardware.",
+      "Built a final-year home automation prototype linking Flutter controls through Django APIs to ESP8266/Arduino hardware.",
 
     description:
       "A supervised bachelor's final-year thesis completed at Abasyn University under Mr. Abdul Hannan, Assistant Professor. I developed the Flutter mobile application, built Django/Python APIs connecting the application with IoT devices, and programmed Arduino-based hardware logic for appliance control and sensor-driven behavior. The project combined mobile development, backend services, database communication, networking, and physical hardware into one working prototype.",
@@ -1030,7 +1030,7 @@ export const projects: Project[] = [
     id: "private-cloud",
     title: "OpenStack Private Cloud Lab",
     shortDesc:
-      "Built a five-node private-cloud lab with a four-member university team to practice OpenStack services, networking, virtualization, provisioning, and tenant isolation.",
+      "Our four-person university team built a five-node OpenStack lab to practice networking, virtual machine provisioning, and tenant isolation.",
 
     description:
       "A hands-on academic infrastructure project completed at Abasyn University under Prof. Asad Hanif. Our four-member team configured a functional private-cloud environment using five university laboratory computers connected through a dedicated local network. The project provided practical experience with controller and compute roles, OpenStack services, virtual-machine provisioning, inter-node communication, dashboard operations, and tenant isolation.",

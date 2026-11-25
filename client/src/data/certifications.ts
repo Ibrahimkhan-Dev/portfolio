@@ -1,6 +1,7 @@
 export type Certification = {
   id: string;
   title: string;
+  kind: "Course" | "Workshop" | "Training" | "Certification";
   issuer?: string;
   year?: string;
 
@@ -13,6 +14,7 @@ export type Certification = {
 export const certifications: Certification[] = [
   {
     id: "python-data-structures-2025",
+    kind: "Course",
     title: "Python Data Structures",
     issuer: "University of Michigan",
     year: "2025",
@@ -28,6 +30,7 @@ export const certifications: Certification[] = [
   },
   {
     id: "python-for-everybody-2025",
+    kind: "Course",
     title: "Programming for Everybody (Getting Started with Python)",
     issuer: "University of Michigan",
     year: "2025",
@@ -44,6 +47,7 @@ export const certifications: Certification[] = [
   },
   {
     id: "linear-algebra-ml-2025",
+    kind: "Course",
     title: "Mathematics for Machine Learning: Linear Algebra",
     issuer: "Imperial College London",
     year: "2025",
@@ -60,6 +64,7 @@ export const certifications: Certification[] = [
   },
   {
     id: "data-science-bootcamp-2025",
+    kind: "Course",
     title: "The Data Science Course: Complete Data Science Bootcamp 2025",
     issuer: "Udemy",
     year: "2025",
@@ -76,6 +81,7 @@ export const certifications: Certification[] = [
   },
   {
     id: "probability-2025",
+    kind: "Course",
     title: "An Intuitive Introduction to Probability",
     issuer: "University of Zurich",
     year: "2025",
@@ -91,6 +97,7 @@ export const certifications: Certification[] = [
   },
   {
     id: "ews-workshop-sdpi-2025",
+    kind: "Workshop",
     title: "Early Warning System Workshop",
     issuer: "Sustainable Development Policy Institute (SDPI)",
     year: "2025",
@@ -106,6 +113,7 @@ export const certifications: Certification[] = [
   },
   {
     id: "ai-policy-sdpi-2025",
+    kind: "Workshop",
     title:
       "Thinking Beyond Knowledge Dissemination in the Age of AI: A Policy Perspective for Future Public Learning",
     issuer: "Sustainable Development Policy Institute (SDPI)",
@@ -122,6 +130,7 @@ export const certifications: Certification[] = [
   },
   {
     id: "risk-thinking-sdpi-2025",
+    kind: "Workshop",
     title:
       "Safeguarding the Future: Integrating Risk Thinking into Development Planning",
     issuer: "Sustainable Development Policy Institute (SDPI)",
@@ -138,6 +147,7 @@ export const certifications: Certification[] = [
   },
   {
     id: "cloud-computing-2022",
+    kind: "Training",
     title: "Cloud Computing",
     issuer: "Pakistan Software Export Board (PSEB)",
     year: "2022",
@@ -152,6 +162,7 @@ export const certifications: Certification[] = [
   },
   {
     id: "certified-python-programmer-2019",
+    kind: "Certification",
     title: "Certified Python Programmer",
     issuer: "Aptech",
     year: "2019",

@@ -19,7 +19,7 @@ export const projectCards: ProjectCard[] = [
     id: "zenatrace",
     title: "ZenaTrace Pharmaceutical Traceability Platform",
     shortDesc:
-      "Developed and validated a multi-tenant web platform for pharmaceutical serialization and supply-chain traceability, with a separate Flutter mobile R&D track.",
+      "Planned and validated a working web MVP that traces serialized medicines through packaging and shipment, guiding AI-assisted implementation. A separate Flutter mobile R&D track is in progress.",
     tech: [
       "Angular",
       "TypeScript",
@@ -43,7 +43,7 @@ export const projectCards: ProjectCard[] = [
     id: "ehr-system",
     title: "Multi-Tenant EHR Legacy Support and Modernization",
     shortDesc:
-      "Supported a live multi-tenant EHR while contributing to its transition from .NET Framework and WebForms toward Angular and .NET 8 APIs.",
+      "Helped maintain a live electronic health record (EHR) system while its team moved older WebForms workflows toward Angular and .NET 8 APIs.",
     tech: [
       "C#",
       ".NET Framework",
@@ -62,7 +62,7 @@ export const projectCards: ProjectCard[] = [
     id: "onc-ehi-export",
     title: "ONC EHI Export and Supporting Security Controls",
     shortDesc:
-      "Developed key backend functionality for ONC 170.315(b)(10) EHI export, including patient and population exports, structured artifacts, access checks, and audit history.",
+      "Built backend functionality for patient and population health data exports, including structured files, access checks, and audit history for ONC certification preparation.",
     tech: [
       "C#",
       ".NET 9",
@@ -77,9 +77,9 @@ export const projectCards: ProjectCard[] = [
   },
   {
     id: "erp-system",
-    title: "Enterprise ERP Platform Modernization",
+    title: "Automotive ERP Modernization",
     shortDesc:
-      "Designed and developed inventory, warehouse, logistics, order, and export workflows while supporting the move from ASP.NET MVC toward .NET 8 and Angular.",
+      "Built inventory and warehouse workflows for an automotive ERP while helping move its older ASP.NET MVC system toward .NET 8 and Angular.",
     tech: [
       "C#",
       "ASP.NET MVC",
@@ -97,7 +97,7 @@ export const projectCards: ProjectCard[] = [
     id: "selenium-bot",
     title: "Selenium Browser Automation System",
     shortDesc:
-      "Built a confidential browser-automation system with one teammate for data extraction, form workflows, location-sensitive execution, and reliable processing on dynamic websites.",
+      "Built browser automation with one teammate. Explicit waits and exception handling helped recover when dynamic pages loaded slowly or changed state.",
     tech: [
       "Python",
       "Selenium",
@@ -113,7 +113,7 @@ export const projectCards: ProjectCard[] = [
     id: "home-automation",
     title: "IoT Home Automation System",
     shortDesc:
-      "Built a Flutter application, Django APIs, and ESP8266/Arduino device logic for a supervised home-automation thesis combining mobile software and physical hardware.",
+      "Built a final-year home automation prototype linking Flutter controls through Django APIs to ESP8266/Arduino hardware.",
     tech: [
       "Flutter",
       "Dart",
@@ -131,7 +131,7 @@ export const projectCards: ProjectCard[] = [
     id: "private-cloud",
     title: "OpenStack Private Cloud Lab",
     shortDesc:
-      "Built a five-node private-cloud lab with a four-member university team to practice OpenStack services, networking, virtualization, provisioning, and tenant isolation.",
+      "Our four-person university team built a five-node OpenStack lab to practice networking, virtual machine provisioning, and tenant isolation.",
     tech: [
       "OpenStack",
       "Ubuntu Linux",

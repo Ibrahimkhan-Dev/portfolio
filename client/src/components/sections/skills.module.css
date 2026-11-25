@@ -1,0 +1,107 @@
+.section {
+  --ember: #ff913e;
+  --edge: #303b40;
+  --muted: #b5c2ca;
+  position: relative;
+  isolation: isolate;
+  scroll-margin-top: 5rem;
+  color: #f1f4f5;
+  background: radial-gradient(ellipse at 85% 45%, #302218, transparent 68%), #080c0e;
+  border-bottom: 1px solid #252d31;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto;
+  height: min(100%, clamp(420px, 37vw, 640px));
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, #080c0eeb, #080c0e70 46%, #080c0e26 82%),
+    url("../../assets/skills-circuit.webp");
+  background-size: cover;
+  background-position: center 51%;
+  mask-image: linear-gradient(#000 62%, transparent);
+}
+
+.shell {
+  width: min(100%, 1720px);
+  margin-inline: auto;
+  padding: clamp(44px, 6vw, 100px) clamp(18px, 3.6vw, 64px) clamp(38px, 4.7vw, 78px);
+}
+.header {
+  margin-bottom: clamp(32px, 4.6vw, 78px);
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #c4cfd7;
+  font-size: .75rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  content: "";
+  width: 34px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--ember);
+}
+.header h2 {
+  margin-top: 14px;
+  font: 750 clamp(1.1rem, 4.2vw, 4.7rem)/1.03 var(--font-display);
+  text-transform: none;
+  letter-spacing: -.055em;
+}
+.header h2 span { color: var(--ember); }
+
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.card {
+  min-width: 0;
+  padding: clamp(16px, 1.55vw, 26px);
+  border: 1px solid var(--edge);
+  border-radius: 14px;
+  background: linear-gradient(120deg, #111a1e, #0a1013 82%);
+}
+@media (hover: hover) {
+  .card:hover { border-color: var(--ember); }
+}
+.cardHeading { display: flex; align-items: flex-start; gap: 14px; }
+.icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  aspect-ratio: 1;
+  background: #211c18;
+  border: 1px solid #504034;
+  border-radius: 10px;
+  color: var(--ember);
+}
+.icon svg { width: 23px; stroke-width: 1.6; }
+.card h3 {
+  font: 700 clamp(1.12rem, 1.52vw, 1.57rem)/1.2 var(--font-display);
+  text-transform: none;
+}
+.card p { color: var(--muted); line-height: 1.48; font-size: .94rem; margin-top: 3px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.tags li {
+  padding: 4px 10px;
+  border: 1px solid #344249;
+  border-radius: 7px;
+  background: #141d21;
+  color: #d5e0e6;
+  font-size: .78rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 760px) {
+  .section::before {
+    background-position: 66% center;
+    background-image: linear-gradient(180deg, #080c0edb, #080c0e55 58%, transparent),
+      url("../../assets/skills-circuit.webp");
+  }
+  .cards { grid-template-columns: minmax(0, 1fr); }
+}

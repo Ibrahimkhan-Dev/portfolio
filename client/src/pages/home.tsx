@@ -144,6 +144,11 @@ export default function Home() {
        */
     }
 
+    const requestedFragment = window.location.hash.slice(1);
+    if (["about", "projects", "experience", "credentials", "skills", "contact"].includes(requestedFragment)) {
+      sectionId = requestedFragment;
+    }
+
     const prefersReducedMotion =
       window.matchMedia(
         "(prefers-reduced-motion: reduce)",
@@ -243,7 +248,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-background text-foreground selection:bg-primary selection:text-black">
+    <div className="min-h-screen overflow-x-clip bg-background text-foreground selection:bg-primary selection:text-black">
       <TerminalBoot />
 
       {cursorEnabled && (
@@ -258,9 +263,12 @@ export default function Home() {
 
       <main
         id="main-content"
+        className="portfolio-home"
         tabIndex={-1}
       >
-        <Hero />
+        <div className="home-hero-stage">
+          <Hero />
+        </div>
 
         {belowFoldEnabled && (
           <Suspense fallback={null}>

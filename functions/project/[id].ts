@@ -29,49 +29,49 @@ const PROJECT_METADATA: Record<string, ProjectMetadata> = {
   zenatrace: {
     title: "ZenaTrace Pharmaceutical Traceability Platform",
     description:
-      "Developed and validated a multi-tenant web platform for pharmaceutical serialization and supply-chain traceability, with a separate Flutter mobile R&D track.",
+      "Planned and validated a working web MVP that traces serialized medicines through packaging and shipment, guiding AI-assisted implementation. A separate Flutter mobile R&D track is in progress.",
     image:
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1785504029/login_screen_s1pyac.png",
   },
   "ehr-system": {
     title: "Multi-Tenant EHR Legacy Support and Modernization",
     description:
-      "Supported a live multi-tenant EHR while contributing to its transition from .NET Framework and WebForms toward Angular and .NET 8 APIs.",
+      "Helped maintain a live electronic health record (EHR) system while its team moved older WebForms workflows toward Angular and .NET 8 APIs.",
     image:
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1782818755/Pace-Plus-New1_idmoey.png",
   },
   "onc-ehi-export": {
     title: "ONC EHI Export and Supporting Security Controls",
     description:
-      "Developed backend functionality for ONC 170.315(b)(10) EHI export, including patient and population exports, structured artifacts, access controls, and audit history.",
+      "Built backend functionality for patient and population health data exports, including structured files, access checks, and audit history for ONC certification preparation.",
     image:
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774369184/pace_gw6mnj.png",
   },
   "erp-system": {
-    title: "Enterprise ERP Platform Modernization",
+    title: "Automotive ERP Modernization",
     description:
-      "Designed and developed inventory, warehouse, logistics, order, and export workflows while supporting the move from ASP.NET MVC toward .NET 8 and Angular.",
+      "Built inventory and warehouse workflows for an automotive ERP while helping move its older ASP.NET MVC system toward .NET 8 and Angular.",
     image:
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774169939/dark_mode_nk6xdb.png",
   },
   "selenium-bot": {
     title: "Selenium Browser Automation System",
     description:
-      "Built a browser-automation system for data extraction, form workflows, location-sensitive execution, and reliable processing across dynamic websites.",
+      "Built browser automation with one teammate. Explicit waits and exception handling helped recover when dynamic pages loaded slowly or changed state.",
     image:
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596210/selenium-bot_jaehdr.png",
   },
   "home-automation": {
     title: "IoT Home Automation System",
     description:
-      "Built a Flutter app, Django APIs, and ESP8266/Arduino device logic for a supervised home-automation thesis combining mobile software and physical hardware.",
+      "Built a final-year home automation prototype linking Flutter controls through Django APIs to ESP8266/Arduino hardware.",
     image:
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774078922/System_Architecture_Diagram_czwwia.png",
   },
   "private-cloud": {
     title: "OpenStack Private Cloud Lab",
     description:
-      "Built a five-node OpenStack private-cloud lab covering networking, virtualization, provisioning, identity, and tenant-isolated cloud operations.",
+      "Our four-person university team built a five-node OpenStack lab to practice networking, virtual machine provisioning, and tenant isolation.",
     image:
       "https://res.cloudinary.com/dxeoxpsm5/image/upload/v1774596192/topology-diagram_ahrcs1.png",
   },

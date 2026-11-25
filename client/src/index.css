@@ -183,6 +183,68 @@
   }
 }
 
+/* Each new section rises over the one leaving the viewport. Keep the section
+   boxes in normal flow so direct links and keyboard navigation land correctly. */
+.home-hero-stage { isolation: isolate; }
+.portfolio-home > :is(section, footer) {
+  position: relative;
+  isolation: isolate;
+  border-radius: clamp(14px, 2vw, 32px) clamp(14px, 2vw, 32px) 0 0;
+  box-shadow: 0 -18px 40px -18px #000c;
+}
+.portfolio-home > :is(section, footer)::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fc702d 28%, #ffc58a 48%, #fc702d 68%, transparent);
+  box-shadow: 0 0 12px #ff762848;
+  pointer-events: none;
+}
+
+@keyframes hero-pass-behind {
+  from { transform: none; }
+  to { transform: translateY(min(38svh, 360px)) scale(.965); }
+}
+@supports (animation-timeline: view()) and (animation-range: exit 0% exit 100%) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    .home-hero-stage,
+    .portfolio-home > :is(section, footer):not(:last-child) {
+      view-timeline-name: --section-exit;
+    }
+    .home-hero-stage > #about,
+    .portfolio-home > :is(section, footer):not(:last-child) > div:last-child {
+      transform-origin: center bottom;
+      animation: section-pass-behind linear both;
+      animation-timeline: --section-exit;
+      animation-range: exit 5% exit 100%;
+    }
+    .home-hero-stage > #about {
+      animation-name: hero-pass-behind;
+    }
+    .portfolio-home > :is(section, footer):not(:last-child) > div:last-child {
+      --section-travel: min(14svh, 110px);
+      --section-scale: .975;
+    }
+    .home-hero-stage:has(:focus-visible) > #about,
+    .portfolio-home > :is(section, footer):has(:focus-visible) > div:last-child {
+      animation: none;
+    }
+  }
+  @media screen and (max-width: 1023px) and (prefers-reduced-motion: no-preference) {
+    .home-hero-stage > #about { animation: none; }
+    .portfolio-home > :is(section, footer):not(:last-child) > div:last-child {
+      --section-travel: min(6svh, 42px);
+      --section-scale: .99;
+    }
+  }
+}
+@keyframes section-pass-behind {
+  from { transform: none; }
+  to { transform: translateY(var(--section-travel)) scale(var(--section-scale)); }
+}
+
 /* Restored Batch 3 component materials; geometry remains in the components. */
 .project-detail-shell {
   --project-bg: #080b0e;
